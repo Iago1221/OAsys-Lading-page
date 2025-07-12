@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OAsys ERP</title>
+
+    <link rel="stylesheet" href="styles/index.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <div class="navbar container">
+            <div class="logo">
+            <img src="assets/logo.png" alt="Logo OAsys ERP" />
+            </div>
+            <ul class="nav-links">
+            <li><a href="#modulos">Módulos</a></li>
+            <li><a href="#planos">Planos</a></li>
+            <li><a href="#contato">Contato</a></li>
+            </ul>
+            <a href="#contato" class="btn-primary">Solicitar Demonstração</a>
+        </div>
+
+        <div class="hero container">
+            <h1 class="slogan">Gestão inteligente para empresas modernas.</h1>
+        </div>
+    </header>
+
+
+    <main class="container">
+        <section class="modules" id="modulos">
+            <h2>Módulos Individuais</h2>
+            <p>O módulo de <strong>Gerenciamento</strong> está incluso em todos os planos. Os demais podem ser contratados conforme sua necessidade:</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Estoque</h3>
+                    <p>Controle inteligente com IA integrada para sugestão de reposição e rupturas.</p>
+                </div>
+                <div class="card">
+                    <h3>Financeiro</h3>
+                    <p>Fluxo de caixa com projeções automáticas, contas a pagar e receber.</p>
+                </div>
+                <div class="card">
+                    <h3>Ordem de Serviço</h3>
+                    <p>Organize tarefas, técnicos e clientes com controle de status e histórico.</p>
+                </div>
+                <div class="card">
+                    <h3>Pedidos</h3>
+                    <p>Geração de pedidos de compra e venda com integração ao estoque e faturamento.</p>
+                </div>
+                <div class="card">
+                    <h3>Faturamento</h3>
+                    <p>Emissão de notas fiscais eletrônicas, boletos e controle fiscal.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="neuron">
+            <h2>OAsys Neuron — IA que antecipa o futuro</h2>
+            <p>Agentes inteligentes para tomada de decisão nos módulos de Estoque e Financeiro.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Estoque Inteligente</h3>
+                    <p>Detecção de pontos de reposição, sazonalidade e otimização de inventário.</p>
+                </div>
+                <div class="card">
+                    <h3>Fluxo de Caixa Previsto</h3>
+                    <p>Análise dos lançamentos financeiros e geração de previsões automáticas.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing" id="planos">
+            <h2>Planos e Preços</h2>
+            <p>Todos os planos incluem o módulo de <strong>Gerenciamento</strong>. Demais módulos são adicionados conforme sua necessidade.</p>
+            <div class="grid">
+                <div class="card">
+                    <h4>Para negócios em crescimento, que precisam de controle operacional.</h4>
+                    <h3>OAsys Solo</h3>
+                    <p class="price">R$ 129/mês</p>
+                    <ul role="list">
+                        <li>Gerenciamento incluso</li>
+                        <li>Pedidos</li>
+                        <li>Estoque</li>
+                        <li>Integração entre Pedidos e Estoque</li>
+                        <li>Relatórios detalhados</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Voltado para epresas que exigem controle financeiro integrado.</h4>
+                    <h3>OAsys Savanna</h3>
+                    <p class="price">R$ 199/mês</p>
+                    <ul role="list">
+                        <li>Tudo do plano Solo</li>
+                        <li>Financeiro</li>
+                        <li>Faturamento</li>
+                        <li>Integração entre Financeiro e Faturamento</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Para prestadores de serviços com foco em  execuções técnicas.</h4>
+                    <h3>OAsys Sierra</h3>
+                    <p class="price">R$ 229/mês</p>
+                    <ul role="list">
+                        <li>Tudo do plano Savanna</li>
+                        <li>Ordem de Serviço</li>
+                        <li>Integração de OS com Estoque, Financeiro e Faturamento</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Para operações complexas, automações e IA.</h4>
+                    <h3>OAsys Atlas</h3>
+                    <p class="price">R$ 259/mês</p>
+                    <ul role="list">
+                        <li>Tudo do plano Sierra</li>
+                        <li>OAsys Neuron</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contato">
+            <h2>Entre em Contato</h2>
+            <p>Deseja saber mais ou solicitar uma demonstração?</p>
+            <form id="contact-form" class="contact-form">
+                <input type="text" name="nome" placeholder="Seu nome" required />
+                <input type="email" name="email" placeholder="Seu e-mail" required />
+                <textarea name="mensagem" placeholder="Mensagem" required></textarea>
+                <button type="submit" class="btn-primary">Enviar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2025 OAsys ERP. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('enviar.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.text();
+
+                document.getElementById('contato').innerHTML = `
+                    <div class="mensagem-sucesso">
+                        ✅ Sua mensagem foi enviada com sucesso!
+                    </div>
+                `;
+            } catch (error) {
+                alert('Erro ao enviar a mensagem. Tente novamente.');
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
