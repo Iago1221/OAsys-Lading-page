@@ -1,6 +1,6 @@
 # 📦 OAsys ERP — Landing Page com Envio de Contato por E-mail
 
-Esta é a landing page oficial do **OAsys ERP**, um sistema de gestão inteligente com módulos independentes e IA integrada (OAsys Neuron). O site apresenta os planos, módulos e permite que os visitantes entrem em contato por meio de um formulário que envia e-mails via PHPMailer.
+Esta é a landing page oficial do **Oasys**, um sistema de gestão inteligente com módulos independentes e IA integrada (OAsys Neuron). O site apresenta os planos, módulos e permite que os visitantes entrem em contato por meio de um formulário que envia e-mails via PHPMailer.
 
 ---
 
@@ -23,8 +23,11 @@ Esta é a landing page oficial do **OAsys ERP**, um sistema de gestão inteligen
 ├── .env # Variáveis de ambiente sensíveis (não versionar!)
 ├── styles/
 │ └── index.css # Estilos da página
+│ └── globals.css # Definições gerais
+│ └── utility.css # Estilos dos componentes
 ├── assets/
-│ └── logo.png # Logo do OAsys ERP
+│ └── logo.png # Logo do Oasys
+│ └── branding.png # Banner do hero
 └── composer.json # Dependências PHP
 ```
 
@@ -80,4 +83,4 @@ O formulário envia os dados usando fetch e método POST para enviar.php, que:
 - O servidor SMTP deve exigir autenticação segura
 
 ## 📄 Licença
-- Este projeto é de uso interno e pode ser adaptado para fins comerciais. Direitos reservados a OAsys ERP © 2025.
+- Este projeto é de uso interno e pode ser adaptado para fins comerciais. Direitos reservados a Oasys Tecnologia © 2025.

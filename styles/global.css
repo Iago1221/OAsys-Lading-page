@@ -14,13 +14,13 @@
 }
 
 :root {
-    --bg-color: #ffffff;
-    --surface-color: #f9f9f9;
-    --stroke-color: #dddddd;
-    --text-color-primary: #222222;
-    --text-color-seconday: #666666;
-    --brand-color-primary: #007bff;
-    --brand-color-secondary: #3399ff;
+    --bg-color: #0A192F;
+    --bg-color-2: #112240;
+    --surface-color: #1E2A47;
+    --stroke-color: #2E3A59;
+    --text-color-primary: #E6F1FF;
+    --text-color-seconday: #8892B0;
+    --brand-color-secondary: #0053d8;
 
     --ff-sans: 'Inter', system-ui, sans-serif;
     --fw-base: 400;
@@ -42,12 +42,13 @@ html {
     font-size: var(--fs-base);
     line-height: 1.6;
     color: var(--text-color-seconday);
-    background-color: var(--bg-color);
+    background: linear-gradient(160deg, var(--bg-color), var(--bg-color-2));
 }
 
-body {
-    background-color: var(--bg-color);
+body, html {
+    background: linear-gradient(160deg, var(--bg-color), var(--bg-color-2));
 }
+
 
 h1, h2, h3 {
     line-height: 1.2;

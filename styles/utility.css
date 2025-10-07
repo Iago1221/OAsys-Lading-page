@@ -37,15 +37,15 @@ section {
 .card {
     background-color: var(--surface-color);
     border: 1px solid var(--stroke-color);
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.1);
     border-radius: 0.75rem;
     padding: 1.5rem;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
     transition: all 0.2s ease-in-out;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 0 25px rgba(58, 134, 255, 0.2);
 }
 
 .card h3 {
@@ -221,13 +221,14 @@ footer {
 
 .btn-primary {
     background-color: var(--brand-color-primary);
-    color: white;
+    color: var(--text-color-primary);
     padding: 0.5rem 1.25rem;
     border-radius: 0.375rem;
     font-weight: var(--fw-bold);
     transition: background-color 0.3s ease;
     white-space: nowrap;
     text-align: center;
+    border: 2px solid;
 }
 
 .btn-primary:hover {
@@ -236,8 +237,16 @@ footer {
 
 /* Hero slogan */
 .hero {
-    padding-block: 4rem;
+    position: relative;
     text-align: center;
+    padding-block: 6rem 4rem;
+    color: var(--text-color-primary);
+    background: 
+        linear-gradient(135deg, rgba(10, 25, 47, 0.85), rgba(17, 34, 64, 0.85)), 
+        url("../assets/branding.png") center/cover no-repeat;
+    border-radius: 0.75rem;
+    background-position: center top;
+    background-position-y: 20%;
 }
 
 .hero .slogan {
@@ -247,24 +256,58 @@ footer {
     margin-inline: auto;
 }
 
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-color-primary);
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+}
+
+
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
+        .menu-toggle {
+        display: block;
     }
 
     .nav-links {
+        display: none;
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
-        margin-block: 1rem;
+        width: 100%;
+        background: var(--surface-color);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .nav-links.show {
+        display: flex;
+        animation: slideDown 0.3s ease forwards;
     }
 
     .btn-primary {
-        align-self: stretch;
         width: 100%;
         text-align: center;
     }
+
+    .hero {
+        background-position: top center;
+        background-attachment: scroll; /* remove o parallax para evitar cortes */
+    }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .mensagem-sucesso {

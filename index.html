@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OAsys ERP</title>
+    <title>Oasys Tecnologia</title>
 
     <link rel="stylesheet" href="styles/index.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
@@ -14,9 +14,14 @@
             <div class="logo">
             <img src="assets/logo.png" alt="Logo OAsys ERP" />
             </div>
+
+            <button class="menu-toggle" aria-label="Abrir menu">
+                ☰
+            </button>
+
             <ul class="nav-links">
-            <li><a href="#modulos">Módulos</a></li>
-            <li><a href="#planos">Planos</a></li>
+            <li><a href="#ERP">ERP</a></li>
+            <li><a href="#CRM">CRM</a></li>
             <li><a href="#contato">Contato</a></li>
             </ul>
             <a href="#contato" class="btn-primary">Solicitar Demonstração</a>
@@ -29,10 +34,13 @@
 
 
     <main class="container">
-        <section class="modules" id="modulos">
-            <h2>Módulos Individuais</h2>
-            <p>O módulo de <strong>Gerenciamento</strong> está incluso em todos os planos. Os demais podem ser contratados conforme sua necessidade:</p>
+        <section class="modules" id="ERP">
+            <h2>Oasys ERP</h2>
             <div class="grid">
+                <div class="card">
+                    <h3>Gerenciamento</h3>
+                    <p>Controle de pessoas, entidades, produtos e serviços.</p>
+                </div>
                 <div class="card">
                     <h3>Estoque</h3>
                     <p>Controle inteligente com IA integrada para sugestão de reposição e rupturas.</p>
@@ -40,6 +48,10 @@
                 <div class="card">
                     <h3>Financeiro</h3>
                     <p>Fluxo de caixa com projeções automáticas, contas a pagar e receber.</p>
+                </div>
+                <div class="card">
+                    <h3>Pagamentos</h3>
+                    <p>Crie e receba pagamentos (Pix e Boleto) diretamente pelo Oasys, tenha os lancamentos financeiros gerados de forma automática.</p>
                 </div>
                 <div class="card">
                     <h3>Ordem de Serviço</h3>
@@ -50,14 +62,40 @@
                     <p>Geração de pedidos de compra e venda com integração ao estoque e faturamento.</p>
                 </div>
                 <div class="card">
+                    <h3>Tributário</h3>
+                    <p>Defina regras de tributação em perfis individuais, fature e de entrada com um clique.</p>
+                </div>
+                <div class="card">
                     <h3>Faturamento</h3>
-                    <p>Emissão de notas fiscais eletrônicas, boletos e controle fiscal.</p>
+                    <p>Emissão de notas fiscais eletrônicas, controle fiscal, manifesto e entradas.</p>
+                </div>
+            </div>
+        </section>
+
+            <section class="modules" id="CRM">
+            <h2>Oasys CRM</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Relacionamento</h3>
+                    <p>Controle pessoas e leads, defina os canais de origem dos leads.</p>
+                </div>
+                <div class="card">
+                    <h3>Oportunidade</h3>
+                    <p>Controle as oportunidades recebidas, as etapas no funil e os motivos de perda. Tenha todas as oportunidades na palma da mão.</p>
+                </div>
+                <div class="card">
+                    <h3>Atividade</h3>
+                    <p>Controle todas as atividades efetuadas, conversas com clientes, reuniões, visitas, ajuste conforme seu fluxo.</p>
+                </div>
+                <div class="card">
+                    <h3>Visão</h3>
+                    <p>Visualize as oportunidades em aberto, oportunidades convertidas e perdidas no dia.</p>
                 </div>
             </div>
         </section>
 
         <section class="neuron">
-            <h2>OAsys Neuron — IA que antecipa o futuro</h2>
+            <h2>Oasys Neuron — IA que antecipa o futuro</h2>
             <p>Agentes inteligentes para tomada de decisão nos módulos de Estoque e Financeiro.</p>
             <div class="grid">
                 <div class="card">
@@ -67,55 +105,6 @@
                 <div class="card">
                     <h3>Fluxo de Caixa Previsto</h3>
                     <p>Análise dos lançamentos financeiros e geração de previsões automáticas.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="pricing" id="planos">
-            <h2>Planos e Preços</h2>
-            <p>Todos os planos incluem o módulo de <strong>Gerenciamento</strong>. Demais módulos são adicionados conforme sua necessidade.</p>
-            <div class="grid">
-                <div class="card">
-                    <h4>Para negócios em crescimento, que precisam de controle operacional.</h4>
-                    <h3>OAsys Solo</h3>
-                    <p class="price">R$ 129/mês</p>
-                    <ul role="list">
-                        <li>Gerenciamento incluso</li>
-                        <li>Pedidos</li>
-                        <li>Estoque</li>
-                        <li>Integração entre Pedidos e Estoque</li>
-                        <li>Relatórios detalhados</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h4>Voltado para epresas que exigem controle financeiro integrado.</h4>
-                    <h3>OAsys Savanna</h3>
-                    <p class="price">R$ 199/mês</p>
-                    <ul role="list">
-                        <li>Tudo do plano Solo</li>
-                        <li>Financeiro</li>
-                        <li>Faturamento</li>
-                        <li>Integração entre Financeiro e Faturamento</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h4>Para prestadores de serviços com foco em  execuções técnicas.</h4>
-                    <h3>OAsys Sierra</h3>
-                    <p class="price">R$ 229/mês</p>
-                    <ul role="list">
-                        <li>Tudo do plano Savanna</li>
-                        <li>Ordem de Serviço</li>
-                        <li>Integração de OS com Estoque, Financeiro e Faturamento</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h4>Para operações complexas, automações e IA.</h4>
-                    <h3>OAsys Atlas</h3>
-                    <p class="price">R$ 259/mês</p>
-                    <ul role="list">
-                        <li>Tudo do plano Sierra</li>
-                        <li>OAsys Neuron</li>
-                    </ul>
                 </div>
             </div>
         </section>
@@ -133,10 +122,18 @@
     </main>
 
     <footer class="container">
-        <p>&copy; 2025 OAsys ERP. Todos os direitos reservados.</p>
+        <p>&copy; 2025 Oasys Tecnologia. Todos os direitos reservados.</p>
     </footer>
 
     <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            menuToggle.textContent = navLinks.classList.contains('show') ? '✕' : '☰';
+        });
+
         document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
 

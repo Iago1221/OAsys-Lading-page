@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        $mail->setFrom($mail->Username, 'OAsys Landing Page');
+        $mail->setFrom($mail->Username, 'Oasys Landing Page');
         $mail->addAddress($_ENV['EMAIL_ADDRESS']);
 
         $mail->isHTML(true);
