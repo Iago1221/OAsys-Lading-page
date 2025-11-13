@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ferramentas | Oasys Tecnologia</title>
+
+  <link rel="icon" href="/assets/icon.png" sizes="512x512" type="image/png">
+  <link rel="stylesheet" href="styles/global.css">
+  <link rel="stylesheet" href="styles/utility.css">
+  <link rel="stylesheet" href="styles/ferramentas.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="navbar container">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Logo OAsys ERP" />
+      </div>
+
+      <button class="menu-toggle" aria-label="Abrir menu">☰</button>
+
+      <ul class="nav-links">
+        <li><a href="index.html#ERP">ERP</a></li>
+        <li><a href="index.html#CRM">CRM</a></li>
+        <li><a href="ferramentas.html" class="active">Ferramentas</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+
+      <a href="index.html#contato" class="btn-primary">Solicitar Demonstração</a>
+    </div>
+
+    <div class="hero-container container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Potencialize seu negócio com as <span>Ferramentas Oasys</span>
+        </h1>
+        <p class="hero-subtitle">
+          Cálculos inteligentes, dashboards interativos e insights que impulsionam a gestão da sua empresa.
+        </p>
+        <div class="hero-buttons">
+          <a href="#calc" class="btn-primary">Usar Calculadora</a>
+          <a href="#conteudos" class="btn-secondary">Ver Conteúdos</a>
+        </div>
+      </div>
+      <div class="hero-shape"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Calculadora de Markup -->
+      <section class="calc-section fade-in" id="calc">
+      <h2>Calculadora de Markup</h2>
+      <p>Descubra o preço de venda ideal e visualize as fórmulas utilizadas.</p>
+
+      <div class="calc-container">
+        <!-- Card de entrada -->
+        <div class="card calc-card">
+          <h3>Entradas</h3>
+          <label>Custo do produto (R$):</label>
+          <input type="number" id="custo" placeholder="Ex: 100">
+
+          <label>Markup (%):</label>
+          <input type="number" id="markup" placeholder="Ex: 60">
+
+          <button id="calcular" class="btn-primary full">Calcular</button>
+        </div>
+
+        <!-- Card de resultado -->
+        <div class="card result-card" id="resultado">
+          <h3>Resultado</h3>
+          <p>Preencha os campos e clique em calcular.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboards -->
+    <section class="dashboards fade-in">
+      <h2>Dashboards que falam por si</h2>
+      <div class="grid">
+        <div class="card dashboard-card">
+          <h3>Financeiro</h3>
+          <svg viewBox="0 0 100 60" class="chart">
+            <rect x="10" y="40" width="10" height="20" />
+            <rect x="30" y="30" width="10" height="30" />
+            <rect x="50" y="20" width="10" height="40" />
+            <rect x="70" y="10" width="10" height="50" />
+          </svg>
+          <p>Visualize receitas e despesas em tempo real com IA preditiva.</p>
+        </div>
+
+        <div class="card dashboard-card">
+          <h3>Estoque</h3>
+          <svg viewBox="0 0 100 60" class="chart">
+            <polyline points="0,50 25,30 50,35 75,20 100,10" />
+          </svg>
+          <p>Controle níveis de estoque e previsões automáticas de reposição.</p>
+        </div>
+
+        <div class="card dashboard-card">
+          <h3>CRM</h3>
+          <svg viewBox="0 0 100 60" class="chart">
+            <circle cx="30" cy="30" r="15" />
+            <circle cx="70" cy="30" r="15" class="secondary" />
+          </svg>
+          <p>Acompanhe oportunidades e desempenho do time de vendas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="videos fade-in">
+      <h2>Aprenda com quem faz</h2>
+      <div class="grid video-grid" style="justify-content: center;">
+
+        <div class="video-card"
+        >
+          <iframe src="https://www.youtube-nocookie.com/embed/3pkf9beU1Gk?si=a9gNfrsYuN0rDiad" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="content fade-in" id="conteudos">
+      <h2>Conteúdos gratuitos</h2>
+      <p>Aprimore sua gestão com nossos materiais exclusivos.</p>
+      <div class="grid">
+        <div class="card" style="display: flex; flex-direction: column;">
+          <h3>Planilha Financeira</h3>
+          <p>Controle de fluxo de caixa pronto para uso.</p>
+          <a class="btn-primary" 
+            style="
+              margin-top: 1rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+            "
+            href="assets/materials/Controle Financeiro - Oasys.xlsx" download="Controle Financeiro - Oasys.xlsx">
+            Baixar
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>&copy; 2025 Oasys Tecnologia. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      menuToggle.textContent = navLinks.classList.contains('show') ? '✕' : '☰';
+    });
+
+    document.getElementById('calcular').addEventListener('click', () => {
+      const custo = parseFloat(document.getElementById('custo').value);
+      const markup = parseFloat(document.getElementById('markup').value);
+      const resultado = document.getElementById('resultado');
+
+      if (isNaN(custo) || isNaN(markup) || custo <= 0) {
+        resultado.innerHTML = "<h3>📊 Resultado</h3><p>⚠️ Preencha os campos corretamente.</p>";
+        return;
+      }
+
+      const precoVenda = custo * (1 + markup / 100);
+      const margem = ((precoVenda - custo) / precoVenda) * 100;
+
+      resultado.innerHTML = `
+        <h3>Resultado</h3>
+        <div class="result-values">
+          <div><span>💰 Preço de venda:</span> <strong>R$ ${precoVenda.toFixed(2)}</strong></div>
+          <div><span>📈 Margem real:</span> <strong>${margem.toFixed(2)}%</strong></div>
+        </div>
+        <div class="formula">
+          <h4>🧮 Fórmulas utilizadas:</h4>
+          <p><strong>Preço de venda = Custo × (1 + Markup / 100)</strong></p>
+          <p><strong>Margem = (Preço de venda − Custo) ÷ Preço de venda × 100</strong></p>
+        </div>
+      `;
+    });
+
+    // Fade-in
+    const faders = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.3 });
+    faders.forEach(f => observer.observe(f));
+  </script>
+</body>
+</html>
