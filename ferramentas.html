@@ -1,145 +1,1106 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oasys - ERP CRM com IA</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;line-height:1.6;color:#1f2937}
-.container{max-width:1200px;margin:auto;padding:0 24px}
-.hero{background:#0f172a;color:#fff;padding:90px 0}
-h1{font-size:3rem;line-height:1.1;margin-bottom:20px}
-h2{font-size:2rem;margin-bottom:20px}
-p{margin-bottom:16px}
-.btn{display:inline-block;padding:14px 24px;border-radius:8px;text-decoration:none;font-weight:bold}
-.btn-primary{background:#2563eb;color:#fff}
-.btn-secondary{border:1px solid #fff;color:#fff;margin-left:12px}
-.section{padding:80px 0}
-.grid{display:grid;gap:24px}
-.grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.card{background:#fff;border:1px solid #e5e7eb;padding:24px;border-radius:12px}
-.problem{background:#f8fafc}
-.dark{background:#111827;color:white}
-.center{text-align:center}
-ul{padding-left:20px}
-.cta-final{background:#2563eb;color:white;padding:80px 0;text-align:center}
-.small{opacity:.8;font-size:.9rem}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ferramentas | Oasys Tecnologia</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="assets/favicon_arvore.ico">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #071120;
+      --bg2: #0D1E38;
+      --accent: #0099ff;
+      --accent2: #FF6B35;
+      --text: #F0F6FF;
+      --muted: #94B2D1;
+      --border: rgba(0, 212, 255, .15);
+      --card-bg: rgba(255, 255, 255, .04);
+      --white: #ffffff;
+      --r: 16px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 17, 32, .88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-menu-container {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+    }
+
+    .nav-links a.active {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+
+    .nav-cta:hover {
+      opacity: .85;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      padding: 80px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(0, 212, 255, .06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ─── COMPONENTES DE BOTÃO ───────────────────────────── */
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform .18s, box-shadow .18s;
+      box-shadow: 0 0 20px rgba(0, 212, 255, .15);
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0, 212, 255, .35);
+    }
+
+    .btn-primary.full {
+      width: 100%;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      background: rgba(255, 255, 255, .05);
+      color: var(--white);
+      font-family: 'Sora', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, .1);
+      transition: background .2s, border-color .2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, .1);
+      border-color: var(--accent);
+    }
+
+    /* ─── ESTRUTURA DE SEÇÕES ────────────────────────────── */
+    section {
+      padding: 80px 0;
+      border-top: 1px solid rgba(255, 255, 255, .03);
+    }
+
+    h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -.025em;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-label {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    section>p {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto 48px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* Força o alinhamento horizontal perfeito no desktop para a seção de materiais */
+    #grid-materiais {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+    }
+
+    /* ─── UTILITÁRIOS DA CALCULADORA ────────────────────── */
+    .calc-container {
+      display: grid;
+      grid-template-columns: 1.1fr 1.3fr;
+      gap: 32px;
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    .calc-card h3,
+    .result-card h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .calc-card label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .calc-card input {
+      width: 100%;
+      background: rgba(7, 17, 32, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      transition: border-color .2s;
+    }
+
+    .calc-card input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Box de apresentação da utilidade */
+    .tool-utility {
+      background: rgba(255, 255, 255, .02);
+      border-left: 3px solid var(--accent);
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+
+    .tool-utility h4 {
+      font-family: 'Sora', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .tool-utility p {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .result-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      background: linear-gradient(135deg, var(--bg2), rgba(0, 212, 255, .02));
+    }
+
+    .result-card>p {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .result-values {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .result-values div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, .05);
+    }
+
+    .result-values span {
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    .result-values strong {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      color: var(--white);
+    }
+
+    .result-values div:first-child strong {
+      color: var(--accent);
+    }
+
+    .result-values div:nth-child(2) strong {
+      color: #4ADE80;
+    }
+
+    .formula {
+      background: rgba(7, 17, 32, 0.5);
+      border: 1px solid rgba(255, 255, 255, .05);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: auto;
+    }
+
+    .formula h4 {
+      font-family: 'Sora', sans-serif;
+      font-size: .82rem;
+      color: var(--accent2);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .formula p {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .formula p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ─── SEÇÃO DE DASHBOARDS PREVIEW ────────────────────── */
+    .dashboards {
+      background: var(--bg2);
+    }
+
+    .dash-section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .dash-features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dash-features-list li {
+      font-size: .92rem;
+      color: var(--muted);
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .dash-features-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Interface Simulada */
+    .dashboard-mock {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, .4);
+      text-align: left;
+    }
+
+    .dash-header {
+      background: rgba(0, 212, 255, .06);
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-r {
+      background: #ff5f57;
+    }
+
+    .dot-y {
+      background: #febc2e;
+    }
+
+    .dot-g {
+      background: #28c840;
+    }
+
+    .dash-title {
+      margin-left: auto;
+      font-size: .75rem;
+      color: var(--muted);
+      font-family: 'Sora', sans-serif;
+      font-weight: 600;
+    }
+
+    .dash-body {
+      padding: 20px;
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .kpi {
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .kpi-label {
+      font-size: .68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 4px;
+    }
+
+    .kpi-val {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--white);
+    }
+
+    .kpi-val.good {
+      color: #4ADE80;
+    }
+
+    .kpi-val.bad {
+      color: var(--accent2);
+    }
+
+    .alert-row {
+      background: rgba(255, 107, 53, .08);
+      border: 1px solid rgba(255, 107, 53, .2);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .insight-row {
+      background: rgba(0, 212, 255, .05);
+      border: 1px solid rgba(0, 212, 255, .15);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .alert-icon,
+    .insight-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── MULTIMÍDIA / VÍDEOS ────────────────────────────── */
+    .videos {
+      background: var(--bg);
+    }
+
+    .video-grid {
+      display: flex;
+      justify-content: center;
+    }
+
+    .video-card {
+      width: 100%;
+      max-width: 720px;
+      aspect-ratio: 16 / 9;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .4);
+    }
+
+    /* Ajuste para Vídeo Vertical (Proporção 9:16) */
+    .video-card.vertical {
+      width: 100%;
+      max-width: 360px;
+      aspect-ratio: 9 / 16;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .video-card iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ─── CONTEÚDOS GRATUITOS ────────────────────────────── */
+    .content {
+      background: var(--bg2);
+    }
+
+    .content h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .content p {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    /* ─── ANIMATION FADE-IN ──────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease-out, transform .6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+
+    /* ─── RESPONSIVO ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+
+      .grid,
+      .calc-container,
+      .dash-section-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero {
+        padding: 60px 0 40px;
+      }
+
+      .dash-text-content,
+      .dash-text-content h2,
+      .dash-text-content p {
+        text-align: center !important;
+      }
+
+      .dash-features-list {
+        align-items: center;
+        text-align: left;
+      }
+
+      /* Menu Mobile */
+      .menu-toggle {
+        display: block;
+        order: 3;
+        /* Empurra o botão para a extrema direita */
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .nav-inner .nav-cta {
+        display: none;
+      }
+    }
+
+    /* Adaptação móvel estrita para os materiais gratuitos abaixo de 768px */
+    @media (max-width: 768px) {
+      #grid-materiais {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<section class="hero">
-<div class="container">
-<h1>Falta produto quando o cliente pede.<br>Falta caixa quando a empresa precisa.</h1>
-<p>O Oasys conecta estoque, vendas, pedidos e financeiro para reduzir perdas, evitar retrabalho e mostrar onde sua empresa está deixando dinheiro na mesa.</p>
-<a href="#" class="btn btn-primary">Ver onde minha empresa perde margem</a>
-<a href="#" class="btn btn-secondary">Conhecer o Oasys</a>
-<p class="small" style="margin-top:15px;">Diagnóstico gratuito. Sem compromisso.</p>
-</div>
-</section>
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/logohorizontal.png" alt="Oasys ERP" style="height: 50px; width: auto; display: block;">
+      </a>
 
-<section class="section problem">
-<div class="container">
-<h2>Seu problema provavelmente não é vender.</h2>
-<p>É perder dinheiro sem perceber.</p>
-<ul>
-<li>Venda perdida por falta de estoque.</li>
-<li>Dinheiro parado em produtos sem giro.</li>
-<li>Pedidos esquecidos.</li>
-<li>Planilhas paralelas gerando divergências.</li>
-<li>Retrabalho entre setores.</li>
-<li>Caixa apertado sem aviso.</li>
-<li>Margem vazando todos os meses.</li>
-</ul>
-</div>
-</section>
+      <button class="menu-toggle" aria-label="Abrir menu">☰</button>
 
-<section class="section">
-<div class="container">
-<h2 class="center">Onde o Oasys ajuda</h2>
-<div class="grid grid-3">
-<div class="card">
-<h3>Evite venda perdida</h3>
-<p>Saiba o que precisa ser reposto antes da ruptura acontecer.</p>
-</div>
-<div class="card">
-<h3>Pedidos sem esquecimento</h3>
-<p>Acompanhe cada pedido do início ao faturamento.</p>
-</div>
-<div class="card">
-<h3>Caixa sem surpresa</h3>
-<p>Visualize entradas, saídas e compromissos futuros.</p>
-</div>
-<div class="card">
-<h3>Comercial organizado</h3>
-<p>Clientes, negociações e histórico centralizados.</p>
-</div>
-<div class="card">
-<h3>Projeção de caixa</h3>
-<p>Antecipe riscos financeiros antes que eles apareçam.</p>
-</div>
-<div class="card">
-<h3>Alertas inteligentes</h3>
-<p>A IA aponta riscos e oportunidades que merecem atenção.</p>
-</div>
-</div>
-</div>
-</section>
+      <div class="nav-menu-container">
+        <ul class="nav-links">
+          <li><a href="index.html#ERP">ERP</a></li>
+          <li><a href="ferramentas.html" class="active">Ferramentas</a></li>
+          <li><a href="index.html#diagnostico">Contato</a></li>
+        </ul>
+        <a href="index.html#diagnostico" class="nav-cta">Solicitar Demonstração</a>
+      </div>
+    </div>
+  </nav>
 
-<section class="section dark">
-<div class="container">
-<h2>Para quem é</h2>
-<ul>
-<li>Distribuidoras</li>
-<li>Indústrias leves</li>
-<li>Lojas de tintas e materiais de construção</li>
-<li>Empresas que dependem de estoque, pedidos, vendas e caixa</li>
-</ul>
-<br>
-<h3>Não é para quem</h3>
-<ul>
-<li>Só precisa emitir nota fiscal</li>
-<li>Não trabalha com estoque</li>
-<li>Não quer organizar processos</li>
-</ul>
-</div>
-</section>
+  <header class="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Potencialize seu negócio com as <span>Ferramentas Oasys</span>
+        </h1>
+        <p class="hero-subtitle">
+          Cálculos inteligentes, dashboards interativos e insights que impulsionam a gestão da sua empresa.
+        </p>
+        <div class="hero-buttons">
+          <a href="#calc-markup" class="btn-primary">Usar Calculadoras</a>
+          <a href="#conteudos" class="btn-secondary">Ver Conteúdos</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<section class="section">
-<div class="container">
-<h2 class="center">IA aplicada ao que realmente importa</h2>
-<p class="center">A IA do Oasys não substitui pessoas. Ela ajuda sua equipe a identificar riscos e oportunidades antes que virem prejuízo.</p>
-<div class="grid grid-3" style="margin-top:30px;">
-<div class="card">Previsão de ruptura</div>
-<div class="card">Projeção de caixa</div>
-<div class="card">Análise de vendas</div>
-<div class="card">Excesso de estoque</div>
-<div class="card">Alertas operacionais</div>
-<div class="card">Priorização de ações</div>
-</div>
-</div>
-</section>
+  <main class="container">
 
-<section class="section problem">
-<div class="container center">
-<h2>Como funciona</h2>
-<div class="grid grid-3">
-<div class="card"><strong>1.</strong><br>Diagnóstico gratuito</div>
-<div class="card"><strong>2.</strong><br>Mapeamento dos gargalos</div>
-<div class="card"><strong>3.</strong><br>Plano de organização com Oasys</div>
-</div>
-</div>
-</section>
+    <section class="calc-section fade-in" id="calc-markup">
+      <div class="section-label">Precificação</div>
+      <h2>Calculadora de Markup</h2>
+      <p>Descubra o preço de venda ideal com base no custo operacional e visualize as margens reais obtidas.</p>
 
-<section class="cta-final">
-<div class="container">
-<h2>Quanto sua empresa perde hoje sem perceber?</h2>
-<p>Venda perdida. Estoque parado. Pedido esquecido. Margem vazando. Caixa apertado.</p>
-<br>
-<a href="#" class="btn btn-primary" style="background:white;color:#2563eb">Ver onde minha empresa perde margem</a>
-</div>
-</section>
+      <div class="calc-container">
+        <div class="card calc-card">
+          <div class="tool-utility">
+            <h4>🛠️ Por que usar esta ferramenta?</h4>
+            <p>Vender muito sem margem quebra empresas. Esta calculadora serve para garantir que cada produto pague seus
+              custos e traga o lucro planejado, evitando que você precifique no "achômetro".</p>
+          </div>
 
+          <h3>Entradas</h3>
+          <label>Custo do produto (R$):</label>
+          <input type="number" id="custo" placeholder="Ex: 100">
+
+          <label>Markup desejado (%):</label>
+          <input type="number" id="markup" placeholder="Ex: 60">
+
+          <button id="calcular" class="btn-primary full">Calcular Preço</button>
+        </div>
+
+        <div class="card result-card" id="resultado">
+          <h3>Resultado</h3>
+          <p>Preencha os campos ao lado e clique em calcular para analisar as suas margens reais.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="calc-section fade-in" id="calc-stock" style="border-top: 1px solid rgba(255,255,255,.05);">
+      <div class="section-label">Logística e Giro</div>
+      <h2>Giro e Cobertura de Estoque</h2>
+      <p>Monitore a saúde do seu armazém. Descubra a rotatividade dos produtos e por quantos dias sua operação está
+        segura.</p>
+
+      <div class="calc-container">
+        <div class="card calc-card">
+          <div class="tool-utility">
+            <h4>🛠️ Por que usar esta ferramenta?</h4>
+            <p>Dinheiro parado no estoque não gera caixa, mas a falta dele interrompe as vendas. Medir o giro te ajuda a
+              equilibrar o estoque ideal para nunca faltar mercadoria nem imobilizar capital desnecessariamente.</p>
+          </div>
+
+          <h3>Métricas de Estoque</h3>
+          <label>Volume Total Vendido no Mês (Unid.):</label>
+          <input type="number" id="estoque-vendido" placeholder="Ex: 1200">
+
+          <label>
+            Estoque Médio Atual (Unid.):
+            <span
+              title="Média física de produtos armazenados no período (Estoque Inicial + Estoque Final ÷ 2). Neutraliza picos da operação para medir o Giro e a Cobertura com precisão."
+              style="cursor: help; margin-left: 4px; color: var(--muted); font-size: 0.9rem;">ⓘ</span>
+          </label>
+          <input type="number" id="estoque-medio" placeholder="Ex: 400">
+
+          <button id="calcular-estoque" class="btn-primary full">Analisar Estoque</button>
+        </div>
+
+        <div class="card result-card" id="resultado-estoque">
+          <h3>Análise Logística</h3>
+          <p>Insira a quantidade de vendas e a média em estoque para medir o giro operacional e prever rupturas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="calc-section fade-in" id="calc-breakeven" style="border-top: 1px solid rgba(255,255,255,.05);">
+      <div class="section-label">Saúde Financeira</div>
+      <h2>Ponto de Equilíbrio (Break-Even)</h2>
+      <p>Descubra o faturamento mínimo que sua empresa precisa alcançar no mês para cobrir todas as despesas fixas.</p>
+
+      <div class="calc-container">
+        <div class="card calc-card">
+          <div class="tool-utility">
+            <h4>🛠️ Por que usar esta ferramenta?</h4>
+            <p>O Ponto de Equilíbrio é o divisor de águas entre o prejuízo e o lucro. Conhecer este valor exato dá ao
+              gestor comercial e financeiro uma meta diária clara para pagar a estrutura fixa da operação.</p>
+          </div>
+
+          <h3>Dados Financeiros</h3>
+          <label>Custos Fixos Totais Mensais (R$):</label>
+          <input type="number" id="custo-fixo" placeholder="Ex: 15000">
+          <div>
+            <label for="margem-contrib">
+              Margem de Contribuição Média (%):
+              <span title="Indica a porcentagem do faturamento que resta após deduzir os custos e despesas variáveis."
+                style="cursor: help; margin-left: 4px; color: var(--muted); font-size: 0.9rem;">ⓘ</span>
+            </label>
+            <input type="number" id="margem-contrib" placeholder="Ex: 40">
+          </div>
+
+          <button id="calcular-breakeven" class="btn-primary full">Calcular Ponto</button>
+        </div>
+
+        <div class="card result-card" id="resultado-breakeven">
+          <h3>Análise de Viabilidade</h3>
+          <p>Insira seus custos fixos operacionais e sua margem média para estipular a meta de sobrevivência comercial.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboards fade-in visible" id="dashboards-preview">
+      <div style="max-width: 950px; margin: 0 auto;">
+        <div class="dash-section-grid">
+          <div class="dash-text-content">
+            <div class="section-label" style="text-align: left; margin-bottom: 12px;">Visibilidade Total</div>
+            <h2 style="text-align: left; margin-bottom: 16px;">Dashboards que<br>falam por <em>si</em>.</h2>
+            <p style="text-align: left; margin-left: 0; margin-bottom: 24px; max-width: 100%;">
+              Chega de cruzar dados de três planilhas diferentes para descobrir se o mês vai fechar no azul. O Oasys
+              centraliza sua operação e entrega respostas visuais instantâneas.
+            </p>
+            <ul class="dash-features-list">
+              <li><strong>Decisões em tempo real:</strong> Gráficos alimentados automaticamente a cada venda ou
+                movimentação de estoque.</li>
+              <li><strong>Previsibilidade de caixa:</strong> Projeções financeiras inteligentes baseadas no seu
+                histórico de pagamentos e recebimentos.</li>
+            </ul>
+          </div>
+
+          <div class="dash-preview-wrapper">
+            <div class="dashboard-mock">
+              <div class="dash-header">
+                <div class="dot dot-r"></div>
+                <div class="dot dot-y"></div>
+                <div class="dot dot-g"></div>
+                <span class="dash-title">Oasys ERP — Visão Geral</span>
+              </div>
+              <div class="dash-body">
+                <div class="kpi-row">
+                  <div class="kpi">
+                    <div class="kpi-label">Faturamento (Mês)</div>
+                    <div class="kpi-val good">R$ 84.250</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="kpi-label">Giro de Estoque</div>
+                    <div class="kpi-val">2.4x</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="kpi-label">Inadimplência</div>
+                    <div class="kpi-val bad">1.8%</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="kpi-label">Margem Média</div>
+                    <div class="kpi-val good">38.5%</div>
+                  </div>
+                </div>
+
+                <div class="alert-row">
+                  <span class="alert-icon">⚠️</span>
+                  <div>
+                    <strong style="color:#fff; font-size:.82rem;">Alerta de Ruptura iminente</strong><br>
+                    <span style="color:var(--muted); font-size:.78rem;">2 produtos atingiram o nível crítico de
+                      segurança.</span>
+                  </div>
+                </div>
+
+                <div class="insight-row">
+                  <span class="insight-icon">✦</span>
+                  <div>
+                    <strong style="color:var(--accent); font-size:.8rem;">Oasys Neuron</strong><br>
+                    <span style="color:var(--muted); font-size:.78rem;">Tendência de alta para a próxima semana.
+                      Sugerimos antecipar os pedidos com fornecedores homologados.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mock-badge"
+              style="margin-top: 12px; text-align: center; font-size: .68rem; color: var(--muted); letter-spacing: .05em;">
+              Interface demonstrativa baseada nos módulos Oasys Finance e Stock
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="videos fade-in">
+      <h2>Aprenda em menos de 1 minuto</h2>
+      <p>Assista rápidas demonstrações de recursos operacionais direto da nossa plataforma.</p>
+
+      <div class="video-grid" style="display: flex; justify-content: center; padding: 20px 0;">
+        <div class="video-card vertical">
+          <iframe src="https://www.youtube-nocookie.com/embed/3pkf9beU1Gk?si=a9gNfrsYuN0rDiad"
+            title="Oasys ERP Quick Demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="content fade-in" id="conteudos" style="border-top: 1px solid rgba(255,255,255,.05);">
+      <div style="max-width: 950px; margin: 0 auto;">
+        <h2>Conteúdos gratuitos</h2>
+        <p>Aprimore a sua gestão de processos com os nossos materiais exclusivos práticos.</p>
+
+        <div id="grid-materiais" style="display: grid; gap: 16px;">
+
+          <div class="card"
+            style="background: var(--bg); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 24px 16px; min-height: 200px; margin: 0;">
+            <div style="width: 100%;">
+              <h3 style="font-family: 'Sora', sans-serif; font-size: 1.1rem; color: var(--white); margin-bottom: 6px;">
+                Planilha Financeira</h3>
+              <p style="font-size: .85rem; color: var(--muted); margin-bottom: 16px; line-height: 1.5;">Controle de
+                fluxo de caixa pronto para uso na sua empresa.</p>
+            </div>
+            <a class="btn-primary full" href="assets/materials/Controle Financeiro - Oasys.xlsx"
+              download="Controle Financeiro - Oasys.xlsx"
+              style="margin-top: auto; padding: 10px 16px; font-size: 0.85rem;">
+              Baixar Planilha
+            </a>
+          </div>
+
+          <div class="card"
+            style="background: rgba(255,255,255,.01); border: 1px dashed rgba(0, 212, 255, 0.15); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; min-height: 200px; opacity: 0.5; margin: 0;">
+            <span style="font-size: 1.3rem; margin-bottom: 6px; color: var(--muted);">🔒</span>
+            <h3 style="font-family: 'Sora', sans-serif; font-size: 1rem; color: var(--muted); margin-bottom: 4px;">Em
+              Breve</h3>
+            <p style="font-size: .78rem; color: rgba(148, 178, 209, 0.6); max-width: 180px; line-height: 1.4;">Novos
+              e-books e ferramentas de gestão em preparo.</p>
+          </div>
+
+          <div class="card"
+            style="background: rgba(255,255,255,.01); border: 1px dashed rgba(0, 212, 255, 0.15); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; min-height: 200px; opacity: 0.5; margin: 0;">
+            <span style="font-size: 1.3rem; margin-bottom: 6px; color: var(--muted);">🔒</span>
+            <h3 style="font-family: 'Sora', sans-serif; font-size: 1rem; color: var(--muted); margin-bottom: 4px;">Em
+              Breve</h3>
+            <p style="font-size: .78rem; color: rgba(148, 178, 209, 0.6); max-width: 180px; line-height: 1.4;">Guias
+              operacionais e simuladores de regras.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      © 2026 Oasys Tecnologia · 62.315.545/0001-44 · Rio do Sul/SC ·
+      <a href="https://oasystecnologia.com" style="color:var(--white);text-decoration:none;" target="_blank"
+        rel="noopener">oasystecnologia.com ↗</a> ·
+      <a href="https://instagram.com/oasystecnologia" style="color:var(--white);text-decoration:none;" target="_blank"
+        rel="noopener">@oasystecnologia ↗</a>
+    </div>
+  </footer>
+
+  <script>
+    // Menu Toggle Mobile
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      menuToggle.textContent = navLinks.classList.contains('show') ? '✕' : '☰';
+    });
+
+    // 1. Lógica da Calculadora de Markup
+    document.getElementById('calcular').addEventListener('click', () => {
+      const custo = parseFloat(document.getElementById('custo').value);
+      const markup = parseFloat(document.getElementById('markup').value);
+      const resultado = document.getElementById('resultado');
+
+      if (isNaN(custo) || isNaN(markup) || custo <= 0) {
+        resultado.innerHTML = "<h3>📊 Resultado</h3><p>⚠️ Por favor, insira valores válidos para o cálculo.</p>";
+        return;
+      }
+
+      const precoVenda = custo * (1 + markup / 100);
+      const margem = ((precoVenda - custo) / precoVenda) * 100;
+
+      resultado.innerHTML = `
+        <h3>Resultado</h3>
+        <div class="result-values">
+          <div><span>💰 Preço de venda sugerido:</span> <strong>R$ ${precoVenda.toFixed(2)}</strong></div>
+          <div><span>📈 Margem real sobre a venda:</span> <strong>${margem.toFixed(2)}%</strong></div>
+        </div>
+        <div class="formula">
+          <h4>🧮 Modelagem Matemática:</h4>
+          <p><strong>Preço de Venda = Custo × (1 + Markup / 100)</strong></p>
+          <p><strong>Margem Real = (Preço de Venda − Custo) ÷ Preço de Venda × 100</strong></p>
+        </div>
+      `;
+    });
+
+    // 2. Lógica da Calculadora de Estoque
+    document.getElementById('calcular-estoque').addEventListener('click', () => {
+      const vendido = parseFloat(document.getElementById('estoque-vendido').value);
+      const medio = parseFloat(document.getElementById('estoque-medio').value);
+      const resultado = document.getElementById('resultado-estoque');
+
+      if (isNaN(vendido) || isNaN(medio) || medio <= 0 || vendido < 0) {
+        resultado.innerHTML = "<h3>📊 Resultado</h3><p>⚠️ Por favor, insira dados válidos de estoque.</p>";
+        return;
+      }
+
+      const giro = vendido / medio;
+      const cobertura = giro > 0 ? (medio / (vendido / 30)) : 0;
+
+      resultado.innerHTML = `
+        <h3>Resultado da Análise</h3>
+        <div class="result-values">
+          <div><span>🔄 Giro de Estoque (Mês):</span> <strong>${giro.toFixed(2)}x</strong></div>
+          <div><span>⏳ Cobertura de Segurança:</span> <strong>${cobertura.toFixed(0)} dias</strong></div>
+        </div>
+        <div class="formula">
+          <h4>🧮 Indicadores Operacionais:</h4>
+          <p><strong>Giro de Estoque = Unidades Vendidas ÷ Estoque Médio</strong></p>
+          <p><strong>Cobertura (Dias) = Estoque Médio ÷ (Vendas Mensais ÷ 30)</strong></p>
+        </div>
+      `;
+    });
+
+    // 3. Lógica da Calculadora de Ponto de Equilíbrio
+    document.getElementById('calcular-breakeven').addEventListener('click', () => {
+      const custoFixo = parseFloat(document.getElementById('custo-fixo').value);
+      const margemContrib = parseFloat(document.getElementById('margem-contrib').value);
+      const resultado = document.getElementById('resultado-breakeven');
+
+      if (isNaN(custoFixo) || isNaN(margemContrib) || custoFixo <= 0 || margemContrib <= 0 || margemContrib > 100) {
+        resultado.innerHTML = "<h3>📊 Resultado</h3><p>⚠️ Por favor, confira os valores informados (Margem máx: 100%).</p>";
+        return;
+      }
+
+      const breakeven = custoFixo / (margemContrib / 100);
+
+      resultado.innerHTML = `
+        <h3>Resultado Financeiro</h3>
+        <div class="result-values">
+          <div><span>🏁 Faturamento de Equilíbrio:</span> <strong>R$ ${breakeven.toFixed(2)}</strong></div>
+          <div><span>🎯 Meta Diária Mínima (20d):</span> <strong>R$ ${(breakeven / 20).toFixed(2)}</strong></div>
+        </div>
+        <div class="formula">
+          <h4>🧮 Fórmula do Break-Even:</h4>
+          <p><strong>Ponto de Equilíbrio = Custos Fixos ÷ (Margem de Contribuição % ÷ 100)</strong></p>
+        </div>
+      `;
+    });
+
+    // Animação de Intersection Observer (Fade-in)
+    const faders = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.10 });
+
+    faders.forEach(f => observer.observe(f));
+  </script>
 </body>
+
 </html>

@@ -1,803 +1,1301 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oasys ERP — Gestão que fecha o mês no azul</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" type="image/x-icon" href="assets/favicon_arvore.ico">
-<style> 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg:       #071120;
-    --bg2:      #0D1E38;
-    --accent:   #0099ff;
-    --accent2:  #FF6B35;
-    --text:     #F0F6FF;
-    --muted:    #94B2D1;
-    --border:   rgba(0,212,255,.15);
-    --card-bg:  rgba(255,255,255,.04);
-    --white:    #ffffff;
-    --r:        16px;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
-
-  /* ─── NAV ─────────────────────────────────────────────── */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(7,17,32,.88);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 0;
-  }
-  .nav-inner {
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .logo {
-    font-family: 'Sora', sans-serif;
-    font-weight: 800; font-size: 1.4rem;
-    color: var(--white);
-    letter-spacing: -.04em;
-  }
-  .logo span { color: var(--accent); }
-  .nav-cta {
-    background: var(--accent);
-    color: var(--bg);
-    font-family: 'Sora', sans-serif;
-    font-weight: 700; font-size: .85rem;
-    padding: 10px 22px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: opacity .2s;
-  }
-  .nav-cta:hover { opacity: .85; }
-
-  /* ─── HERO ───────────────────────────────────────────── */
-  .hero {
-    padding: 100px 0 80px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 70% 60% at 80% 40%, rgba(0,212,255,.07) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 50% at 10% 80%, rgba(255,107,53,.05) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    top: -40px; right: 180px;
-    width: 2px; height: 140%;
-    background: linear-gradient(to bottom, transparent, rgba(255,107,53,.25) 30%, rgba(255,107,53,.08) 70%, transparent);
-    transform: rotate(-18deg);
-    transform-origin: top center;
-    pointer-events: none;
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.1fr .9fr;
-    gap: 64px;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: .78rem; font-weight: 600; letter-spacing: .1em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 20px;
-  }
-  .eyebrow::before {
-    content: '';
-    display: block; width: 24px; height: 2px;
-    background: var(--accent);
-  }
-
-  h1 {
-    font-family: 'Sora', sans-serif;
-    font-size: clamp(2.6rem, 5vw, 3.8rem);
-    font-weight: 800;
-    line-height: 1.06;
-    letter-spacing: -.03em;
-    color: var(--white);
-    margin-bottom: 20px;
-  }
-  h1 em { font-style: normal; color: var(--accent); }
-
-  .hero-sub {
-    font-size: 1.05rem;
-    color: var(--muted);
-    max-width: 480px;
-    margin-bottom: 36px;
-    line-height: 1.7;
-  }
-
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-
-  .btn-primary {
-    display: inline-block;
-    background: var(--accent);
-    color: var(--bg);
-    font-family: 'Sora', sans-serif;
-    font-weight: 700; font-size: clamp(0.85rem, 2vw, 0.95rem);
-    padding: 16px 28px;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: transform .18s, box-shadow .18s;
-    box-shadow: 0 0 28px rgba(0,212,255,.25);
-    white-space: nowrap;
-    text-align: center;
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 40px rgba(0,212,255,.4);
-  }
-
-  .link-secondary {
-    font-size: .9rem; color: var(--muted);
-    text-decoration: none; transition: color .2s;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .link-secondary:hover { color: var(--text); }
-
-  .proof-bar {
-    margin-top: 36px;
-    display: flex; gap: 28px; flex-wrap: wrap;
-    padding-top: 32px;
-    border-top: 1px solid var(--border);
-  }
-  .proof-item { font-size: .82rem; color: var(--muted); }
-  .proof-item strong { color: var(--white); font-size: 1.15rem; display: block; font-family: 'Sora', sans-serif; }
-
-  /* ─── DASHBOARD MOCK ─────────────────────────────────── */
-  .dashboard {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.04);
-  }
-  .dash-header {
-    background: rgba(0,212,255,.06);
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .dot-r { background: #ff5f57; }
-  .dot-y { background: #febc2e; }
-  .dot-g { background: #28c840; }
-  .dash-title {
-    margin-left: auto;
-    font-size: .75rem; color: var(--muted);
-    font-family: 'Sora', sans-serif; font-weight: 600;
-  }
-
-  .dash-body { padding: 20px; }
-
-  .kpi-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  .kpi {
-    background: rgba(255,255,255,.04);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
-    transition: transform 0.2s;
-  }
-  .kpi:hover { transform: scale(1.02); }
-  .kpi-label { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 4px; }
-  .kpi-val {
-    font-family: 'Sora', sans-serif;
-    font-weight: 700; font-size: 1.35rem;
-    color: var(--white);
-  }
-  .kpi-val.good { color: #4ADE80; }
-  .kpi-val.warn { color: var(--accent2); }
-
-  .alert-row {
-    background: rgba(255,107,53,.08);
-    border: 1px solid rgba(255,107,53,.2);
-    border-radius: 12px;
-    padding: 12px 16px;
-    font-size: .82rem;
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 12px;
-    animation: pulse 2s infinite alternate;
-  }
-  @keyframes pulse {
-    0% { border-color: rgba(255,107,53,.2); }
-    100% { border-color: rgba(255,107,53,.5); }
-  }
-  .alert-icon { font-size: 1rem; flex-shrink: 0; }
-
-  .insight-row {
-    background: rgba(0,212,255,.05);
-    border: 1px solid rgba(0,212,255,.15);
-    border-radius: 12px;
-    padding: 12px 16px;
-    font-size: .82rem;
-    display: flex; align-items: flex-start; gap: 10px;
-  }
-  .insight-icon { font-size: 1rem; flex-shrink: 0; }
-
-  .mock-badge {
-    margin-top: 12px;
-    font-size: .68rem; color: var(--muted);
-    text-align: center;
-    letter-spacing: .05em;
-  }
-
-  /* ─── SECTION BASE ───────────────────────────────────── */
-  section { padding: 96px 0; }
-
-  .section-label {
-    font-size: .78rem; font-weight: 600;
-    letter-spacing: .12em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 12px;
-  }
-  h2 {
-    font-family: 'Sora', sans-serif;
-    font-size: clamp(2rem, 4vw, 2.9rem);
-    font-weight: 800; line-height: 1.1;
-    letter-spacing: -.025em;
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-  h2 em { font-style: normal; color: var(--accent); }
-  .lead {
-    font-size: 1.05rem; color: var(--muted);
-    max-width: 560px; line-height: 1.75;
-    margin-bottom: 56px;
-  }
-
-  /* ─── PROBLEMA ───────────────────────────────────────── */
-  .problem-section { background: var(--bg); }
-  .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-  .problem-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
-  .problem-item {
-    display: flex; gap: 18px;
-    align-items: flex-start;
-    padding: 20px 24px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--r);
-    transition: border-color .2s;
-  }
-  .problem-item:hover { border-color: rgba(255,107,53,.3); }
-  .problem-num {
-    font-family: 'Sora', sans-serif;
-    font-weight: 800; font-size: 2rem;
-    color: rgba(255,107,53,.18);
-    line-height: 1;
-    flex-shrink: 0;
-    width: 44px;
-  }
-  .problem-text h3 {
-    font-family: 'Sora', sans-serif;
-    font-size: 1rem; font-weight: 700;
-    color: var(--white); margin-bottom: 4px;
-  }
-  .problem-text p { font-size: .88rem; color: var(--muted); }
-
-  .cost-callout {
-    background: linear-gradient(135deg, rgba(255,107,53,.1), rgba(255,107,53,.04));
-    border: 1px solid rgba(255,107,53,.2);
-    border-radius: 20px;
-    padding: 40px 36px;
-    position: sticky;
-    top: 100px;
-  }
-  .cost-label { font-size: .78rem; color: var(--accent2); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
-  .cost-big {
-    font-family: 'Sora', sans-serif;
-    font-size: 4rem; font-weight: 800;
-    line-height: 1;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-  .cost-desc { font-size: .9rem; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
-  .cost-items { display: flex; flex-direction: column; gap: 10px; }
-  .cost-line {
-    display: flex; justify-content: space-between;
-    font-size: .83rem; padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-    color: var(--muted);
-  }
-  .cost-line:last-child { border: 0; padding: 0; }
-  .cost-line span:last-child { color: var(--accent2); font-weight: 600; }
-
-  /* ─── SOLUÇÃO (GRID 12 MÓDULOS) ──────────────────────── */
-  .solution-section { background: var(--bg2); }
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  .feature-tile {
-    background: var(--bg2);
-    padding: 32px 28px;
-    transition: background .2s;
-  }
-  .feature-tile:hover { background: rgba(0,212,255,.04); }
-  
-  .feature-tile.neuron {
-    background: linear-gradient(135deg, rgba(0,212,255,.06), var(--bg2));
-  }
-  .feature-tile.neuron:hover {
-    background: linear-gradient(135deg, rgba(0,212,255,.12), var(--bg2));
-  }
-
-  .feature-icon { font-size: 1.6rem; margin-bottom: 14px; display: block; }
-  .feature-tile h3 {
-    font-family: 'Sora', sans-serif;
-    font-size: 1rem; font-weight: 700;
-    color: var(--white); margin-bottom: 6px;
-  }
-  .feature-tile p { font-size: .86rem; color: var(--muted); line-height: 1.6; }
-
-  /* ─── PARA QUEM (ATUALIZADO) ─────────────────────────── */
-  .fit-section { background: var(--bg); }
-  .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .fit-card { border-radius: 20px; padding: 32px 28px; border: 1px solid; }
-  .fit-card.yes { background: rgba(0,212,255,.04); border-color: rgba(0,212,255,.2); }
-  .fit-card.no { background: rgba(255,255,255,.02); border-color: rgba(255,255,255,.07); }
-  .fit-badge {
-    display: inline-block;
-    font-size: .72rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .1em;
-    padding: 4px 10px; border-radius: 4px;
-    margin-bottom: 20px;
-  }
-  .fit-badge.yes { background: rgba(0,212,255,.15); color: var(--accent); }
-  .fit-badge.no  { background: rgba(255,255,255,.06); color: var(--muted); }
-
-  .fit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .fit-list li { font-size: .9rem; color: var(--muted); display: flex; gap: 10px; align-items: flex-start; }
-  .fit-list li::before { flex-shrink: 0; margin-top: 2px; }
-  .fit-card.yes .fit-list li::before { content: '✓'; color: var(--accent); font-weight: 700; }
-  .fit-card.no  .fit-list li::before { content: '×'; color: var(--muted); }
-
-  /* ─── FAQ ────────────────────────────────────────────── */
-  .faq-section { background: var(--bg2); }
-  .faq-grid { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 24px;
-    align-items: start;
-  }
-  
-  .faq-item {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--r);
-    overflow: hidden;
-  }
-  .faq-item details { padding: 24px; }
-  .faq-item summary {
-    font-family: 'Sora', sans-serif;
-    font-size: .95rem; font-weight: 700;
-    color: var(--white);
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item summary::after {
-    content: '＋';
-    color: var(--accent);
-    font-size: 1.1rem;
-    transition: transform 0.2s;
-  }
-  .faq-item details[open] summary::after { content: '✕'; }
-  .faq-item p { font-size: .88rem; color: var(--muted); line-height: 1.7; margin-top: 14px; }
-
-  /* ─── CTA FINAL ──────────────────────────────────────── */
-  .cta-section { background: var(--bg); padding: 100px 0; }
-  .cta-box {
-    background: linear-gradient(135deg, rgba(0,212,255,.1), rgba(0,212,255,.03));
-    border: 1px solid rgba(0,212,255,.2);
-    border-radius: 28px;
-    padding: 72px 64px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-box::before {
-    content: '';
-    position: absolute;
-    top: -80px; left: 50%;
-    transform: translateX(-50%);
-    width: 500px; height: 200px;
-    background: radial-gradient(ellipse, rgba(0,212,255,.12), transparent 70%);
-    pointer-events: none;
-  }
-  .cta-box h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 16px; }
-  .cta-box p { font-size: 1.05rem; color: var(--muted); margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto; }
-  .cta-micro { margin-top: 18px; font-size: .8rem; color: var(--muted); }
-
-  /* ─── FOOTER ─────────────────────────────────────────── */
-  footer {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    padding: 28px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: .8rem; color: var(--muted);
-    text-align: center;
-  }
-
-  /* ─── RESPONSIVE ─────────────────────────────────────── */
-  @media (max-width: 900px) {
-    .hero-grid, .problem-grid, .fit-grid, .faq-grid { grid-template-columns: 1fr; }
-    .features-grid { grid-template-columns: 1fr 1fr; }
-    .cost-callout { position: static; }
-    .cta-box { padding: 48px 24px; }
-    h1 { font-size: 2.4rem; }
-    nav .nav-cta { display: none; }
-    
-    .cta-box .btn-primary {
-      padding: 16px 20px;
-      white-space: normal;
-      display: block;
-      max-width: 100%;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oasys ERP — Gestão que fecha o mês no azul</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="assets/favicon_arvore.ico">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-  }
-  @media (max-width: 600px) {
-    .features-grid, .kpi-row { grid-template-columns: 1fr; }
-    .proof-bar { gap: 20px; }
-    h2 { font-size: 1.9rem; }
-  }
 
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; animation: none !important; }
-  }
-</style>
+    :root {
+      --bg: #071120;
+      --bg2: #0D1E38;
+      --accent: #0099ff;
+      --accent2: #FF6B35;
+      --text: #F0F6FF;
+      --muted: #94B2D1;
+      --border: rgba(0, 212, 255, .15);
+      --card-bg: rgba(255, 255, 255, .04);
+      --white: #ffffff;
+      --r: 16px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 17, 32, .88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--white);
+      letter-spacing: -.04em;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-menu-container {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+
+    .nav-cta:hover {
+      opacity: .85;
+    }
+
+    /* Botão Sanduíche (Invisível no Desktop) */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      padding: 100px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 40%, rgba(0, 212, 255, .07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(255, 107, 53, .05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: 180px;
+      width: 2px;
+      height: 140%;
+      background: linear-gradient(to bottom, transparent, rgba(255, 107, 53, .25) 30%, rgba(255, 107, 53, .08) 70%, transparent);
+      transform: rotate(-18deg);
+      transform-origin: top center;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -.03em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      padding: 16px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform .18s, box-shadow .18s;
+      box-shadow: 0 0 28px rgba(0, 212, 255, .25);
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(0, 212, 255, .4);
+    }
+
+    .link-secondary {
+      font-size: .9rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .link-secondary:hover {
+      color: var(--text);
+    }
+
+    .proof-bar {
+      margin-top: 36px;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .proof-item {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .proof-item strong {
+      color: var(--white);
+      font-size: 1.15rem;
+      display: block;
+      font-family: 'Sora', sans-serif;
+    }
+
+    /* ─── DASHBOARD MOCK ─────────────────────────────────── */
+    .dashboard {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255, 255, 255, .04);
+    }
+
+    .dash-header {
+      background: rgba(0, 212, 255, .06);
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-r {
+      background: #ff5f57;
+    }
+
+    .dot-y {
+      background: #febc2e;
+    }
+
+    .dot-g {
+      background: #28c840;
+    }
+
+    .dash-title {
+      margin-left: auto;
+      font-size: .75rem;
+      color: var(--muted);
+      font-family: 'Sora', sans-serif;
+      font-weight: 600;
+    }
+
+    .dash-body {
+      padding: 20px;
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .kpi {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: transform 0.2s;
+    }
+
+    .kpi:hover {
+      transform: scale(1.02);
+    }
+
+    .kpi-label {
+      font-size: .7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 4px;
+    }
+
+    .kpi-val {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: var(--white);
+    }
+
+    .kpi-val.good {
+      color: #4ADE80;
+    }
+
+    .kpi-val.warn {
+      color: var(--accent2);
+    }
+
+    .alert-row {
+      background: rgba(255, 107, 53, .08);
+      border: 1px solid rgba(255, 107, 53, .2);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: .82rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% {
+        border-color: rgba(255, 107, 53, .2);
+      }
+
+      100% {
+        border-color: rgba(255, 107, 53, .5);
+      }
+    }
+
+    .alert-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .insight-row {
+      background: rgba(0, 212, 255, .05);
+      border: 1px solid rgba(0, 212, 255, .15);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: .82rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .insight-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .mock-badge {
+      margin-top: 12px;
+      font-size: .68rem;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: .05em;
+    }
+
+    /* ─── SECTION BASE ───────────────────────────────────── */
+    section {
+      padding: 96px 0;
+    }
+
+    .section-label {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.9rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.025em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 56px;
+    }
+
+    /* ─── PROBLEMA ───────────────────────────────────────── */
+    .problem-section {
+      background: var(--bg);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .problem-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .problem-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 20px 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      transition: border-color .2s;
+    }
+
+    .problem-item:hover {
+      border-color: rgba(255, 107, 53, .3);
+    }
+
+    .problem-num {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      color: rgba(255, 107, 53, .18);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 44px;
+    }
+
+    .problem-text h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .problem-text p {
+      font-size: .88rem;
+      color: var(--muted);
+    }
+
+    .cost-callout {
+      background: linear-gradient(135deg, rgba(255, 107, 53, .1), rgba(255, 107, 53, .04));
+      border: 1px solid rgba(255, 107, 53, .2);
+      border-radius: 20px;
+      padding: 40px 36px;
+      position: sticky;
+      top: 100px;
+    }
+
+    .cost-label {
+      font-size: .78rem;
+      color: var(--accent2);
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .cost-big {
+      font-family: 'Sora', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .cost-desc {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .cost-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cost-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: .83rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .cost-line:last-child {
+      border: 0;
+      padding: 0;
+    }
+
+    .cost-line span:last-child {
+      color: var(--accent2);
+      font-weight: 600;
+    }
+
+    /* ─── SOLUÇÃO (GRID 12 MÓDULOS) ──────────────────────── */
+    .solution-section {
+      background: var(--bg2);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .feature-tile {
+      background: var(--bg2);
+      padding: 32px 28px;
+      transition: background .2s;
+    }
+
+    .feature-tile:hover {
+      background: rgba(0, 212, 255, .04);
+    }
+
+    .feature-tile.neuron {
+      background: linear-gradient(135deg, rgba(0, 212, 255, .06), var(--bg2));
+    }
+
+    .feature-tile.neuron:hover {
+      background: linear-gradient(135deg, rgba(0, 212, 255, .12), var(--bg2));
+    }
+
+    .feature-icon {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .feature-tile h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .feature-tile p {
+      font-size: .86rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── PARA QUEM (ATUALIZADO) ─────────────────────────── */
+    .fit-section {
+      background: var(--bg);
+    }
+
+    .fit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .fit-card {
+      border-radius: 20px;
+      padding: 32px 28px;
+      border: 1px solid;
+    }
+
+    .fit-card.yes {
+      background: rgba(0, 212, 255, .04);
+      border-color: rgba(0, 212, 255, .2);
+    }
+
+    .fit-card.no {
+      background: rgba(255, 255, 255, .02);
+      border-color: rgba(255, 255, 255, .07);
+    }
+
+    .fit-badge {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .fit-badge.yes {
+      background: rgba(0, 212, 255, .15);
+      color: var(--accent);
+    }
+
+    .fit-badge.no {
+      background: rgba(255, 255, 255, .06);
+      color: var(--muted);
+    }
+
+    .fit-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fit-list li {
+      font-size: .9rem;
+      color: var(--muted);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .fit-list li::before {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .fit-card.yes .fit-list li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .fit-card.no .fit-list li::before {
+      content: '×';
+      color: var(--muted);
+    }
+
+    /* ─── FAQ ────────────────────────────────────────────── */
+    .faq-section {
+      background: var(--bg2);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+    }
+
+    .faq-item details {
+      padding: 24px;
+    }
+
+    .faq-item summary {
+      font-family: 'Sora', sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--white);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: '＋';
+      color: var(--accent);
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+
+    .faq-item details[open] summary::after {
+      content: '✕';
+    }
+
+    .faq-item p {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+
+    /* ─── CTA FINAL ──────────────────────────────────────── */
+    .cta-section {
+      background: var(--bg);
+      padding: 100px 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, rgba(0, 212, 255, .1), rgba(0, 212, 255, .03));
+      border: 1px solid rgba(0, 212, 255, .2);
+      border-radius: 28px;
+      padding: 72px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(0, 212, 255, .12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 16px;
+    }
+
+    .cta-box p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-micro {
+      margin-top: 18px;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+
+      .hero-grid,
+      .problem-grid,
+      .fit-grid,
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cost-callout {
+        position: static;
+      }
+
+      .cta-box {
+        padding: 48px 24px;
+      }
+
+      h1 {
+        font-size: 2.4rem;
+      }
+
+      /* Configurações responsivas do Menu Sanduíche */
+      .menu-toggle {
+        display: block;
+        order: 3;
+      }
+
+      .logo {
+        order: 1;
+      }
+
+      .nav-menu-container {
+        order: 2;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 24px;
+        gap: 16px;
+        text-align: center;
+        z-index: 99;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      nav .nav-cta {
+        display: none;
+      }
+
+      .cta-box .btn-primary {
+        padding: 16px 20px;
+        white-space: normal;
+        display: block;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .features-grid,
+      .kpi-row {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-bar {
+        gap: 20px;
+      }
+
+      h2 {
+        font-size: 1.9rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="container nav-inner">
-    <a><img src="assets/logohorizontal.png" alt="Oasys ERP" style="height: 50px; width: auto; display: block;"
-    </a>
-    <a href="#diagnostico" class="nav-cta">Diagnóstico gratuito →</a>
-  </div>
-</nav>
+  <nav>
+    <div class="container nav-inner">
+      <!-- Logo na primeira posição -->
+      <a href="#" class="logo" style="order: 1;">
+        <img src="assets/logohorizontal.png" alt="Oasys ERP" style="height: 50px; width: auto; display: block;">
+      </a>
 
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
+      <!-- Botão sanduíche na terceira posição (extrema direita) -->
+      <button class="menu-toggle" aria-label="Abrir menu" style="order: 3;">☰</button>
 
-      <div>
-        <div class="eyebrow">ERP para distribuidoras, lojas e operações com estoque</div>
-        <h1>Estoque vazio.<br>Caixa apertado.<br><em>Margem vazando.</em></h1>
-        <p class="hero-sub">
-          O Oasys conecta estoque, vendas, pedidos e financeiro num painel único — e aponta onde sua operação está perdendo dinheiro antes de aparecer no fechamento.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#diagnostico" class="btn-primary">Agendar diagnóstico gratuito</a>
-          <a href="#solucao" class="link-secondary">Ver como funciona ↓</a>
-        </div>
-
-        <div class="proof-bar">
-          <div class="proof-item">
-            <strong>30 min</strong>
-            para o diagnóstico
-          </div>
-          <div class="proof-item">
-            <strong>Sem compromisso</strong>
-            sem cartão
-          </div>
-          <div class="proof-item">
-            <strong>100% web</strong>
-            sem instalar nada
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="dashboard">
-          <div class="dash-header">
-            <div class="dot dot-r"></div>
-            <div class="dot dot-y"></div>
-            <div class="dot dot-g"></div>
-            <span class="dash-title">Oasys ERP — painel exemplo</span>
-          </div>
-          <div class="dash-body">
-            <div class="kpi-row">
-              <div class="kpi">
-                <div class="kpi-label">Caixa previsto (30d)</div>
-                <div class="kpi-val good">R$ 148.500</div>
-              </div>
-              <div class="kpi">
-                <div class="kpi-label">Pedidos em aberto</div>
-                <div class="kpi-val">87</div>
-              </div>
-              <div class="kpi">
-                <div class="kpi-label">Ticket Médio</div>
-                <div class="kpi-val">124,63  </div>
-              </div>
-              <div class="kpi">
-                <div class="kpi-label">Margem bruta</div>
-                <div class="kpi-val good">34,2%</div>
-              </div>
-            </div>
-
-            <div class="alert-row">
-              <span class="alert-icon">⚠️</span>
-              <div>
-                <strong style="color:#fff;font-size:.82rem;">3 produtos com ruptura em 5 dias</strong><br>
-                <span style="color:var(--muted)">Resina PVC 15mm · Parafuso M8 · Tinta base</span>
-              </div>
-            </div>
-
-            <div class="insight-row">
-              <span class="insight-icon">✦</span>
-              <div>
-                <strong style="color:var(--accent);font-size:.8rem;">Oasys Neuron</strong><br>
-                <span style="color:var(--muted);font-size:.8rem;">Pedidos acima da meta em 18%. Oportunidade de antecipar reposição e evitar perda de R$ 12.400.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mock-badge">Dados ilustrativos inspirados na Interface do Oasys Finance</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="problem-section" id="como-funciona">
-  <div class="container">
-    <div class="problem-grid">
-
-      <div>
-        <div class="section-label">O problema</div>
-        <h2>Não é falta de esforço.<br>É falta de <em>visão</em>.</h2>
-        <p class="lead">Cada erro pequeno na operação vira custo invisível: venda perdida, compra errada, capital parado, caixa que some sem aviso.</p>
-
-        <ul class="problem-list">
-          <li class="problem-item">
-            <span class="problem-num">01</span>
-            <div class="problem-text">
-              <h3>Produto falta no pior momento</h3>
-              <p>O cliente precisa comprar hoje. Sem estoque, ele compra do concorrente — e raramente volta.</p>
-            </div>
-          </li>
-          <li class="problem-item">
-            <span class="problem-num">02</span>
-            <div class="problem-text">
-              <h3>Dinheiro preso em giro baixo</h3>
-              <p>Produtos que ninguém compra ocupam prateleira e travam o capital que a empresa precisa.</p>
-            </div>
-          </li>
-          <li class="problem-item">
-            <span class="problem-num">03</span>
-            <div class="problem-text">
-              <h3>Pedido cai no esquecimento</h3>
-              <p>Retrabalho, atraso na entrega e cliente insatisfeito — tudo por falta de centralização.</p>
-            </div>
-          </li>
-          <li class="problem-item">
-            <span class="problem-num">04</span>
-            <div class="problem-text">
-              <h3>Financeiro no escuro</h3>
-              <p>Sem previsão de caixa, decisões de compra viram aposta — e o mês fecha no vermelho por surpresa.</p>
-            </div>
-          </li>
+      <!-- Menu de links na segunda posição -->
+      <div class="nav-menu-container" style="order: 2;">
+        <ul class="nav-links">
+          <li><a href="#como-funciona">Como Funciona</a></li>
+          <li><a href="#solucao">Soluções</a></li>
+          <li><a href="#diagnostico">Diagnóstico</a></li>
+          <li><a href="ferramentas.html#">Ferramentas</a></li>
         </ul>
+        <a href="#diagnostico" class="nav-cta">Diagnóstico gratuito →</a>
       </div>
+    </div>
+  </nav>
 
-      <div>
-        <div class="cost-callout">
-          <div class="cost-label">Custo oculto da desorganização</div>
-          <div class="cost-big">5–12%</div>
-          <p class="cost-desc">do faturamento anual é desperdiçado em empresas que operam sem visibilidade integrada — segundo estudos do mercado de PMEs brasileiras.</p>
-          <div class="cost-items">
-            <div class="cost-line"><span>Vendas perdidas por ruptura</span><span>~2–4%</span></div>
-            <div class="cost-line"><span>Capital parado em estoque</span><span>~1–3%</span></div>
-            <div class="cost-line"><span>Retrabalho operacional</span><span>~1–2%</span></div>
-            <div class="cost-line"><span>Compras emergenciais caras</span><span>~1–3%</span></div>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+
+        <div>
+          <div class="eyebrow">ERP para distribuidoras, lojas e operações com estoque</div>
+          <h1>Estoque vazio.<br>Caixa apertado.<br><em>Margem vazando.</em></h1>
+          <p class="hero-sub">
+            O Oasys conecta estoque, vendas, pedidos e financeiro num painel único — e aponta onde sua operação está
+            perdendo dinheiro antes de aparecer no fechamento.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#diagnostico" class="btn-primary">Agendar diagnóstico gratuito</a>
+            <a href="#solucao" class="link-secondary">Ver como funciona ↓</a>
+          </div>
+
+          <div class="proof-bar">
+            <div class="proof-item">
+              <strong>30 min</strong>
+              para o diagnóstico
+            </div>
+            <div class="proof-item">
+              <strong>Sem compromisso</strong>
+              sem cartão
+            </div>
+            <div class="proof-item">
+              <strong>100% web</strong>
+              sem instalar nada
+            </div>
           </div>
         </div>
-      </div>
 
-    </div>
-  </div>
-</section>
+        <div>
+          <div class="dashboard">
+            <div class="dash-header">
+              <div class="dot dot-r"></div>
+              <div class="dot dot-y"></div>
+              <div class="dot dot-g"></div>
+              <span class="dash-title">Oasys ERP — painel exemplo</span>
+            </div>
+            <div class="dash-body">
+              <div class="kpi-row">
+                <div class="kpi">
+                  <div class="kpi-label">Caixa previsto (30d)</div>
+                  <div class="kpi-val good">R$ 148.500</div>
+                </div>
+                <div class="kpi">
+                  <div class="kpi-label">Pedidos em aberto</div>
+                  <div class="kpi-val">87</div>
+                </div>
+                <div class="kpi">
+                  <div class="kpi-label">Ticket Médio</div>
+                  <div class="kpi-val">124,63 </div>
+                </div>
+                <div class="kpi">
+                  <div class="kpi-label">Margem bruta</div>
+                  <div class="kpi-val good">34,2%</div>
+                </div>
+              </div>
 
-<section class="solution-section" id="solucao">
-  <div class="container">
-    <div class="section-label">Como o Oasys resolve</div>
-    <h2>Um ecossistema completo.<br><em>Sem puxadinhos.</em></h2>
-    <p class="lead">Substitua dezenas de ferramentas isoladas por 13 módulos integrados que conversam entre si em tempo real.</p>
+              <div class="alert-row">
+                <span class="alert-icon">⚠️</span>
+                <div>
+                  <strong style="color:#fff;font-size:.82rem;">3 produtos com ruptura em 5 dias</strong><br>
+                  <span style="color:var(--muted)">Resina PVC 15mm · Parafuso M8 · Tinta base</span>
+                </div>
+              </div>
 
-    <div class="features-grid">
-      
-      <div class="feature-tile">
-        <span class="feature-icon">🗂️</span>
-        <h3>Pedidos & Vendas Externas</h3>
-        <p>Centralize pedidos da loja e dê um <strong>aplicativo exclusivo</strong> para sua equipe de vendas externas fechar negócios na rua.</p>
-      </div>
-      <div class="feature-tile">
-        <span class="feature-icon">👥</span>
-        <h3>CRM Integrado</h3>
-        <p>Histórico completo de clientes, funil de vendas, oportunidades e follow-ups automáticos no mesmo lugar.</p>
-      </div>
-      <div class="feature-tile">
-        <span class="feature-icon">🖥️</span>
-        <h3>Frente de Caixa (PDV)</h3>
-        <p>Agilidade no balcão de vendas com uma interface rápida, intuitiva e totalmente conectada ao controle financeiro.</p>
-      </div>
+              <div class="insight-row">
+                <span class="insight-icon">✦</span>
+                <div>
+                  <strong style="color:var(--accent);font-size:.8rem;">Oasys Neuron</strong><br>
+                  <span style="color:var(--muted);font-size:.8rem;">Pedidos acima da meta em 18%. Oportunidade de
+                    antecipar reposição e evitar perda de R$ 12.400.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-badge">Dados ilustrativos inspirados na Interface do Oasys Finance</div>
+        </div>
 
-      <div class="feature-tile">
-        <span class="feature-icon">📦</span>
-        <h3>Estoque Inteligente</h3>
-        <p>Giro de estoque, curva ABC e alertas de ruptura antes do produto acabar. Nível mínimo configurável por item.</p>
-      </div>
-      <div class="feature-tile">
-        <span class="feature-icon">🚚</span>
-        <h3>Logística & Expedição</h3>
-        <p>Rastreie do pedido à entrega. Organize rotas, controle despachos e reduza o tempo de envio aos clientes.</p>
-      </div>
-      <div class="feature-tile">
-        <span class="feature-icon">🛠️</span>
-        <h3>Gestão de Serviços</h3>
-        <p>Controle ordens de serviço (OS), contratos de recorrência, alocação de técnicos e faturamento automático.</p>
-      </div>
-
-      <div class="feature-tile">
-        <span class="feature-icon">💰</span>
-        <h3>Financeiro & Fluxo de Caixa</h3>
-        <p>Contas a pagar e receber integradas. Previsão de caixa real para 30, 60 e 90 dias sem surpresas.</p>
-      </div>
-      <div class="feature-tile">
-        <span class="feature-icon">💳</span>
-        <h3>Pagamentos & Cobranças</h3>
-        <p>Emita Pix, boletos e links de pagamento. Régua de cobrança automática para reduzir a inadimplência.</p>
-      </div>
-      <div class="feature-tile">
-        <span class="feature-icon">🧾</span>
-        <h3>Notas Fiscais Automatizadas</h3>
-        <p>Emissão instantânea de NF-e, NFC-e e NFS-e direto no ato da venda, sem necessidade de retrabalho.</p>
-      </div>
-
-      <div class="feature-tile">
-        <span class="feature-icon">🛒</span>
-        <h3>Compras & Suprimentos</h3>
-        <p>Sugestões de compra baseadas em histórico. Cotações com fornecedores e entrada automática via XML.</p>
-      </div>
-      <div class="feature-tile">
-        <span class="feature-icon">🏭</span>
-        <h3>Engenharia de Produção</h3>
-        <p>Controle de ordens de produção, estrutura de produtos (BOM), custo de fabricação e matéria-prima.</p>
-      </div>
-      <div class="feature-tile neuron">
-        <span class="feature-icon">✦</span>
-        <h3>Oasys Neuron (IA)</h3>
-        <p>A inteligência artificial que monitora toda a sua operação e emite alertas preditivos sobre a saúde do negócio.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="fit-section">
-  <div class="container">
-    <div class="section-label">Para quem é o Oasys</div>
-    <h2>Não é sobre tamanho.<br>É sobre <em>mentalidade</em>.</h2>
-    <p class="lead">Seja para organizar do zero com emissão de notas ou para integrar uma indústria complexa, o Oasys se adapta a quem quer evoluir.</p>
-
-    <div class="fit-grid">
-      <div class="fit-card yes">
-        <span class="fit-badge yes">Perfeito para quem busca</span>
-        <ul class="fit-list">
-          <li><strong>Evolução gradual:</strong> quer começar apenas emitindo Notas Fiscais com agilidade, mas quer um sistema pronto para liberar novos módulos conforme crescer.</li>
-          <li><strong>Visibilidade total:</strong> precisa integrar estoque, pedidos e financeiro para parar de perder margem.</li>
-          <li><strong>Decisões inteligentes:</strong> quer alertas automáticos e previsão de caixa real para planejar os próximos meses.</li>
-          <li><strong>Otimização de processos:</strong> gestores inconformados com retrabalhos e controles manuais em paralelo.</li>
-        </ul>
-      </div>
-      <div class="fit-card no">
-        <span class="fit-badge no">Definitivamente NÃO serve se</span>
-        <ul class="fit-list">
-          <li>Você é um gestor ou empresário *resistente a mudanças* e que não está disposto a otimizar os fluxos internos da empresa.</li>
-          <li>Prefere manter processos descentralizados (um sistema para cada coisa, planilhas soltas e anotações) mesmo sabendo que há gargalos.</li>
-          <li>Procura um "milagre" tecnológico instantâneo sem o mínimo de empenho em treinar a equipe nos novos fluxos organizados.</li>
-        </ul>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="faq-section">
-  <div class="container">
-    <div class="section-label">Perguntas frequentes</div>
-    <h2>Respondendo antes<br>de você <em>perguntar</em>.</h2>
-    <p class="lead" style="margin-bottom:40px;">Se ficou alguma dúvida, o diagnóstico é o lugar certo para tirar todas.</p>
+  <section class="problem-section" id="como-funciona">
+    <div class="container">
+      <div class="problem-grid">
 
-    <div class="faq-grid">
-      <div class="faq-item">
-        <details>
-          <summary>O Oasys substitui meu ERP atual?</summary>
-          <p>Em 95% das vezes sim. No diagnóstico mapeamos quais processos o Oasys centraliza e se vale substituir ou integrar com o que você já usa.</p>
-        </details>
+        <div>
+          <div class="section-label">O problema</div>
+          <h2>Não é falta de esforço.<br>É falta de <em>visão</em>.</h2>
+          <p class="lead">Cada erro pequeno na operação vira custo invisível: venda perdida, compra errada, capital
+            parado, caixa que some sem aviso.</p>
+
+          <ul class="problem-list">
+            <li class="problem-item">
+              <span class="problem-num">01</span>
+              <div class="problem-text">
+                <h3>Produto falta no pior momento</h3>
+                <p>O cliente precisa comprar hoje. Sem estoque, ele compra do concorrente — e raramente volta.</p>
+              </div>
+            </li>
+            <li class="problem-item">
+              <span class="problem-num">02</span>
+              <div class="problem-text">
+                <h3>Dinheiro preso em giro baixo</h3>
+                <p>Produtos que ninguém compra ocupam prateleira e travam o capital que a empresa precisa.</p>
+              </div>
+            </li>
+            <li class="problem-item">
+              <span class="problem-num">03</span>
+              <div class="problem-text">
+                <h3>Pedido cai no esquecimento</h3>
+                <p>Retrabalho, atraso na entrega e cliente insatisfeito — tudo por falta de centralização.</p>
+              </div>
+            </li>
+            <li class="problem-item">
+              <span class="problem-num">04</span>
+              <div class="problem-text">
+                <h3>Financeiro no escuro</h3>
+                <p>Sem previsão de caixa, decisões de compra viram aposta — e o mês fecha no vermelho por surpresa.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="cost-callout">
+            <div class="cost-label">Custo oculto da desorganização</div>
+            <div class="cost-big">5–12%</div>
+            <p class="cost-desc">do faturamento anual é desperdiçado em empresas que operam sem visibilidade integrada —
+              segundo estudos do mercado de PMEs brasileiras.</p>
+            <div class="cost-items">
+              <div class="cost-line"><span>Vendas perdidas por ruptura</span><span>~2–4%</span></div>
+              <div class="cost-line"><span>Capital parado em estoque</span><span>~1–3%</span></div>
+              <div class="cost-line"><span>Retrabalho operacional</span><span>~1–2%</span></div>
+              <div class="cost-line"><span>Compras emergenciais caras</span><span>~1–3%</span></div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="faq-item">
-        <details>
-          <summary>Quanto tempo leva para implantar?</summary>
-          <p>A maioria das empresas começa a operar em 2 a 4 semanas. O ritmo depende da complexidade da sua operação e da disponibilidade da equipe.</p>
-        </details>
-      </div>
-      <div class="faq-item">
-        <details>
-          <summary>Precisa instalar alguma coisa?</summary>
-          <p>Não. O Oasys é 100% web — funciona em qualquer navegador, sem instalar nada no computador ou servidor.</p>
-        </details>
-      </div>
-      <div class="faq-item">
-        <details>
-          <summary>Como funciona o diagnóstico gratuito?</summary>
-          <p>São 30 minutos por videoconferência. Analisamos sua operação atual, identificamos gargalos e mostramos onde o Oasys faria diferença na prática.</p>
-        </details>
-      </div>
-      <div class="faq-item">
-  <details>
-    <summary>Quanto custa?</summary>
-    <p>Temos planos a partir de <strong>R$ 189,00/mês</strong>. O plano ideal e as condições personalizadas são definidos e apresentados diretamente na nossa reunião de diagnóstico, de acordo com as necessidades da sua operação.</p>
-  </details>
-</div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="cta-section" id="diagnostico">
-  <div class="container">
-    <div class="cta-box">
-      <div class="section-label" style="margin-bottom:12px;text-align:center;">Próximo passo</div>
-      <h2>Descubra onde sua<br><em>empresa perde margem</em>.</h2>
-      <p>Em 30 minutos, avaliamos estoque, vendas e caixa da sua operação — sem compromisso e sem custo.</p>
-      <a href="https://wa.me/554731804931?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20diagn%C3%B3stico%20gratuito%20do%20Oasys%20ERP." class="btn-primary" target="_blank" rel="noopener">Agendar meu diagnóstico agora</a>
-      <p class="cta-micro">Sem cartão de crédito · Sem compromisso de compra · 30 minutos por vídeo chamada ou presencial</p>
+  <section class="solution-section" id="solucao">
+    <div class="container">
+      <div class="section-label">Como o Oasys resolve</div>
+      <h2>Um ecossistema completo.<br><em>Sem puxadinhos.</em></h2>
+      <p class="lead">Substitua dezenas de ferramentas isoladas por 13 módulos integrados que conversam entre si em
+        tempo real.</p>
+
+      <div class="features-grid">
+
+        <div class="feature-tile">
+          <span class="feature-icon">🗂️</span>
+          <h3>Pedidos & Vendas Externas</h3>
+          <p>Centralize pedidos da loja e dê um <strong>aplicativo exclusivo</strong> para sua equipe de vendas externas
+            fechar negócios na rua.</p>
+        </div>
+        <div class="feature-tile">
+          <span class="feature-icon">👥</span>
+          <h3>CRM Integrado</h3>
+          <p>Histórico completo de clientes, funil de vendas, oportunidades e follow-ups automáticos no mesmo lugar.</p>
+        </div>
+        <div class="feature-tile">
+          <span class="feature-icon">🖥️</span>
+          <h3>Frente de Caixa (PDV)</h3>
+          <p>Agilidade no balcão de vendas com uma interface rápida, intuitiva e totalmente conectada ao controle
+            financeiro.</p>
+        </div>
+
+        <div class="feature-tile">
+          <span class="feature-icon">📦</span>
+          <h3>Estoque Inteligente</h3>
+          <p>Giro de estoque, curva ABC e alertas de ruptura antes do produto acabar. Nível mínimo configurável por
+            item.</p>
+        </div>
+        <div class="feature-tile">
+          <span class="feature-icon">🚚</span>
+          <h3>Logística & Expedição</h3>
+          <p>Rastreie do pedido à entrega. Organize rotas, controle despachos e reduza o tempo de envio aos clientes.
+          </p>
+        </div>
+        <div class="feature-tile">
+          <span class="feature-icon">🛠️</span>
+          <h3>Gestão de Serviços</h3>
+          <p>Controle ordens de serviço (OS), contratos de recorrência, alocação de técnicos e faturamento automático.
+          </p>
+        </div>
+
+        <div class="feature-tile">
+          <span class="feature-icon">💰</span>
+          <h3>Financeiro & Fluxo de Caixa</h3>
+          <p>Contas a pagar e receber integradas. Previsão de caixa real para 30, 60 e 90 dias sem surpresas.</p>
+        </div>
+        <div class="feature-tile">
+          <span class="feature-icon">💳</span>
+          <h3>Pagamentos & Cobranças</h3>
+          <p>Emita Pix, boletos e links de pagamento. Régua de cobrança automática para reduzir a inadimplência.</p>
+        </div>
+        <div class="feature-tile">
+          <span class="feature-icon">🧾</span>
+          <h3>Notas Fiscais Automatizadas</h3>
+          <p>Emissão instantânea de NF-e, NFC-e e NFS-e direto no ato da venda, sem necessidade de retrabalho.</p>
+        </div>
+
+        <div class="feature-tile">
+          <span class="feature-icon">🛒</span>
+          <h3>Compras & Suprimentos</h3>
+          <p>Sugestões de compra baseadas em histórico. Cotações com fornecedores e entrada automática via XML.</p>
+        </div>
+        <div class="feature-tile">
+          <span class="feature-icon">🏭</span>
+          <h3>Engenharia de Produção</h3>
+          <p>Controle de ordens de produção, estrutura de produtos (BOM), custo de fabricação e matéria-prima.</p>
+        </div>
+        <div class="feature-tile neuron">
+          <span class="feature-icon">✦</span>
+          <h3>Oasys Neuron (IA)</h3>
+          <p>A inteligência artificial que monitora toda a sua operação e emite alertas preditivos sobre a saúde do
+            negócio.</p>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <div>
-    © 2026 Oasys Tecnologia · 62.315.545/0001-44 · Rio do Sul/SC ·
-    <a href="https://oasystecnologia.com" style="color:var(--white);text-decoration:none;" target="_blank" rel="noopener">oasystecnologia.com ↗</a>
-  </div>
-</footer>
+  <section class="fit-section">
+    <div class="container">
+      <div class="section-label">Para quem é o Oasys</div>
+      <h2>Não é sobre tamanho.<br>É sobre <em>mentalidade</em>.</h2>
+      <p class="lead">Seja para organizar do zero com emissão de notas ou para integrar uma indústria complexa, o Oasys
+        se adapta a quem quer evoluir.</p>
+
+      <div class="fit-grid">
+        <div class="fit-card yes">
+          <span class="fit-badge yes">Perfeito para quem busca</span>
+          <ul class="fit-list">
+            <li>Evolução gradual: quer começar apenas emitindo Notas Fiscais com agilidade, mas quer um sistema pronto
+              para liberar novos módulos conforme crescer.</li>
+            <li>Visibilidade total: precisa integrar estoque, pedidos e financeiro para parar de perder margem.</li>
+            <li>Decisões inteligentes: quer alertas automáticos e previsão de caixa real para planejar os próximos
+              meses.</li>
+            <li>Otimização de processos: gestores inconformados com retrabalhos e controles manuais em paralelo.</li>
+          </ul>
+        </div>
+        <div class="fit-card no">
+          <span class="fit-badge no">Definitivamente NÃO serve se</span>
+          <ul class="fit-list">
+            <li>Você é um gestor ou empresário *resistente a mudanças* e que não está disposto a otimizar os fluxos
+              internos da empresa.</li>
+            <li>Prefere manter processos descentralizados (um sistema para cada coisa, planilhas soltas e anotações)
+              mesmo sabendo que há gargalos.</li>
+            <li>Procura um "milagre" tecnológico instantâneo sem o mínimo de empenho em treinar a equipe nos novos
+              fluxos organizados.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-label">Perguntas frequentes</div>
+      <h2>Respondendo antes<br>de você <em>perguntar</em>.</h2>
+      <p class="lead" style="margin-bottom:40px;">Se ficou alguma dúvida, o diagnóstico é o lugar certo para tirar
+        todas.</p>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <details>
+            <summary>O Oasys substitui meu ERP atual?</summary>
+            <p>Em 95% das vezes sim. No diagnóstico mapeamos quais processos o Oasys centraliza e se vale substituir ou
+              integrar com o que você já usa.</p>
+          </details>
+        </div>
+        <div class="faq-item">
+          <details>
+            <summary>Quanto tempo leva para implantar?</summary>
+            <p>A maioria das empresas começa a operar em 2 a 4 semanas. O ritmo depende da complexidade da sua operação
+              e da disponibilidade da equipe.</p>
+          </details>
+        </div>
+        <div class="faq-item">
+          <details>
+            <summary>Precisa instalar alguma coisa?</summary>
+            <p>Não. O Oasys é 100% web — funciona em qualquer navegador, sem instalar nada no computador ou servidor.
+            </p>
+          </details>
+        </div>
+        <div class="faq-item">
+          <details>
+            <summary>Como funciona o diagnóstico gratuito?</summary>
+            <p>São 30 minutos por videoconferência. Analisamos sua operação atual, identificamos gargalos e mostramos
+              onde o Oasys faria diferença na prática.</p>
+          </details>
+        </div>
+        <div class="faq-item">
+          <details>
+            <summary>Quanto custa?</summary>
+            <p>Temos planos a partir de <strong>R$ 189,00/mês</strong>. O plano ideal e as condições personalizadas são
+              definidos e apresentados diretamente na nossa reunião de diagnóstico, de acordo com as necessidades da sua
+              operação.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="diagnostico">
+    <div class="container">
+      <div class="cta-box">
+        <div class="section-label" style="margin-bottom:12px;text-align:center;">Próximo passo</div>
+        <h2>Descubra onde sua<br><em>empresa perde margem</em>.</h2>
+        <p>Em 30 minutos, avaliamos estoque, vendas e caixa da sua operação — sem compromisso e sem custo.</p>
+        <a href="https://wa.me/554731804931?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20diagn%C3%B3stico%20gratuito%20do%20Oasys%20ERP."
+          class="btn-primary" target="_blank" rel="noopener">Agendar meu diagnóstico agora</a>
+        <p class="cta-micro">Sem cartão de crédito · Sem compromisso de compra · 30 minutos por vídeo chamada ou
+          presencial</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      © 2026 Oasys Tecnologia · 62.315.545/0001-44 · Rio do Sul/SC ·
+      <a href="https://oasystecnologia.com" style="color:var(--white);text-decoration:none;" target="_blank"
+        rel="noopener">oasystecnologia.com ↗</a> ·
+      <a href="https://instagram.com/oasystecnologia" style="color:var(--white);text-decoration:none;" target="_blank"
+        rel="noopener">@oasystecnologia ↗</a>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Abre e fecha o menu ao clicar no botão sanduíche
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      menuToggle.textContent = navLinks.classList.contains('show') ? '✕' : '☰';
+    });
+
+    // Fecha o menu automaticamente ao clicar em qualquer link (âncoras internas)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('show');
+        menuToggle.textContent = '☰';
+      });
+    });
+  </script>
 
 </body>
+
 </html>
