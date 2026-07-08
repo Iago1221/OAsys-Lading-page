@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<script>
+  !function (t, e) { var o, n, p, r; e.__SV || (window.posthog && window.posthog.__loaded) || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "ki Ci init qi Hi pr Bi zi Di capture calculateEventProperties Qi register register_once register_for_session unregister unregister_for_session Ki getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync Xi identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty Ji Gi createPersonProfile setInternalOrTestUser Yi Ai rn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Vi debug mr it getPageViewId captureTraceFeedback captureTraceMetric Oi".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+  posthog.init('phc_oNFA5tQmoU3kR3LsPu9twsW7K7VfDBJmHbrfLecJMshD', {
+    api_host: 'https://us.i.posthog.com',
+    defaults: '2026-05-30',
+    person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+  })
+</script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quanto o seu estoque está te custando? — Oasys ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght=600;700;800&family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #071120;
+      --bg2: #0D1E38;
+      --accent: #0099ff;
+      --accent2: #0099ff;
+      --text: #F0F6FF;
+      --muted: #94B2D1;
+      --border: rgba(0, 212, 255, .15);
+      --card-bg: rgba(255, 255, 255, .04);
+      --white: #ffffff;
+      --good: #4ADE80;
+      --r: 16px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 17, 32, .88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--white);
+      letter-spacing: -.04em;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+
+    .nav-cta:hover {
+      opacity: .85;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 100px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 20%, rgba(255, 107, 53, .08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(0, 212, 255, .06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--accent2);
+    }
+
+    h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2.3rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -.03em;
+      color: var(--white);
+      margin-bottom: 22px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent2);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent2);
+      color: var(--white);
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: clamp(.9rem, 2vw, 1rem);
+      padding: 18px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform .18s, box-shadow .18s;
+      box-shadow: 0 0 32px rgba(255, 107, 53, .3);
+      white-space: nowrap;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 44px rgba(76, 178, 247, 0.45);
+    }
+
+    .btn-primary.blue {
+      background: var(--accent);
+      box-shadow: 0 0 32px rgba(0, 212, 255, .3);
+    }
+
+    .btn-primary.blue:hover {
+      box-shadow: 0 0 44px rgba(0, 212, 255, .45);
+    }
+
+    .microcopy {
+      margin-top: 20px;
+      font-size: .82rem;
+      color: var(--muted);
+      letter-spacing: .02em;
+    }
+
+    .microcopy span {
+      color: var(--good);
+    }
+
+    /* SECTION BASE */
+    section {
+      padding: 96px 0;
+    }
+
+    .section-label {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.025em;
+      color: var(--white);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 620px;
+      line-height: 1.75;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+
+    .lead strong {
+      color: var(--white);
+    }
+
+    /* PROBLEMA */
+    .problem-section {
+      background: var(--bg2);
+    }
+
+    .problem-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .problem-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 20px 22px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      transition: border-color .2s;
+    }
+
+    .problem-item:hover {
+      border-color: rgba(255, 107, 53, .3);
+    }
+
+    .problem-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .problem-item p {
+      font-size: .92rem;
+      color: var(--muted);
+    }
+
+    .problem-item strong {
+      color: var(--white);
+    }
+
+    .problem-footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 1.02rem;
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .problem-footer span {
+      color: var(--accent2);
+    }
+
+    /* CONTA */
+    .cost-section {
+      background: var(--bg);
+    }
+
+    .cost-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .cost-inputs {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    .cost-inputs .label {
+      font-size: .78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 6px;
+    }
+
+    .cost-inputs .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cost-inputs .row:last-child {
+      border: 0;
+    }
+
+    .cost-inputs .val {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--white);
+    }
+
+    .cost-callout-text h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 18px;
+      line-height: 1.3;
+    }
+
+    .cost-big {
+      font-family: 'Sora', sans-serif;
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: var(--accent2);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .cost-callout-text p {
+      font-size: .98rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* CICLO */
+    .cycle-section {
+      background: var(--bg2);
+    }
+
+    .cycle-flow {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .cycle-node {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 26px;
+      font-size: .92rem;
+      color: var(--white);
+      text-align: center;
+      min-width: 260px;
+    }
+
+    .cycle-node.warn {
+      border-color: rgba(255, 107, 53, .35);
+      background: rgba(255, 107, 53, .06);
+      color: var(--accent2);
+      font-weight: 600;
+    }
+
+    .cycle-arrow {
+      color: var(--muted);
+      font-size: 1.2rem;
+      padding: 6px 0;
+    }
+
+    .cycle-loop {
+      margin-top: 18px;
+      font-size: .85rem;
+      color: var(--accent);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* SOLUÇÃO */
+    .solution-section {
+      background: var(--bg);
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .solution-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+    }
+
+    .solution-card.neuron {
+      background: linear-gradient(135deg, rgba(0, 212, 255, .1), var(--card-bg));
+      border-color: rgba(0, 212, 255, .3);
+    }
+
+    .solution-tag {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(0, 212, 255, .12);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+
+    .solution-card h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .solution-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .solution-card li {
+      font-size: .88rem;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .solution-card li::before {
+      content: '·';
+      color: var(--accent);
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    /* CALCULADORA */
+    .calc-section {
+      background: var(--bg2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calc-section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 260px;
+      background: radial-gradient(ellipse, rgba(51, 217, 247, 0.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .calc-box {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(53, 208, 255, 0.25);
+      border-radius: 24px;
+      padding: 48px;
+    }
+
+    .calc-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 8px;
+    }
+
+    .field label {
+      display: block;
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .field input {
+      width: 100%;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      color: var(--white);
+      font-size: .95rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: var(--accent2);
+    }
+
+    .field input::placeholder {
+      color: rgba(148, 178, 209, .5);
+    }
+
+    .calc-btn-row {
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    .calc-result {
+      margin-top: 36px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+
+    .calc-result.show {
+      display: block;
+    }
+
+    .calc-result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .calc-metric {
+      background: rgba(255, 107, 53, .07);
+      border: 1px solid rgba(255, 107, 53, .2);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .calc-metric-label {
+      font-size: .72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+
+    .calc-metric-val {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--accent2);
+    }
+
+    .calc-disclaimer {
+      font-size: .76rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .calc-cta {
+      text-align: center;
+    }
+
+    /* RESULTADO */
+    .result-section {
+      background: var(--bg);
+    }
+
+    .result-list {
+      max-width: 560px;
+      margin: 0 auto;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .result-list li {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 1rem;
+      color: var(--white);
+      padding: 16px 22px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .result-check {
+      color: var(--good);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .result-negatives {
+      max-width: 560px;
+      margin: 32px auto 0;
+      text-align: center;
+      font-size: .95rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    /* PARA QUEM */
+    .fit-section {
+      background: var(--bg2);
+    }
+
+    .fit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .fit-card {
+      border-radius: 20px;
+      padding: 32px 28px;
+      border: 1px solid;
+    }
+
+    .fit-card.yes {
+      background: rgba(0, 212, 255, .04);
+      border-color: rgba(0, 212, 255, .2);
+    }
+
+    .fit-card.no {
+      background: rgba(248, 82, 82, 0.02);
+      border-color: rgba(255, 255, 255, .07);
+    }
+
+    .fit-badge {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .fit-badge.yes {
+      background: rgba(0, 212, 255, .15);
+      color: var(--accent);
+    }
+
+    .fit-badge.no {
+      background: rgba(255, 255, 255, .06);
+      color: var(--muted);
+    }
+
+    .fit-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fit-list li {
+      font-size: .9rem;
+      color: var(--muted);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .fit-card.yes .fit-list li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .fit-card.no .fit-list li::before {
+      content: '×';
+      color: var(--muted);
+    }
+
+    /* CTA FINAL */
+    .cta-section {
+      background: var(--bg);
+      padding: 100px 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, rgba(56, 184, 243, 0.12), rgba(255, 107, 53, .03));
+      border: 1px solid rgba(53, 90, 255, 0.25);
+      border-radius: 28px;
+      padding: 72px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(50, 127, 163, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      margin-bottom: 16px;
+    }
+
+    .cta-box p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-micro {
+      margin-top: 18px;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    /* --- FOOTER CENTRALIZADO E TOTALMENTE RESPONSIVO --- */
+    .footer-main {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 60px 0;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Divide em duas colunas idênticas no PC */
+      gap: 60px;                      /* Espaço equilibrado entre os blocos */
+      max-width: 650px;               /* Encolhe a largura para aproximá-los no centro */
+      margin: 0 auto;                 /* Centraliza horizontalmente na tela do computador */
+      align-items: start;
+    }
+
+    .footer-col strong {
+      color: var(--white);
+      display: block;
+      margin-bottom: 16px;
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-col ul li {
+      display: flex;
+    }
+
+    .footer-col ul li a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+
+    .logo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Alinhamento à esquerda no PC */
+    }
+
+    .logo-col p {
+      line-height: 1.6;
+      margin-top: 16px;
+      max-width: 320px;
+    }
+
+    /* --- RESPONSIVIDADE (MOBILE) --- */
+    @media (max-width: 900px) {
+
+      .cost-grid,
+      .solution-grid,
+      .fit-grid,
+      .calc-form,
+      .calc-result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-list {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 48px 24px;
+      }
+
+      .calc-box {
+        padding: 32px 22px;
+      }
+
+      .btn-primary {
+        white-space: normal;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* COMPORTAMENTO DO FOOTER NO MOBILE */
+      .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+        max-width: 100%; /* Permite ocupar o espaço móvel natural */
+      }
+
+      .logo-col {
+        order: -1;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centraliza a logo e texto no celular */
+      }
+
+      .footer-col ul li {
+        justify-content: center; /* Centraliza a lista de contatos no celular */
+      }
+
+      .footer-col ul li a {
+        word-break: break-all;
+      }
+
+      nav .nav-inner {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .nav-cta.btn-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <a href="https://oasystecnologia.com" target="_blank" rel="noopener noreferrer">
+        <img src="assets/logohorizontal.png" alt="Oasys ERP" style="height: 40px; width: auto; display: block;">
+      </a>
+      <a href="#diagnostico" class="nav-cta btn-nav">Diagnóstico gratuito →</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="inicio">
+    <div class="container hero-inner">
+      <div class="eyebrow">Diagnóstico gratuito de estoque</div>
+      <h1>Seu estoque está consumindo dinheiro todos os dias. <em>Talvez você ainda não tenha percebido quanto.</em></h1>
+      <p class="hero-sub">
+        Produtos parados, compras desnecessárias, rupturas inesperadas e informações desencontradas transformam o
+        estoque em um dos maiores centros de desperdício da empresa. A Oasys identifica esses problemas e ajuda você a recuperar o controle.
+      </p>
+      <div class="hero-actions">
+        <a href="#calculadora" class="btn-primary">Quero descobrir quanto meu estoque está me custando</a>
+      </div>
+      <p class="microcopy"><span>●</span> Diagnóstico gratuito &nbsp;·&nbsp; <span>●</span> Sem compromisso &nbsp;·&nbsp; <span>●</span> Em até 20 minutos</p>
+    </div>
+  </section>
+
+  <section class="problem-section" id="problema">
+    <div class="container">
+      <div class="section-label">O problema invisível</div>
+      <h2>Você não perde dinheiro só quando<br><em>falta produto.</em></h2>
+      <p class="lead">Você perde dinheiro sempre que uma destas situações acontece na sua operação — e na maioria das empresas, isso passa despercebido todos os dias.</p>
+      <ul class="problem-list">
+        <li class="problem-item"><span class="problem-icon">📈</span>
+          <p><strong>Compra mais do que precisa.</strong><br> Sem visibilidade do giro real, o excesso vira regra.</p>
+        </li>
+        <li class="problem-item"><span class="problem-icon">⏱️</span>
+          <p><strong>Descobre tarde que um item acabou.</strong><br> A ruptura só aparece quando o cliente já está esperando.</p>
+        </li>
+        <li class="problem-item"><span class="problem-icon">📦</span>
+          <p><strong>Mantém produtos parados durante meses.</strong><br> Capital imobilizado nas prateleiras, sem gerar caixa.</p>
+        </li>
+        <li class="problem-item"><span class="problem-icon">🔁</span>
+          <p><strong>Compra novamente algo que já existia.</strong><br> Falta de controle gera pedido duplicado.</p>
+        </li>
+        <li class="problem-item"><span class="problem-icon">❓</span>
+          <p><strong>Não sabe quanto capital está parado.</strong><br> A decisão vira achismo, não dado.</p>
+        </li>
+        <li class="problem-item"><span class="problem-icon">📉</span>
+          <p><strong>Vende sem margem.</strong><br> O custo estava desatualizado no momento da venda.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cost-section">
+    <div class="container">
+      <div class="section-label">A conta que ninguém faz</div>
+      <h2>Um exemplo simples <em>que dói.</em></h2>
+      <p class="lead">Suponha que você tenha um saldo de R$ 800 mil em estoque e que 15% represente itens que não giram e outros 8% represente compras desnecessárias, feitas sem analisar os dados.</p>
+      <div class="cost-grid">
+        <div class="cost-inputs">
+          <div class="row"><span class="label">Estoque total</span><span class="val">R$ 800 mil</span></div>
+          <div class="row"><span class="label">Itens parados</span><span class="val">15%</span></div>
+          <div class="row"><span class="label">Compras desnecessárias</span><span class="val">8%</span></div>
+        </div>
+        <div class="cost-callout-text">
+          <h3>Isso representa centenas de milhares de reais imobilizados que poderiam estar gerando caixa para o negócio.</h3>
+          <div class="cost-big">R$ 184.000+</div>
+          <p>Enquanto esse capital fica parado nas prateleiras, produtos importantes continuam faltando — e o ciclo de compras erradas recomeça todo mês.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cycle-section">
+    <div class="container">
+      <div class="section-label">O ciclo que nunca termina</div>
+      <h2>O mesmo erro, <em>mês após mês.</em></h2>
+      <p class="lead">Sem visibilidade real do estoque, toda empresa cai no mesmo padrão — e ele se repete sozinho.</p>
+      <div class="cycle-flow">
+        <div class="cycle-node warn">❌ Falta um produto</div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">Compra urgente</div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">Compra acima do preço</div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">Chega outro lote</div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">Agora existe excesso</div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">Capital parado</div>
+        <div class="cycle-arrow">↓</div>
+        <div class="cycle-node">Novo pedido errado</div>
+        <div class="cycle-loop">↻ O ciclo recomeça</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="solution-section" id="como_funciona">
+    <div class="container">
+      <div class="section-label">Como a Oasys resolve</div>
+      <h2>De apagar incêndio a <em>decidir com dados.</em></h2>
+      <p class="lead">A Oasys transforma o estoque em uma operação previsível. Em vez de trabalhar reagindo a problemas, você passa a tomar decisões baseadas em dados reais.</p>
+      <div class="solution-grid">
+        <div class="solution-card">
+          <span class="solution-tag">ERP</span>
+          <h3>Controla tudo integrado</h3>
+          <ul>
+            <li>Entrada e saída</li>
+            <li>Inventário e lotes</li>
+            <li>Custos e compras</li>
+            <li>Produção</li>
+            <li>Reservas e transferências</li>
+          </ul>
+        </div>
+        <div class="solution-card">
+          <span class="solution-tag">Oasys Finance</span>
+          <h3>Mostra a realidade do caixa</h3>
+          <ul>
+            <li>Valor total do estoque</li>
+            <li>Giro dos produtos</li>
+            <li>Produtos com maior faturamento</li>
+            <li>Itens sem movimentação</li>
+            <li>Produtos próximos da ruptura</li>
+            <li>Estoque disponível em tempo real</li>
+          </ul>
+        </div>
+        <div class="solution-card neuron">
+          <span class="solution-tag">Oasys Neuron · IA</span>
+          <h3>Analisa antes de você perguntar</h3>
+          <ul>
+            <li>Produtos com baixa movimentação</li>
+            <li>Excesso de estoque</li>
+            <li>Risco de ruptura</li>
+            <li>Compras acima da média</li>
+            <li>Tendências de consumo</li>
+            <li>Oportunidades de redução de capital parado</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="calc-section" id="calculadora">
+    <div class="container">
+      <div class="section-label">Ferramenta gratuita</div>
+      <h2>Quanto dinheiro está <em>parado no seu estoque?</em></h2>
+      <p class="lead">Preencha os dados abaixo e veja uma estimativa de quanto capital pode estar imobilizado na sua operação hoje.</p>
+      <div class="calc-box">
+        <div class="calc-form">
+          <div class="field">
+            <label for="valorEstoque">Valor aproximado do estoque (R$)</label>
+            <input type="text" inputmode="decimal" id="valorEstoque" placeholder="Ex: 800.000" oninput="mascaraMoeda(this)">
+          </div>
+          <div class="field">
+            <label for="comprasMensais">Compras mensais (R$)</label>
+            <input type="text" inputmode="decimal" id="comprasMensais" placeholder="Ex: 120.000" oninput="mascaraMoeda(this)">
+          </div>
+          <div class="field" style="grid-column: 1 / -1;">
+            <label for="faturamento">Faturamento mensal (R$)</label>
+            <input type="text" inputmode="decimal" id="faturamento" placeholder="Ex: 400.000" oninput="mascaraMoeda(this)">
+          </div>
+        </div>
+        <div class="calc-btn-row">
+          <button class="btn-primary" onclick="calcularOportunidade()">Calcular oportunidades</button>
+        </div>
+
+        <div class="calc-result" id="calcResult">
+          <div class="calc-result-grid">
+            <div class="calc-metric">
+              <div class="calc-metric-label">Capital imobilizado (estimado)</div>
+              <div class="calc-metric-val" id="resCapital">—</div>
+            </div>
+            <div class="calc-metric">
+              <div class="calc-metric-label">Compras desnecessárias (estimado)</div>
+              <div class="calc-metric-val" id="resCompras">—</div>
+            </div>
+            <div class="calc-metric">
+              <div class="calc-metric-label">Impacto potencial no caixa</div>
+              <div class="calc-metric-val" id="resImpacto">—</div>
+            </div>
+          </div>
+          <p class="calc-disclaimer">Estimativa baseada em padrões médios de estoque parado (15%) e compras desnecessárias (8%) observados em operações similares. O número exato da sua empresa é levantado no diagnóstico gratuito.</p>
+          <div class="calc-cta">
+            <a href="#" id="whatsappCta" class="btn-primary blue" target="_blank" rel="noopener">Receba uma análise personalizada no WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="result-section" id="resultado">
+    <div class="container">
+      <div class="section-label">O resultado</div>
+      <h2>Chegar segunda-feira <em>já sabendo.</em></h2>
+      <ul class="result-list">
+        <li><span class="result-check">✔</span> Quais produtos precisam ser comprados</li>
+        <li><span class="result-check">✔</span> Quais não deveriam mais ser comprados</li>
+        <li><span class="result-check">✔</span> Quanto dinheiro está parado</li>
+        <li><span class="result-check">✔</span> Onde está o gargalo</li>
+        <li><span class="result-check">✔</span> Quais itens terão ruptura nas próximas semanas</li>
+      </ul>
+      <div class="result-negatives">
+        Sem planilhas.<br>Sem conferências intermináveis.<br>Sem depender da memória da equipe.
+      </div>
+    </div>
+  </section>
+
+  <section class="fit-section">
+    <div class="container">
+      <div class="section-label">Para quem é</div>
+      <h2>Feito para operações com <em>estoque de verdade.</em></h2>
+      <div class="fit-grid">
+        <div class="fit-card yes">
+          <span class="fit-badge yes">Indicado para quem</span>
+          <ul class="fit-list">
+            <li>Trabalha com estoque físico</li>
+            <li>Possui mais de 50 SKUs</li>
+            <li>Faz compras frequentes</li>
+            <li>Tem equipe comercial</li>
+            <li>Precisa integrar compras, vendas, financeiro e estoque</li>
+          </ul>
+        </div>
+        <div class="fit-card no">
+          <span class="fit-badge no">Não é para quem</span>
+          <ul class="fit-list">
+            <li>É resistente a mudar processos internos, mesmo sabendo que há gargalos</li>
+            <li>Prefere manter tudo em planilhas soltas e anotações</li>
+            <li>Busca um "milagre" instantâneo sem envolver a equipe no processo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="diagnostico">
+    <div class="container">
+      <div class="cta-box">
+        <div class="section-label" style="margin-bottom:12px;">Próximo passo</div>
+        <h2>Você sabe exatamente quanto<br><em>dinheiro está parado</em> no seu estoque hoje?</h2>
+        <p>Se a resposta for "não", provavelmente existe uma oportunidade significativa de melhorar o fluxo de caixa da sua empresa. Agende um diagnóstico gratuito e descubra onde estão os principais gargalos da sua operação.</p>
+        <a href="https://wa.me/554731804931?text=Ol%C3%A1%2C%20gostaria%20de%20analisar%20meu%20estoque%20gratuitamente%20com%20a%20Oasys." class="btn-primary" target="_blank" rel="noopener">Quero analisar meu estoque gratuitamente</a>
+        <p class="cta-micro">Sem cartão de crédito · Sem compromisso de compra · Diagnóstico em até 20 minutos</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-main">
+    <div class="container footer-grid">
+
+      <div class="footer-col logo-col">
+        <a href="#">
+          <img src="assets/logo.png" alt="Oasys" style="width:160px; height:auto;">
+        </a>
+        <p>Transformando dados em decisões estratégicas em tempo real.</p>
+      </div>
+
+      <div class="footer-col contact-col">
+        <strong>Contato</strong>
+        <ul>
+          <li>
+            <a href="mailto:mateus@oasystecnologia.com">
+              📧 mateus@oasystecnologia.com
+            </a>
+          </li>
+          <li>
+            <a href="tel:47988569950">
+              📞 (47) 98856-9950
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/5547988569950?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Oasys%20ERP." target="_blank">
+              🟢 WhatsApp Comercial
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/oasystecnologia/" target="_blank">
+              📸 @oasystecnologia
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </footer>
+
+  <section style="width:100%;background:#081018;border-top:1px solid rgba(255,255,255,.06);padding:22px 20px;text-align:center;">
+    <p style="margin:0 0 8px;color:var(--white);font-size:.85rem;">
+      © 2026 Oasys Tecnologia Ltda. Todos os direitos reservados.
+    </p>
+    <p style="margin:0;color:rgba(148,178,209,.6);font-size:.8rem;line-height:1.6;">
+      CNPJ: 62.315.545/0001-44 • Ladeira Brasília, 800, Apto 203D • Laranjeiras • Rio do Sul/SC • CEP 89.167-354
+    </p>
+  </section>
+
+  <script>
+    function formatBRL(v) {
+      return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+    }
+
+    // Gerencia a máscara amigável ao digitar nos inputs
+    function mascaraMoeda(i) {
+      let v = i.value.replace(/\D/g, "");
+      v = (v / 100).toFixed(2) + "";
+      v = v.replace(".", ",");
+      v = v.replace(/(\d)(\d{3},\d{2})/g, "$1.$2");
+      v = v.replace(/(\d)(\d{3}\.\d{3},\d{2})/g, "$1.$2");
+      i.value = v == "0,00" ? "" : v;
+    }
+
+    // Desfaz a máscara de string para operar cálculos matemáticos reais
+    function limpaValor(valStr) {
+      if (!valStr) return 0;
+      let limpo = valStr.replace(/\./g, "").replace(",", ".");
+      return parseFloat(limpo) || 0;
+    }
+
+    function calcularOportunidade() {
+      const valorEstoque = limpaValor(document.getElementById('valorEstoque').value);
+      const comprasMensais = limpaValor(document.getElementById('comprasMensais').value);
+
+      const capitalImobilizado = valorEstoque * 0.15;
+      const comprasDesnecessarias = comprasMensais * 0.08;
+      const impacto = capitalImobilizado + (comprasDesnecessarias * 12);
+
+      document.getElementById('resCapital').textContent = formatBRL(capitalImobilizado);
+      document.getElementById('resCompras').textContent = formatBRL(comprasDesnecessarias) + '/mês';
+      document.getElementById('resImpacto').textContent = formatBRL(impacto) + '/ano';
+
+      const msg = encodeURIComponent(
+        `Olá, fiz a simulação de estoque parado no site da Oasys e o resultado foi aproximadamente ${formatBRL(capitalImobilizado)} de capital imobilizado. Quero uma análise personalizada gratuita.`
+      );
+      document.getElementById('whatsappCta').href = `https://wa.me/554731804931?text=${msg}`;
+
+      const resultBox = document.getElementById('calcResult');
+      resultBox.classList.add('show');
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+
+</body>
+</html>
