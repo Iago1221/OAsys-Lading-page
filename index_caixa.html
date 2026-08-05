@@ -13,6 +13,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Você sabe quanto dinheiro terá disponível? — Oasys ERP</title>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1042096091507834');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1042096091507834&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
@@ -648,6 +669,24 @@
       color: var(--accent2);
     }
 
+    .calc-alert {
+      font-size: .82rem;
+      color: var(--bad);
+      background: rgba(248, 113, 113, .08);
+      border: 1px solid rgba(248, 113, 113, .25);
+      border-radius: 10px;
+      padding: 12px 16px;
+      text-align: center;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .calc-alert.good {
+      color: var(--good);
+      background: rgba(74, 222, 128, .08);
+      border-color: rgba(74, 222, 128, .25);
+    }
+
     .calc-disclaimer {
       font-size: .76rem;
       color: var(--muted);
@@ -1009,11 +1048,24 @@
   <section class="calc-section" id="calculadora">
     <div class="container">
       <div class="section-label">Ferramenta gratuita</div>
-      <h2>Descubra quanto custa a<br><em>falta de previsão financeira.</em></h2>
-      <p class="lead">Sua empresa perde dinheiro por não enxergar o futuro do caixa? Preencha os dados abaixo e receba
-        uma estimativa do impacto financeiro.</p>
+      <h2>Descubra até quando seu<br><em>caixa aguenta.</em></h2>
+      <p class="lead">Simule seu fôlego de caixa real: quanto tempo sua empresa sustenta a operação antes de faltar
+        dinheiro, considerando o que já está previsto para entrar e sair.</p>
       <div class="calc-box">
         <div class="calc-form">
+          <div class="field">
+            <label for="nomeUser">Seu Nome *</label>
+            <input type="text" id="nomeUser" placeholder="Ex: João Silva" required>
+          </div>
+          <div class="field">
+            <label for="emailUser">Seu E-mail *</label>
+            <input type="email" id="emailUser" placeholder="joao@empresa.com" required>
+          </div>
+          <div class="field">
+            <label for="caixaDisponivel">Caixa disponível hoje (R$)</label>
+            <input type="text" inputmode="decimal" id="caixaDisponivel" placeholder="Ex: 90.000"
+              oninput="mascaraMoeda(this)">
+          </div>
           <div class="field">
             <label for="faturamento">Faturamento médio mensal (R$)</label>
             <input type="text" inputmode="decimal" id="faturamento" placeholder="Ex: 400.000"
@@ -1025,36 +1077,43 @@
               oninput="mascaraMoeda(this)">
           </div>
           <div class="field">
+            <label for="contasPagar">Contas a pagar nos próximos 30 dias (R$)</label>
+            <input type="text" inputmode="decimal" id="contasPagar" placeholder="Ex: 60.000"
+              oninput="mascaraMoeda(this)">
+          </div>
+          <div class="field">
             <label for="contasReceber">Contas a receber pendentes (R$)</label>
             <input type="text" inputmode="decimal" id="contasReceber" placeholder="Ex: 150.000"
               oninput="mascaraMoeda(this)">
           </div>
           <div class="field">
-            <label for="prazoMedio">Prazo médio de pagamento dos clientes (dias)</label>
+            <label for="prazoMedio">Prazo médio de recebimento dos clientes (dias)</label>
             <input type="text" inputmode="decimal" id="prazoMedio" placeholder="Ex: 45" oninput="mascaraNumero(this)">
           </div>
         </div>
         <div class="calc-btn-row">
-          <button class="btn-primary" onclick="calcularRisco()">Calcular meu risco financeiro</button>
+          <button class="btn-primary" onclick="calcularRisco()">Simular meu fôlego de caixa</button>
         </div>
 
         <div class="calc-result" id="calcResult">
           <div class="calc-result-grid">
             <div class="calc-metric">
-              <div class="calc-metric-label">Capital parado em recebíveis</div>
-              <div class="calc-metric-val" id="resRecebiveis">—</div>
+              <div class="calc-metric-label">Fôlego de caixa</div>
+              <div class="calc-metric-val" id="resFolego">—</div>
             </div>
             <div class="calc-metric">
-              <div class="calc-metric-label">Margem operacional mensal</div>
-              <div class="calc-metric-val" id="resMargem">—</div>
+              <div class="calc-metric-label">Data prevista de aperto</div>
+              <div class="calc-metric-val" id="resDataAperto">—</div>
             </div>
             <div class="calc-metric">
-              <div class="calc-metric-label">Tempo até virar caixa</div>
-              <div class="calc-metric-val" id="resPrazo">—</div>
+              <div class="calc-metric-label">Saldo projetado em 30 dias</div>
+              <div class="calc-metric-val" id="resSaldo30">—</div>
             </div>
           </div>
-          <p class="calc-disclaimer">Estimativa com base nos valores informados. O diagnóstico gratuito aprofunda a
-            análise considerando sazonalidade, inadimplência e compromissos futuros da sua operação.</p>
+          <p class="calc-alert" id="calcAlerta" style="display:none;"></p>
+          <p class="calc-disclaimer">Simulação com base nos valores informados, considerando margem mensal recorrente
+            (faturamento − custos fixos) e a entrada dos recebíveis no prazo médio informado. O diagnóstico gratuito
+            aprofunda a análise considerando sazonalidade, inadimplência e demais compromissos da sua operação.</p>
           <div class="calc-cta">
             <a href="#" id="whatsappCta" class="btn-primary orange" target="_blank" rel="noopener">Receba uma análise
               personalizada no WhatsApp</a>
@@ -1170,28 +1229,119 @@
     }
 
     function calcularRisco() {
+      const nome = document.getElementById('nomeUser').value.trim();
+      const email = document.getElementById('emailUser').value.trim();
+
+      if (!nome || !email) {
+        alert("Por favor, preencha seu nome e e-mail para visualizar o resultado.");
+        return;
+      }
+
+      if (!email.includes("@") || !email.includes(".")) {
+        alert("Por favor, informe um e-mail válido.");
+        return;
+      }
+
+      const caixaDisponivel = parseMoeda(document.getElementById('caixaDisponivel').value);
       const faturamento = parseMoeda(document.getElementById('faturamento').value);
       const custosFixos = parseMoeda(document.getElementById('custosFixos').value);
+      const contasPagar = parseMoeda(document.getElementById('contasPagar').value);
       const contasReceber = parseMoeda(document.getElementById('contasReceber').value);
       const prazoMedio = parseInt(document.getElementById('prazoMedio').value.replace(/\D/g, '')) || 0;
 
-      const margem = faturamento - custosFixos;
+      const HORIZONTE_DIAS = 90;
+      const margemDiaria = (faturamento - custosFixos) / 30;
+      const saldoBase = caixaDisponivel - contasPagar;
 
-      document.getElementById('resRecebiveis').textContent = formatBRL(contasReceber);
-      const margemEl = document.getElementById('resMargem');
-      margemEl.textContent = formatBRL(margem);
-      margemEl.classList.toggle('alert', margem < 0);
-      document.getElementById('resPrazo').textContent = prazoMedio + ' dias';
+      // Simula o saldo dia a dia pelos próximos 90 dias: margem recorrente
+      // diária + entrada única dos recebíveis no prazo médio informado
+      let diaAperto = null;
+      let saldoDia30 = null;
+      for (let dia = 1; dia <= HORIZONTE_DIAS; dia++) {
+        let saldo = saldoBase + margemDiaria * dia;
+        if (dia >= prazoMedio) saldo += contasReceber;
+        if (dia === 30) saldoDia30 = saldo;
+        if (diaAperto === null && saldo < 0) diaAperto = dia;
+      }
+      if (saldoDia30 === null) {
+        saldoDia30 = saldoBase + margemDiaria * 30 + (30 >= prazoMedio ? contasReceber : 0);
+      }
 
+      const folegoEl = document.getElementById('resFolego');
+      const dataApertoEl = document.getElementById('resDataAperto');
+      const alertaEl = document.getElementById('calcAlerta');
+
+      if (diaAperto !== null) {
+        const dataAperto = new Date();
+        dataAperto.setDate(dataAperto.getDate() + diaAperto);
+        const dataApertoFormatada = dataAperto.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' });
+
+        folegoEl.textContent = diaAperto + ' dias';
+        folegoEl.classList.add('alert');
+        dataApertoEl.textContent = dataApertoFormatada;
+        dataApertoEl.classList.add('alert');
+
+        alertaEl.textContent = `⚠️ No ritmo atual, seu caixa pode ficar negativo por volta de ${dataApertoFormatada} (em ${diaAperto} dias) — antes mesmo de considerar imprevistos.`;
+        alertaEl.classList.remove('good');
+        alertaEl.style.display = 'block';
+      } else {
+        folegoEl.textContent = '90+ dias';
+        folegoEl.classList.remove('alert');
+        dataApertoEl.textContent = 'Sem aperto previsto';
+        dataApertoEl.classList.remove('alert');
+
+        alertaEl.textContent = `✓ Seu caixa se mantém positivo pelos próximos ${HORIZONTE_DIAS} dias no ritmo atual — mas isso pode mudar rápido com um imprevisto ou queda de vendas.`;
+        alertaEl.classList.add('good');
+        alertaEl.style.display = 'block';
+      }
+
+      document.getElementById('resSaldo30').textContent = formatBRL(saldoDia30);
+      document.getElementById('resSaldo30').classList.toggle('alert', saldoDia30 < 0);
+
+      // Captura no PostHog
+      if (window.posthog) {
+        posthog.identify(email, {
+          name: nome,
+          email: email
+        });
+        posthog.capture('calculadora_caixa_gerada', {
+          caixa_disponivel: caixaDisponivel,
+          faturamento: faturamento,
+          custos_fixos: custosFixos,
+          contas_pagar: contasPagar,
+          contas_receber: contasReceber,
+          prazo_medio: prazoMedio,
+          dia_aperto_calc: diaAperto,
+          saldo_30_calc: saldoDia30
+        });
+      }
+
+      const msgAperto = diaAperto !== null
+        ? `previsão de aperto de caixa em ${diaAperto} dias`
+        : `caixa saudável nos próximos ${HORIZONTE_DIAS} dias`;
       const msg = encodeURIComponent(
-        `Olá, fiz a simulação de previsão de caixa no site da Oasys. Tenho aproximadamente ${formatBRL(contasReceber)} parados em recebíveis e quero uma análise personalizada gratuita.`
+        `Olá, meu nome é ${nome}. Fiz a simulação de fôlego de caixa no site da Oasys e o resultado foi: ${msgAperto}. Quero uma análise personalizada gratuita.`
       );
-      document.getElementById('whatsappCta').href = `https://wa.me/554731804931?text=${msg}`;
+      const whatsappCta = document.getElementById('whatsappCta');
+      whatsappCta.href = `https://wa.me/554731804931?text=${msg}`;
+      whatsappCta.dataset.value = diaAperto !== null ? Math.abs(saldoBase + margemDiaria * diaAperto) : saldoDia30;
 
       const resultBox = document.getElementById('calcResult');
       resultBox.classList.add('show');
       resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
+
+    // Dispara o evento de conversão do Meta Pixel apenas quando o lead
+    // efetivamente clica no botão de contato via WhatsApp
+    document.getElementById('whatsappCta').addEventListener('click', function () {
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', {
+          content_name: 'Simulador de Fôlego de Caixa',
+          currency: 'BRL',
+          value: parseFloat(this.dataset.value) || 0
+        });
+      }
+    });
   </script>
 
 </body>

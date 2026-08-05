@@ -5,7 +5,7 @@
   posthog.init('phc_oNFA5tQmoU3kR3LsPu9twsW7K7VfDBJmHbrfLecJMshD', {
     api_host: 'https://us.i.posthog.com',
     defaults: '2026-05-30',
-    person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+    person_profiles: 'identified_only',
   })
 </script>
 
@@ -13,8 +13,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quanto o seu estoque está te custando? — Oasys ERP</title>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1042096091507834');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1042096091507834&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght=600;700;800&family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght=600;700;800&family=Inter:wght=400;500;600;700&display=swap"
+    rel="stylesheet">
   <style>
     *,
     *::before,
@@ -802,10 +825,10 @@
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* Divide em duas colunas idênticas no PC */
-      gap: 60px;                      /* Espaço equilibrado entre os blocos */
-      max-width: 650px;               /* Encolhe a largura para aproximá-los no centro */
-      margin: 0 auto;                 /* Centraliza horizontalmente na tela do computador */
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 650px;
+      margin: 0 auto;
       align-items: start;
     }
 
@@ -846,7 +869,7 @@
     .logo-col {
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* Alinhamento à esquerda no PC */
+      align-items: flex-start;
     }
 
     .logo-col p {
@@ -889,18 +912,18 @@
         grid-template-columns: 1fr;
         text-align: center;
         gap: 40px;
-        max-width: 100%; /* Permite ocupar o espaço móvel natural */
+        max-width: 100%;
       }
 
       .logo-col {
         order: -1;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Centraliza a logo e texto no celular */
+        align-items: center;
       }
 
       .footer-col ul li {
-        justify-content: center; /* Centraliza a lista de contatos no celular */
+        justify-content: center;
       }
 
       .footer-col ul li a {
@@ -934,15 +957,18 @@
   <section class="hero" id="inicio">
     <div class="container hero-inner">
       <div class="eyebrow">Diagnóstico gratuito de estoque</div>
-      <h1>Seu estoque está consumindo dinheiro todos os dias. <em>Talvez você ainda não tenha percebido quanto.</em></h1>
+      <h1>Seu estoque está consumindo dinheiro todos os dias. <em>Talvez você ainda não tenha percebido quanto.</em>
+      </h1>
       <p class="hero-sub">
         Produtos parados, compras desnecessárias, rupturas inesperadas e informações desencontradas transformam o
-        estoque em um dos maiores centros de desperdício da empresa. A Oasys identifica esses problemas e ajuda você a recuperar o controle.
+        estoque em um dos maiores centros de desperdício da empresa. A Oasys identifica esses problemas e ajuda você a
+        recuperar o controle.
       </p>
       <div class="hero-actions">
         <a href="#calculadora" class="btn-primary">Quero descobrir quanto meu estoque está me custando</a>
       </div>
-      <p class="microcopy"><span>●</span> Diagnóstico gratuito &nbsp;·&nbsp; <span>●</span> Sem compromisso &nbsp;·&nbsp; <span>●</span> Em até 20 minutos</p>
+      <p class="microcopy"><span>●</span> Diagnóstico gratuito &nbsp;·&nbsp; <span>●</span> Sem compromisso
+        &nbsp;·&nbsp; <span>●</span> Poucos minutos</p>
     </div>
   </section>
 
@@ -950,16 +976,19 @@
     <div class="container">
       <div class="section-label">O problema invisível</div>
       <h2>Você não perde dinheiro só quando<br><em>falta produto.</em></h2>
-      <p class="lead">Você perde dinheiro sempre que uma destas situações acontece na sua operação — e na maioria das empresas, isso passa despercebido todos os dias.</p>
+      <p class="lead">Você perde dinheiro sempre que uma destas situações acontece na sua operação — e na maioria das
+        empresas, isso passa despercebido todos os dias.</p>
       <ul class="problem-list">
         <li class="problem-item"><span class="problem-icon">📈</span>
           <p><strong>Compra mais do que precisa.</strong><br> Sem visibilidade do giro real, o excesso vira regra.</p>
         </li>
         <li class="problem-item"><span class="problem-icon">⏱️</span>
-          <p><strong>Descobre tarde que um item acabou.</strong><br> A ruptura só aparece quando o cliente já está esperando.</p>
+          <p><strong>Descobre tarde que um item acabou.</strong><br> A ruptura só aparece quando o cliente já está
+            esperando.</p>
         </li>
         <li class="problem-item"><span class="problem-icon">📦</span>
-          <p><strong>Mantém produtos parados durante meses.</strong><br> Capital imobilizado nas prateleiras, sem gerar caixa.</p>
+          <p><strong>Mantém produtos parados durante meses.</strong><br> Capital imobilizado nas prateleiras, sem gerar
+            caixa.</p>
         </li>
         <li class="problem-item"><span class="problem-icon">🔁</span>
           <p><strong>Compra novamente algo que já existia.</strong><br> Falta de controle gera pedido duplicado.</p>
@@ -978,7 +1007,8 @@
     <div class="container">
       <div class="section-label">A conta que ninguém faz</div>
       <h2>Um exemplo simples <em>que dói.</em></h2>
-      <p class="lead">Suponha que você tenha um saldo de R$ 800 mil em estoque e que 15% represente itens que não giram e outros 8% represente compras desnecessárias, feitas sem analisar os dados.</p>
+      <p class="lead">Suponha que você tenha um saldo de R$ 800 mil em estoque e que 15% represente itens que não giram
+        e outros 8% represente compras desnecessárias, feitas sem analisar os dados.</p>
       <div class="cost-grid">
         <div class="cost-inputs">
           <div class="row"><span class="label">Estoque total</span><span class="val">R$ 800 mil</span></div>
@@ -986,9 +1016,11 @@
           <div class="row"><span class="label">Compras desnecessárias</span><span class="val">8%</span></div>
         </div>
         <div class="cost-callout-text">
-          <h3>Isso representa centenas de milhares de reais imobilizados que poderiam estar gerando caixa para o negócio.</h3>
+          <h3>Isso representa centenas de milhares de reais imobilizados que poderiam estar gerando caixa para o
+            negócio.</h3>
           <div class="cost-big">R$ 184.000+</div>
-          <p>Enquanto esse capital fica parado nas prateleiras, produtos importantes continuam faltando — e o ciclo de compras erradas recomeça todo mês.</p>
+          <p>Enquanto esse capital fica parado nas prateleiras, produtos importantes continuam faltando — e o ciclo de
+            compras erradas recomeça todo mês.</p>
         </div>
       </div>
     </div>
@@ -1022,7 +1054,8 @@
     <div class="container">
       <div class="section-label">Como a Oasys resolve</div>
       <h2>De apagar incêndio a <em>decidir com dados.</em></h2>
-      <p class="lead">A Oasys transforma o estoque em uma operação previsível. Em vez de trabalhar reagindo a problemas, você passa a tomar decisões baseadas em dados reais.</p>
+      <p class="lead">A Oasys transforma o estoque em uma operação previsível. Em vez de trabalhar reagindo a problemas,
+        você passa a tomar decisões baseadas em dados reais.</p>
       <div class="solution-grid">
         <div class="solution-card">
           <span class="solution-tag">ERP</span>
@@ -1065,22 +1098,34 @@
 
   <section class="calc-section" id="calculadora">
     <div class="container">
-      <div class="section-label">Ferramenta gratuita</div>
+      <div class="section-label">Calculadora de Estoque Parado</div>
       <h2>Quanto dinheiro está <em>parado no seu estoque?</em></h2>
-      <p class="lead">Preencha os dados abaixo e veja uma estimativa de quanto capital pode estar imobilizado na sua operação hoje.</p>
+      <p class="lead">Preencha seus dados e as informações abaixo para calcular uma estimativa de quanto capital pode
+        estar imobilizado na sua operação hoje.</p>
       <div class="calc-box">
         <div class="calc-form">
           <div class="field">
+            <label for="nomeUser">Seu Nome *</label>
+            <input type="text" id="nomeUser" placeholder="Ex: João Silva" required>
+          </div>
+          <div class="field">
+            <label for="emailUser">Seu E-mail *</label>
+            <input type="email" id="emailUser" placeholder="joao@empresa.com" required>
+          </div>
+          <div class="field">
             <label for="valorEstoque">Valor aproximado do estoque (R$)</label>
-            <input type="text" inputmode="decimal" id="valorEstoque" placeholder="Ex: 800.000" oninput="mascaraMoeda(this)">
+            <input type="text" inputmode="decimal" id="valorEstoque" placeholder="Ex: 800.000"
+              oninput="mascaraMoeda(this)">
           </div>
           <div class="field">
             <label for="comprasMensais">Compras mensais (R$)</label>
-            <input type="text" inputmode="decimal" id="comprasMensais" placeholder="Ex: 120.000" oninput="mascaraMoeda(this)">
+            <input type="text" inputmode="decimal" id="comprasMensais" placeholder="Ex: 120.000"
+              oninput="mascaraMoeda(this)">
           </div>
           <div class="field" style="grid-column: 1 / -1;">
             <label for="faturamento">Faturamento mensal (R$)</label>
-            <input type="text" inputmode="decimal" id="faturamento" placeholder="Ex: 400.000" oninput="mascaraMoeda(this)">
+            <input type="text" inputmode="decimal" id="faturamento" placeholder="Ex: 400.000"
+              oninput="mascaraMoeda(this)">
           </div>
         </div>
         <div class="calc-btn-row">
@@ -1102,9 +1147,12 @@
               <div class="calc-metric-val" id="resImpacto">—</div>
             </div>
           </div>
-          <p class="calc-disclaimer">Estimativa baseada em padrões médios de estoque parado (15%) e compras desnecessárias (8%) observados em operações similares. O número exato da sua empresa é levantado no diagnóstico gratuito.</p>
+          <p class="calc-disclaimer">Estimativa baseada em padrões médios de estoque parado (15%) e compras
+            desnecessárias (8%) observados em operações similares. O número exato da sua empresa é levantado no
+            diagnóstico gratuito.</p>
           <div class="calc-cta">
-            <a href="#" id="whatsappCta" class="btn-primary blue" target="_blank" rel="noopener">Receba uma análise personalizada no WhatsApp</a>
+            <a href="#" id="whatsappCta" class="btn-primary blue" target="_blank" rel="noopener">Receba uma análise
+              personalizada no WhatsApp</a>
           </div>
         </div>
       </div>
@@ -1160,9 +1208,11 @@
       <div class="cta-box">
         <div class="section-label" style="margin-bottom:12px;">Próximo passo</div>
         <h2>Você sabe exatamente quanto<br><em>dinheiro está parado</em> no seu estoque hoje?</h2>
-        <p>Se a resposta for "não", provavelmente existe uma oportunidade significativa de melhorar o fluxo de caixa da sua empresa. Agende um diagnóstico gratuito e descubra onde estão os principais gargalos da sua operação.</p>
-        <a href="https://wa.me/554731804931?text=Ol%C3%A1%2C%20gostaria%20de%20analisar%20meu%20estoque%20gratuitamente%20com%20a%20Oasys." class="btn-primary" target="_blank" rel="noopener">Quero analisar meu estoque gratuitamente</a>
-        <p class="cta-micro">Sem cartão de crédito · Sem compromisso de compra · Diagnóstico em até 20 minutos</p>
+        <p>Se a resposta for "não", provavelmente existe uma oportunidade significativa de melhorar o fluxo de caixa da
+          sua empresa. Converse com nossa equipe e descubra onde estão os principais gargalos da sua operação.</p>
+        <a href="https://wa.me/554731804931?text=Ol%C3%A1%2C%20gostaria%20de%20analisar%20meu%20estoque%20gratuitamente%20com%20a%20Oasys."
+          class="btn-primary" target="_blank" rel="noopener">Quero analisar meu estoque gratuitamente</a>
+        <p class="cta-micro">Sem cartão de crédito · Sem compromisso de compra · Resposta rápida</p>
       </div>
     </div>
   </section>
@@ -1191,7 +1241,8 @@
             </a>
           </li>
           <li>
-            <a href="https://wa.me/5547988569950?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Oasys%20ERP." target="_blank">
+            <a href="https://wa.me/5547988569950?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Oasys%20ERP."
+              target="_blank">
               🟢 WhatsApp Comercial
             </a>
           </li>
@@ -1206,7 +1257,8 @@
     </div>
   </footer>
 
-  <section style="width:100%;background:#081018;border-top:1px solid rgba(255,255,255,.06);padding:22px 20px;text-align:center;">
+  <section
+    style="width:100%;background:#081018;border-top:1px solid rgba(255,255,255,.06);padding:22px 20px;text-align:center;">
     <p style="margin:0 0 8px;color:var(--white);font-size:.85rem;">
       © 2026 Oasys Tecnologia Ltda. Todos os direitos reservados.
     </p>
@@ -1220,7 +1272,6 @@
       return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
     }
 
-    // Gerencia a máscara amigável ao digitar nos inputs
     function mascaraMoeda(i) {
       let v = i.value.replace(/\D/g, "");
       v = (v / 100).toFixed(2) + "";
@@ -1230,7 +1281,6 @@
       i.value = v == "0,00" ? "" : v;
     }
 
-    // Desfaz a máscara de string para operar cálculos matemáticos reais
     function limpaValor(valStr) {
       if (!valStr) return 0;
       let limpo = valStr.replace(/\./g, "").replace(",", ".");
@@ -1238,6 +1288,19 @@
     }
 
     function calcularOportunidade() {
+      const nome = document.getElementById('nomeUser').value.trim();
+      const email = document.getElementById('emailUser').value.trim();
+
+      if (!nome || !email) {
+        alert("Por favor, preencha seu nome e e-mail para visualizar o resultado.");
+        return;
+      }
+
+      if (!email.includes("@") || !email.includes(".")) {
+        alert("Por favor, informe um e-mail válido.");
+        return;
+      }
+
       const valorEstoque = limpaValor(document.getElementById('valorEstoque').value);
       const comprasMensais = limpaValor(document.getElementById('comprasMensais').value);
 
@@ -1249,16 +1312,47 @@
       document.getElementById('resCompras').textContent = formatBRL(comprasDesnecessarias) + '/mês';
       document.getElementById('resImpacto').textContent = formatBRL(impacto) + '/ano';
 
+      // Captura no PostHog
+      if (window.posthog) {
+        posthog.identify(email, {
+          name: nome,
+          email: email
+        });
+        posthog.capture('calculadora_estoque_gerada', {
+          valor_estoque: valorEstoque,
+          compras_mensais: comprasMensais,
+          capital_imobilizado_calc: capitalImobilizado,
+          impacto_anual_calc: impacto
+        });
+      }
+
       const msg = encodeURIComponent(
-        `Olá, fiz a simulação de estoque parado no site da Oasys e o resultado foi aproximadamente ${formatBRL(capitalImobilizado)} de capital imobilizado. Quero uma análise personalizada gratuita.`
+        `Olá, meu nome é ${nome}. Fiz a simulação de estoque parado no site da Oasys e o resultado foi aproximadamente ${formatBRL(capitalImobilizado)} de capital imobilizado. Quero uma análise personalizada gratuita.`
       );
-      document.getElementById('whatsappCta').href = `https://wa.me/554731804931?text=${msg}`;
+      const whatsappCta = document.getElementById('whatsappCta');
+      whatsappCta.href = `https://wa.me/554731804931?text=${msg}`;
+
+      // Guarda o valor calculado para o evento de conversão do clique no botão
+      whatsappCta.dataset.value = capitalImobilizado;
 
       const resultBox = document.getElementById('calcResult');
       resultBox.classList.add('show');
       resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
+
+    // Dispara o evento de conversão do Meta Pixel apenas quando o lead
+    // efetivamente clica no botão de contato via WhatsApp
+    document.getElementById('whatsappCta').addEventListener('click', function () {
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', {
+          content_name: 'Calculadora de Estoque',
+          currency: 'BRL',
+          value: parseFloat(this.dataset.value) || 0
+        });
+      }
+    });
   </script>
 
 </body>
+
 </html>

@@ -13,6 +13,27 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oasys — Conecte sua operação. Decida com confiança.</title>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1042096091507834');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1042096091507834&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+
   <link rel="icon" href="assets/favicon_arvore.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@700;800&display=swap"
     rel="stylesheet">
@@ -915,6 +936,156 @@
       line-height: 1.5;
     }
 
+    /* ─── CAPTURA ALTERNATIVA (E-MAIL) ───────────────────── */
+    .cta-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 420px;
+      margin: 36px auto 24px;
+      color: var(--muted);
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .cta-divider::before,
+    .cta-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .lead-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .lead-form input {
+      grid-column: span 1;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 14px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      width: 100%;
+    }
+
+    .lead-form input::placeholder {
+      color: var(--muted);
+    }
+
+    .lead-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .lead-form button {
+      grid-column: span 2;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: .88rem;
+      padding: 13px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background .18s, color .18s;
+    }
+
+    .lead-form button:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .lead-form-msg {
+      grid-column: span 2;
+      text-align: center;
+      font-size: .85rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .lead-form-msg.show {
+      display: block;
+      color: var(--good);
+    }
+
+    @media (max-width: 520px) {
+      .lead-form input {
+        grid-column: span 2;
+      }
+    }
+
+    /* ─── LOGOS DE CLIENTES ──────────────────────────────── */
+    .logos-section {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .logos-label {
+      text-align: center;
+      font-size: .8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 32px;
+    }
+
+    .logos-track-wrap {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    }
+
+    .logos-track {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      width: max-content;
+      animation: logos-scroll 22s linear infinite;
+    }
+
+    .logos-track:hover {
+      animation-play-state: paused;
+    }
+
+    .logos-track img {
+      max-height: 140px;
+      max-width: 140px;
+      width: auto;
+      height: auto;
+      flex-shrink: 0;
+      filter: grayscale(100%) brightness(1.6);
+      opacity: .7;
+      transition: opacity .18s, filter .18s;
+    }
+
+    .logos-track img:hover {
+      filter: none;
+      opacity: 1;
+    }
+
+    @keyframes logos-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
     /* ─── FOOTER ─────────────────────────────────────────── */
     footer {
       background: var(--bg2);
@@ -1084,7 +1255,7 @@
             <a href="#diagnostico" class="btn-primary" onclick="posthog.capture('cta_clicked', {
       location: 'diagnostico'
   })">Quero entender onde posso melhorar minha gestão </a>
-            <a href=" #solucao" class="link-secondary">Conhecer a Oasys ↓</a>
+            <a href="#solucao" class="link-secondary">Conhecer a Oasys ↓</a>
           </div>
 
           <div class="proof-bar">
@@ -1157,6 +1328,38 @@
         </div>
       </div>
     </div>
+    </div>
+  </section>
+
+  <!--
+    SEÇÃO DE LOGOS DE CLIENTES
+    Substitua cada src="assets/logo-cliente-X.png" pelo logo real do cliente
+    (ideal: PNG com fundo transparente, altura entre 80–120px para boa nitidez).
+    Se tiver menos de 4 logos por enquanto, pode remover os itens extras
+    ou repetir/ajustar o grid para 2 ou 3 colunas em .logos-grid no CSS acima.
+  -->
+
+  <section class="logos-section">
+    <div class="container">
+      <div class="logos-label">Empresas que confiam na Oasys</div>
+      <div class="logos-track-wrap">
+        <div class="logos-track">
+          <img src="assets/bhs.png" alt="BHS Distribuidora">
+          <img src="assets/Fundaltovalle.png" alt="Fundição Alto Valle">
+          <img src="assets/Luzmoveis.png" alt="Luz Móveis Planejados">
+          <img src="assets/casadastintas.png" alt="Casa das Tintas Agrolândia">
+          <!-- repetição idêntica abaixo — necessária para o loop ficar contínuo -->
+          <img src="assets/bhs.png" alt="BHS Distribuidora">
+          <img src="assets/Fundaltovalle.png" alt="Fundição Alto Valle">
+          <img src="assets/Luzmoveis.png" alt="Luz Móveis Planejados">
+          <img src="assets/casadastintas.png" alt="Casa das Tintas Agrolândia">
+          <!-- repetição idêntica abaixo — necessária para o loop ficar contínuo -->
+          <img src="assets/bhs.png" alt="BHS Distribuidora">
+          <img src="assets/Fundaltovalle.png" alt="Fundição Alto Valle">
+          <img src="assets/Luzmoveis.png" alt="Luz Móveis Planejados">
+          <img src="assets/casadastintas.png" alt="Casa das Tintas Agrolândia">
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1273,7 +1476,7 @@
         </div>
         <div class="system-screenshot-placeholder">
           <p><img src="assets/finance.png" alt="Oasys Sales App"></p>
-          
+
         </div>
       </div>
 
@@ -1360,7 +1563,8 @@
         <div class="faq-item">
           <details>
             <summary>Quanto tempo leva a implantação?</summary>
-            <p>Grande parte das empresas inicia a operação em até 30 dias, dependendo da complexidade do projeto.</p>
+            <p>Grande parte das empresas inicia a operação entre 1 a 4 semanas, dependendo da complexidade do projeto.
+            </p>
           </details>
         </div>
         <div class="faq-item">
@@ -1377,6 +1581,13 @@
               operação.</p>
           </details>
         </div>
+        <div class="faq-item">
+          <details>
+            <summary>Quanto custa?</summary>
+            <p>Os planos são feitos sob medida para cada operação, temos planos básicos a partir de 189,00. Caso queira
+              uma cotação sem compromisso, é só nos enviar uma mensagem.</p>
+          </details>
+        </div>
       </div>
     </div>
   </section>
@@ -1391,12 +1602,21 @@
           Vamos entender sua operação, responder suas dúvidas e mostrar, na prática, como a Oasys pode se adaptar ao seu
           negócio.</p>
         <a href="https://wa.me/554731804931?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20diagn%C3%B3stico%20gratuito%20da%20minha%20operação!"
-          class="btn-primary" onclick="posthog.capture('cta_clicked', {
+          class="btn-primary" id="ctaDiagnostico" onclick="posthog.capture('cta_clicked', {
       location: 'diagnostico'
   })" target="_blank" rel="noopener">Quero um diagnóstico gratuito da minha operação</a>
         <span style="font-size: 0.8rem; color: var(--muted); text-align: center; display: block;">
           🔒 Sem compromisso • Resposta geralmente em 2 minutos • Sem pressão comercial
         </span>
+
+        <div class="cta-divider">ou</div>
+
+        <form class="lead-form" id="leadForm">
+          <input type="text" id="leadNome" placeholder="Seu nome" required>
+          <input type="email" id="leadEmail" placeholder="Seu e-mail" required>
+          <button type="submit">Prefiro ser contatado por e-mail</button>
+          <span class="lead-form-msg" id="leadFormMsg">✓ Recebemos seus dados — vamos te chamar em breve.</span>
+        </form>
       </div>
     </div>
   </section>
@@ -1453,8 +1673,8 @@
           </li>
 
           <li>
-            <a href="https://wa.me/5547988569950?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Oasys%20ERP."
-              target="_blank">
+            <a href="https://wa.me/554731804931?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Oasys%20ERP."
+              id="ctaWhatsappFooter" target="_blank">
               🟢 WhatsApp Comercial
             </a>
           </li>
@@ -1501,6 +1721,46 @@
         menuToggle.textContent = '☰';
       });
     });
+
+    // Dispara o evento de conversão do Meta Pixel apenas quando o lead
+    // efetivamente clica em algum botão que leva ao WhatsApp
+    ['ctaDiagnostico', 'ctaWhatsappFooter'].forEach(function (id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('click', function () {
+          if (typeof fbq === 'function') {
+            fbq('track', 'Lead', { content_name: 'Diagnóstico gratuito - Home' });
+          }
+        });
+      }
+    });
+
+    // Captura alternativa por e-mail para quem não quer ir direto ao WhatsApp
+    const leadForm = document.getElementById('leadForm');
+    if (leadForm) {
+      leadForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const nome = document.getElementById('leadNome').value.trim();
+        const email = document.getElementById('leadEmail').value.trim();
+
+        if (!nome || !email || !email.includes('@') || !email.includes('.')) {
+          alert('Por favor, preencha seu nome e um e-mail válido.');
+          return;
+        }
+
+        if (window.posthog) {
+          posthog.identify(email, { name: nome, email: email });
+          posthog.capture('lead_form_submitted', { location: 'diagnostico_home' });
+        }
+
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', { content_name: 'Formulário de e-mail - Home' });
+        }
+
+        document.getElementById('leadFormMsg').classList.add('show');
+        leadForm.querySelectorAll('input, button').forEach(el => el.disabled = true);
+      });
+    }
   </script>
 
 </body>
