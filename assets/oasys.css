@@ -1,0 +1,145 @@
+/* Oasys — LPs por dor · estilos compartilhados */
+:root{--azul:#007BC2;--azul-esc:#005485;--tinta:#0E1A2B;--texto:#3D4A5C;--suave:#4A5568;--linha:#E2E8F0;--fundo:#F6F8FB;--claro:#70CBFF}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;overflow-x:clip;background:var(--fundo);font-family:'Source Sans 3',system-ui,sans-serif;color:var(--tinta);font-size:18px;line-height:1.55;-webkit-tap-highlight-color:transparent}
+a{color:var(--azul)}a:hover{color:var(--azul-esc)}
+input,select,button{font:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #70CBFF;outline-offset:2px}
+img{max-width:100%;display:block}
+
+.btn{transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.card{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+@media (hover:hover){
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -12px rgba(22,82,240,.7)}
+  .card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(14,26,43,.3)}
+}
+
+@keyframes pop{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes rv{from{opacity:0;transform:translateY(56px)}to{opacity:1;transform:none}}
+@keyframes rvl{from{opacity:0;transform:translateX(-72px)}to{opacity:1;transform:none}}
+@keyframes rvr{from{opacity:0;transform:translateX(72px)}to{opacity:1;transform:none}}
+@keyframes zoom{from{opacity:0;transform:scale(.86) rotate(-2deg)}to{opacity:1;transform:none}}
+@keyframes par{to{transform:translateY(-90px)}}
+@keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fill{from{width:0}to{width:100%}}
+@keyframes grow{from{transform:scaleY(.05)}to{transform:scaleY(1)}}
+
+.load{animation:pop .8s cubic-bezier(.2,.8,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.18s}.d3{animation-delay:.28s}.d4{animation-delay:.38s}.d5{animation-delay:.5s}.d6{animation-delay:.85s}.d7{animation-delay:1.25s}.d8{animation-delay:1.7s}
+.fill{animation:fill 2.2s cubic-bezier(.4,0,.2,1) .6s both}
+.bar{transform-origin:bottom;animation:grow 1s cubic-bezier(.2,.8,.2,1) both}
+.b1{animation-delay:.6s}.b2{animation-delay:.7s}.b3{animation-delay:.8s}.b4{animation-delay:.9s}.b5{animation-delay:1s}.b6{animation-delay:1.1s}.b7{animation-delay:1.2s}
+
+/* Animações ligadas ao scroll (Chrome, Edge, Safari 26+) */
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()){
+    .rv,.rvl,.rvr,.zoom{animation-timing-function:linear;animation-fill-mode:both;animation-timeline:view();animation-range:entry 0% cover 30%}
+    .rv{animation-name:rv}.rvl{animation-name:rvl}.rvr{animation-name:rvr}.zoom{animation-name:zoom}
+    .s2{animation-range:entry 8% cover 36%}.s3{animation-range:entry 16% cover 42%}
+    .par{animation:par linear both;animation-timeline:scroll();animation-range:0 800px}
+    .prog{transform-origin:left;animation:prog linear both;animation-timeline:scroll()}
+  }
+  /* Fallback (Firefox etc.): o JS adiciona .io-on no <html> e .in nos elementos visíveis */
+  .io-on .rv,.io-on .rvl,.io-on .rvr,.io-on .zoom{opacity:0;transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+  .io-on .rv{transform:translateY(40px)}.io-on .rvl{transform:translateX(-48px)}.io-on .rvr{transform:translateX(48px)}.io-on .zoom{transform:scale(.92)}
+  .io-on .s2{transition-delay:.08s}.io-on .s3{transition-delay:.16s}
+  .io-on .in{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .load,.fill,.bar{animation:none}
+  html{scroll-behavior:auto}
+  *{transition-duration:.01ms!important}
+}
+
+.mbar{display:none}
+@media (max-width:760px){
+  .mbar{display:flex}
+  footer{padding-bottom:76px}
+  .esconde-mobile{display:none!important}
+}
+
+/* Componentes interativos */
+.oz-range{width:100%;accent-color:var(--azul);min-height:32px}
+.oz-pill{font-weight:700;font-size:15px;padding:10px 16px;border-radius:999px;min-height:44px;cursor:pointer;background:#fff;color:var(--tinta);border:1.5px solid #CBD5E1}
+.oz-pill[aria-pressed="true"],.oz-pill[aria-checked="true"],.oz-pill[aria-selected="true"]{background:var(--azul);color:#fff;border-color:var(--azul)}
+.oz-primario{background:var(--azul);color:#fff;border:0;font-weight:700;font-size:17px;padding:14px 22px;border-radius:12px;min-height:52px;cursor:pointer}
+.oz-primario:disabled{opacity:.5;cursor:default}
+.oz-secundario{background:#fff;color:var(--tinta);border:1.5px solid #CBD5E1;font-weight:700;font-size:16px;padding:12px 18px;border-radius:12px;min-height:48px;cursor:pointer}
+.oz-link{background:transparent;color:var(--suave);border:0;font-weight:600;font-size:15px;padding:12px 10px;min-height:48px;cursor:pointer;text-decoration:underline}
+.oz-tag{align-self:flex-start;background:#E2F3FD;color:var(--azul-esc);font-weight:700;font-size:14px;padding:6px 12px;border-radius:999px}
+.oz-h2{margin:0;font-family:'Schibsted Grotesk',sans-serif;font-weight:800;font-size:clamp(26px,3vw,36px);line-height:1.1;letter-spacing:-.02em}
+.oz-caixa{width:100%;background:#fff;border:1px solid var(--linha);border-radius:28px;padding:clamp(24px,4vw,44px);display:flex;flex-wrap:wrap;gap:36px;font-size:17px;line-height:1.5}
+.oz-col{flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:18px}
+.oz-nota{margin:0;font-size:14px;color:var(--suave)}
+.oz-escuro{background:var(--tinta);color:#fff;border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:16px}
+.oz-trilho{height:10px;background:#22344F;border-radius:99px;overflow:hidden}
+.oz-trilho>div{height:100%;background:var(--claro);border-radius:99px;transition:width .35s cubic-bezier(.2,.8,.2,1)}
+.oz-switch{flex:none;width:52px;height:30px;border-radius:999px;border:0;cursor:pointer;position:relative;padding:0;background:#CBD5E1;transition:background .2s ease}
+.oz-switch[aria-checked="true"]{background:var(--azul)}
+.oz-switch span{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .2s cubic-bezier(.2,.8,.2,1)}
+.oz-switch[aria-checked="true"] span{left:25px}
+.oz-bolha-cli{align-self:flex-start;max-width:84%;background:#fff;border-radius:4px 14px 14px 14px;padding:10px 14px;font-size:15px;animation:pop .4s cubic-bezier(.2,.8,.2,1) both}
+.oz-bolha-at{align-self:flex-end;width:86%;background:#fff;border:1.5px solid var(--azul);border-radius:14px 4px 14px 14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:14px;animation:pop .4s cubic-bezier(.2,.8,.2,1) both}
+.oz-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ===== Ajustes de celular (tráfego do Instagram) ===== */
+[hidden]{display:none!important}
+summary{min-height:44px;display:flex;align-items:center;gap:12px;padding:4px 0}
+.oz-range{min-height:44px}
+.oz-switch{width:56px;height:34px}
+.oz-switch span{width:28px;height:28px}
+.oz-switch[aria-checked="true"] span{left:25px}
+.oz-num{white-space:nowrap}
+
+/* Seletor anual / mensal */
+.oz-seg{display:inline-flex;padding:4px;border-radius:999px;background:#EEF2F7;gap:4px;align-self:flex-start}
+.oz-seg button{border:0;background:transparent;color:var(--texto);font-weight:700;font-size:15px;padding:8px 16px;border-radius:999px;min-height:40px;cursor:pointer}
+.oz-seg button[aria-checked="true"]{background:#fff;color:var(--tinta);box-shadow:0 1px 3px rgba(14,26,43,.18)}
+.oz-escuro-card .oz-seg{background:#1B2E4B}
+.oz-escuro-card .oz-seg button{color:#C3CEDD}
+.oz-escuro-card .oz-seg button[aria-checked="true"]{background:var(--azul);color:#fff}
+.oz-economia{display:inline-block;background:#E7F6EC;color:#14532D;font-weight:700;font-size:13px;padding:4px 10px;border-radius:999px}
+.oz-escuro-card .oz-economia{background:#173A2A;color:#9BE3B4}
+
+/* Tabela da nota: vira lista empilhada em tela estreita */
+.oz-nota-linha{display:grid;grid-template-columns:minmax(0,1fr) 70px 110px;gap:10px;align-items:center}
+
+/* Linha de produto do Sales App */
+.oz-prod{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.oz-prod-info{flex:1 1 140px;min-width:0}
+.oz-step{display:flex;align-items:center;gap:8px;margin-left:auto}
+.oz-step button{width:44px;height:44px;border-radius:10px;font-size:20px;font-weight:700;cursor:pointer}
+
+/* Barra fixa: só aparece depois do primeiro CTA sair da tela */
+.mbar{transform:translateY(110%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.mbar.on{transform:none}
+
+@media (max-width:760px){
+  body{font-size:17px}
+  /* margens laterais de 16 px e respiros menores entre seções */
+  header > div, footer > div,
+  main > section[style*="max-width"], main section > div[style*="max-width"]{padding-left:16px!important;padding-right:16px!important}
+  header > div{padding-top:10px!important;padding-bottom:10px!important}
+  header .btn{display:none!important}
+  /* no celular as revelações só sobem (nada desliza de lado) */
+  .rvl,.rvr{animation-name:rv!important}
+  .io-on .rvl,.io-on .rvr{transform:translateY(40px)}
+  .io-on .rvl.in,.io-on .rvr.in{transform:none}
+  .par{animation:none!important}
+  /* simuladores mais compactos */
+  .oz-caixa{padding:20px 16px;gap:24px;border-radius:22px}
+  .oz-col{gap:14px}
+  .oz-escuro{padding:20px}
+  .oz-celular{padding:8px!important;border-radius:30px!important}
+  .oz-celular > div{padding:16px!important;border-radius:24px!important}
+  .oz-nota-linha{grid-template-columns:minmax(0,1fr) auto;row-gap:2px}
+  .oz-nota-linha > :first-child{grid-column:1 / -1;font-weight:600}
+  .oz-nota-cab{display:none!important}
+  /* barra fixa: CTA ocupa a largura, WhatsApp vira ícone */
+  .mbar a:last-child{padding:0!important;width:48px;justify-content:center;font-size:0!important;gap:0!important}
+  .mbar a:last-child svg{width:22px;height:22px}
+  .mbar a:first-child{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){.mbar{transition:none}}

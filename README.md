@@ -1,6 +1,12 @@
-# 📦 OAsys ERP — Landing Page com Envio de Contato por E-mail
+# 📦 OAsys ERP — Landing Pages
 
-Esta é a landing page oficial do **Oasys**, um sistema de gestão inteligente com módulos independentes e IA integrada (OAsys Neuron). O site apresenta os planos, módulos e permite que os visitantes entrem em contato por meio de um formulário que envia e-mails via PHPMailer.
+Este repositório hospeda as landing pages do **Oasys**, um sistema de gestão inteligente com módulos independentes e IA integrada (OAsys Neuron).
+
+## Landing pages por dor
+
+A partir de outubro/2026, a página inicial foi substituída por seis LPs estáticas, uma por dor específica do cliente (estoque, nota de entrada, orçamento no WhatsApp, cobrança, números/relatórios e pedido do vendedor). `index.html` na raiz agora é só um índice interno (`noindex`) para navegar entre elas.
+
+Veja [README-LPS-POR-DOR.md](./README-LPS-POR-DOR.md) para a documentação completa: estrutura de pastas, eventos de rastreamento (Meta Pixel + PostHog), como configurar o endpoint de leads e a lista de placeholders que ainda precisam de conteúdo real (depoimentos, FAQs, prints do sistema, link da política de privacidade).
 
 ---
 
