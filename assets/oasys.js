@@ -454,7 +454,7 @@
   /* ---------- Card de preço: anual x mensal ---------- */
   widgets.preco = function (el) {
     var planos = {
-      essencial: { nome: 'Plano Essencial', anual: 299, mensal: 349, unidade: '/mês', escuro: false },
+      essencial: { nome: 'Plano Essencial', anual: 349, mensal: 409, unidade: '/mês', escuro: false },
       profissional: { nome: 'Plano Profissional', anual: 599, mensal: 689, unidade: '/mês', escuro: true },
       chat: { nome: 'Oasys Chat', anual: null, mensal: null, unidade: '/mês', escuro: false },
       salesapp: { nome: 'Sales App', anual: null, mensal: null, unidade: '/vendedor', escuro: false }

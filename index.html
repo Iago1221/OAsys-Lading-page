@@ -1,10 +1,234 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
-<title>Oasys — LPs por dor</title><link rel="stylesheet" href="assets/oasys.css"></head>
-<body style="padding: 48px 24px; max-width: 760px; margin: 0 auto"><h1 style="font-family: system-ui">LPs por dor — índice interno</h1><ul style="line-height: 2"><li><a href="estoque/">Estoque que bate com a prateleira</a> <small>/estoque/</small></li>
-<li><a href="nota-entrada/">Chega de digitar nota de compra</a> <small>/nota-entrada/</small></li>
-<li><a href="orcamento-whatsapp/">Orçamento direto no WhatsApp</a> <small>/orcamento-whatsapp/</small></li>
-<li><a href="cobranca/">Régua de cobrança automática</a> <small>/cobranca/</small></li>
-<li><a href="numeros/">Os números da sua empresa no celular</a> <small>/numeros/</small></li>
-<li><a href="pedido-vendedor/">Pedido do vendedor direto no sistema</a> <small>/pedido-vendedor/</small></li></ul>
-<p style="color: var(--suave)">Use <code>utm_campaign=dores&amp;utm_content=&lt;slug&gt;</code> nos anúncios.</p></body></html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oasys — Sistema de gestão para estoque, vendas e cobrança</title>
+<meta name="description" content="O Oasys junta estoque, orçamento no WhatsApp, cobrança automática e painéis financeiros num sistema só. Agende uma demonstração gratuita.">
+<meta name="theme-color" content="#0E1A2B">
+<link rel="canonical" href="https://www.oasystecnologia.com/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Oasys — Sistema de gestão para estoque, vendas e cobrança">
+<meta property="og:description" content="O Oasys junta estoque, orçamento no WhatsApp, cobrança automática e painéis financeiros num sistema só. Agende uma demonstração gratuita.">
+<meta property="og:url" content="https://www.oasystecnologia.com/">
+<meta property="og:image" content="https://www.oasystecnologia.com/assets/og-home.png">
+<link rel="icon" href="assets/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="assets/oasys.css">
+<!-- GA4 (opcional): descomente e troque G-XXXXXXX
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXX');</script>
+-->
+<!-- PostHog -->
+<script>
+  !function (t, e) { var o, n, p, r; e.__SV || (window.posthog && window.posthog.__loaded) || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "ki Ci init qi Hi pr Bi zi Di capture calculateEventProperties Qi register register_once register_for_session unregister unregister_for_session Ki getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync Xi identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty Ji Gi createPersonProfile setInternalOrTestUser Yi Ai rn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Vi debug mr it getPageViewId captureTraceFeedback captureTraceMetric Oi".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+  posthog.init('phc_B3N4hWCfWyWPVcXBxZ46384oaUZPbq9iN46KVtyxZEhM', {
+    api_host: 'https://us.i.posthog.com',
+    defaults: '2026-05-30',
+    person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+  })
+</script>
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1042096091507834');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1042096091507834&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<body data-lp="home">
+<div style="font-family: 'Source Sans 3', system-ui, sans-serif; color: #0E1A2B; background: #F6F8FB; font-size: 18px; line-height: 1.55; overflow-x: clip">
+
+<header style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #E2E8F0">
+<div style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<a href="/" aria-label="Oasys — página inicial" style="display: inline-flex; align-items: center; text-decoration: none"><img src="assets/logohorizontal.png" alt="Oasys" style="height: 32px; width: auto; display: block"></a>
+<a class="btn" href="#demo" style="background: var(--azul); color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 16px; padding: 12px 20px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center">Agendar demonstração</a>
+</div>
+<div class="prog" aria-hidden="true" style="height: 3px; background: var(--azul); transform: scaleX(0); transform-origin: left"></div>
+</header>
+<main id="conteudo">
+
+
+<!-- HERO -->
+<section style="max-width: 1200px; margin: 0 auto; padding: clamp(48px, 6.3vw, 88px) 24px clamp(44px, 5.7vw, 80px); display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<p class="load d1" style="margin: 0; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azul)">Sistema de gestão Oasys</p>
+<span class="load d1 oz-tag" style="align-self: flex-start">✦ Com Oasys Neuron — IA nativa do ERP</span>
+<h1 class="load d2" style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(40px, 5.4vw, 66px); line-height: 1.02; letter-spacing: -0.035em">Estoque, vendas, cobrança e números. <span style="color: var(--azul)">Tudo no mesmo sistema.</span></h1>
+<p class="load d3" style="margin: 0; font-size: clamp(18px, 2.2vw, 21px); color: #3D4A5C; max-width: 560px">O Oasys é o ERP que junta controle de estoque, orçamento no WhatsApp, cobrança automática e painéis financeiros num lugar só. Sem planilha, sem redigitar, sem perder venda no caderno.</p>
+<div class="load d4" style="display: flex; flex-wrap: wrap; gap: 12px">
+<a class="btn" href="#demo" style="background: var(--azul); color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 16px 28px; border-radius: 12px; min-height: 52px; box-sizing: border-box; display: inline-flex; align-items: center">Agendar demonstração</a>
+</div>
+<p class="load d5" style="margin: 0; font-size: 15px; color: #4A5568">Planos a partir de <strong style="color: #0E1A2B">R$ 349/mês</strong> no plano anual</p>
+</div>
+<div class="par" style="flex: 1 1 400px; min-width: 0">
+<div class="load d3" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 32px 64px -32px rgba(14,26,43,0.35)">
+<div style="display: flex; justify-content: space-between; gap: 12px; margin-bottom: 14px"><span style="font-weight: 700">Oasys · visão geral</span><span style="font-size: 14px; color: #4A5568">tudo integrado</span></div>
+<div class="load d4" style="display: flex; gap: 14px; align-items: flex-start"><span style="width: 28px; height: 28px; border-radius: 50%; background: var(--azul); color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none">✓</span><div><strong>Estoque sempre batendo</strong><div style="font-size: 15px; color: #4A5568">Compra numa unidade, venda em outra</div></div></div>
+<div class="load d5" style="display: flex; gap: 14px; align-items: flex-start"><span style="width: 28px; height: 28px; border-radius: 50%; background: var(--azul); color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none">✓</span><div><strong>Orçamento no WhatsApp</strong><div style="font-size: 15px; color: #4A5568">Preço e estoque reais, direto na conversa</div></div></div>
+<div class="load d6" style="display: flex; gap: 14px; align-items: flex-start"><span style="width: 28px; height: 28px; border-radius: 50%; background: var(--azul); color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none">✓</span><div><strong>Cobrança automática</strong><div style="font-size: 15px; color: #4A5568">Lembretes antes e depois do vencimento</div></div></div>
+<div class="load d7" style="display: flex; gap: 14px; align-items: flex-start"><span style="width: 28px; height: 28px; border-radius: 50%; background: var(--azul); color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none">✓</span><div><strong>Pedidos e logística</strong><div style="font-size: 15px; color: #4A5568">Do pedido à entrega, tudo rastreado</div></div></div>
+<div class="load d8" style="display: flex; gap: 14px; align-items: flex-start"><span style="width: 28px; height: 28px; border-radius: 50%; background: #0E1A2B; color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none">✓</span><div><strong>Números no celular</strong><div style="font-size: 15px; color: #4A5568">Vendas, estoque e financeiro sem planilha</div></div></div>
+</div>
+</div>
+</section>
+
+<!-- CLIENTES -->
+<section class="rv" style="background: #0E1A2B">
+<div style="max-width: 1200px; margin: 0 auto; padding: clamp(40px, 5vw, 64px) 24px">
+<p style="margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: #C3CEDD">Empresas que já rodam no Oasys</p>
+<div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 56px); align-items: center; justify-content: center">
+<img src="assets/bhs.png" alt="BHS Distribuidora" style="height: 40px; width: auto">
+<img src="assets/msimportados.png" alt="MS Importados" style="height: 58px; width: auto">
+<img src="assets/Fundaltovalle.png" alt="Fundição Alto Valle" style="height: 34px; width: auto">
+<img src="assets/Luzmoveis.png" alt="Luz Móveis Planejados" style="height: 44px; width: auto">
+<img src="assets/casadastintas.png" alt="Casa das Tintas Agrolândia" style="height: 42px; width: auto">
+<img src="assets/lionluster.png" alt="Lion Luster Detailing" style="height: 60px; width: auto">
+</div>
+</div>
+</section>
+
+<!-- ESCOLHA SUA DOR -->
+<section style="background: #0E1A2B; color: #FFFFFF">
+<div style="max-width: 1200px; margin: 0 auto; padding: clamp(52px, 6.9vw, 96px) 24px; display: flex; flex-direction: column; gap: 40px">
+<div class="rv" style="max-width: 760px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(32px, 3.8vw, 48px); line-height: 1.08; letter-spacing: -0.025em">Qual dessas dores é a sua empresa?</h2>
+<p style="margin: 0; color: #C3CEDD; font-size: 19px">Clique na que mais pesa hoje e veja como o Oasys resolve, com um simulador de verdade.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+<a class="rv card" href="estoque/" style="text-decoration: none; color: inherit; background: #FFFFFF; color: #0E1A2B; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 8px"><strong style="font-family: 'Schibsted Grotesk', sans-serif; font-size: 21px">Estoque que não bate</strong><span style="color: #3D4A5C">Compra numa unidade, vende em outra, e a prateleira nunca fecha com o sistema.</span><span style="margin-top: auto; font-weight: 700; color: var(--azul)">Ver como resolve →</span></a>
+<a class="rv s2 card" href="nota-entrada/" style="text-decoration: none; color: inherit; background: #FFFFFF; color: #0E1A2B; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 8px"><strong style="font-family: 'Schibsted Grotesk', sans-serif; font-size: 21px">Nota de compra digitada à mão</strong><span style="color: #3D4A5C">Toda nota de compra vira digitação manual de novo, item por item.</span><span style="margin-top: auto; font-weight: 700; color: var(--azul)">Ver como resolve →</span></a>
+<a class="rv s3 card" href="orcamento-whatsapp/" style="text-decoration: none; color: inherit; background: #FFFFFF; color: #0E1A2B; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 8px"><strong style="font-family: 'Schibsted Grotesk', sans-serif; font-size: 21px">Orçamento perdido no WhatsApp</strong><span style="color: #3D4A5C">O cliente pede preço na conversa e o orçamento se perde no meio do histórico.</span><span style="margin-top: auto; font-weight: 700; color: var(--azul)">Ver como resolve →</span></a>
+<a class="rv card" href="cobranca/" style="text-decoration: none; color: inherit; background: #FFFFFF; color: #0E1A2B; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 8px"><strong style="font-family: 'Schibsted Grotesk', sans-serif; font-size: 21px">Cliente que não paga em dia</strong><span style="color: #3D4A5C">Vendeu, entregou, e o dinheiro não entrou. Ninguém quer ligar cobrando.</span><span style="margin-top: auto; font-weight: 700; color: var(--azul)">Ver como resolve →</span></a>
+<a class="rv s2 card" href="numeros/" style="text-decoration: none; color: inherit; background: #FFFFFF; color: #0E1A2B; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 8px"><strong style="font-family: 'Schibsted Grotesk', sans-serif; font-size: 21px">Decidir sem números</strong><span style="color: #3D4A5C">Pra saber como foi o dia, só abrindo uma planilha ou ligando pro escritório.</span><span style="margin-top: auto; font-weight: 700; color: var(--azul)">Ver como resolve →</span></a>
+<a class="rv s3 card" href="pedido-vendedor/" style="text-decoration: none; color: inherit; background: #FFFFFF; color: #0E1A2B; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 8px"><strong style="font-family: 'Schibsted Grotesk', sans-serif; font-size: 21px">Pedido por foto de caderno</strong><span style="color: #3D4A5C">O vendedor tira pedido na rua e alguém redigita tudo no escritório depois.</span><span style="margin-top: auto; font-weight: 700; color: var(--azul)">Ver como resolve →</span></a>
+</div>
+</div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section style="max-width: 1200px; margin: 0 auto; padding: clamp(56px, 7.4vw, 104px) 24px 56px; display: flex; flex-direction: column; gap: 44px">
+<div class="rv" style="max-width: 760px; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azul)">Como o Oasys é organizado</p>
+<h2 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.1; letter-spacing: -0.02em">Um ERP completo, com módulos pra quem precisa de mais.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+<article class="rv card" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: 40px; color: var(--azul); line-height: 1">1</span><h3 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-size: 22px">ERP completo</h3><p style="margin: 0; color: #3D4A5C">Estoque, vendas, compras, pedidos, logística, nota de entrada e financeiro com régua de cobrança, num sistema só.</p></article>
+<article class="rv s2 card" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: 40px; color: var(--azul); line-height: 1">2</span><h3 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-size: 22px">Oasys Chat</h3><p style="margin: 0; color: #3D4A5C">Orçamento e atendimento direto no WhatsApp, puxando preço e estoque do ERP.</p></article>
+<article class="rv s3 card" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: 40px; color: var(--azul); line-height: 1">3</span><h3 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-size: 22px">Oasys Finance</h3><p style="margin: 0; color: #3D4A5C">Painéis de vendas, estoque e financeiro no celular, com o <strong>Oasys Neuron</strong> de olho nos dados.</p></article>
+<article class="rv card" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: 40px; color: var(--azul); line-height: 1">4</span><h3 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-size: 22px">Sales App</h3><p style="margin: 0; color: #3D4A5C">Pedido do vendedor externo direto no sistema, com preço e estoque reais.</p></article>
+</div>
+</section>
+
+<!-- OASYS NEURON -->
+<section style="background: #F6F8FB; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0">
+<div style="max-width: 1200px; margin: 0 auto; padding: clamp(56px, 7.4vw, 104px) 24px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div class="rvl" style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<span class="oz-tag">✦ Inteligência artificial</span>
+<h2 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.1; letter-spacing: -0.02em">Oasys Neuron: a IA nativa do seu ERP.</h2>
+<p style="margin: 0; font-size: clamp(18px, 2.2vw, 21px); color: #3D4A5C; max-width: 520px">O Neuron já vem dentro do Oasys — não é um sistema à parte, nem um adicional pra configurar. Ele acompanha os dados da sua operação e avisa antes que virem problema.</p>
+<div style="display: flex; flex-direction: column; gap: 14px; margin-top: 4px">
+<div style="display: flex; gap: 14px; align-items: flex-start"><span style="width: 28px; height: 28px; border-radius: 50%; background: var(--azul); color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none">✓</span><div><strong>Estoque e compras</strong><div style="font-size: 15px; color: #4A5568">Avisa quando um produto está perto de faltar e sugere quando antecipar o pedido.</div></div></div>
+<div style="display: flex; gap: 14px; align-items: flex-start"><span style="width: 28px; height: 28px; border-radius: 50%; background: var(--azul); color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex: none">✓</span><div><strong>Financeiro</strong><div style="font-size: 15px; color: #4A5568">Projeta o caixa com base no seu histórico de pagamentos e recebimentos.</div></div></div>
+</div>
+</div>
+<div class="rvr oz-escuro" style="flex: 1 1 400px; min-width: 0; box-shadow: 0 32px 64px -32px rgba(14,26,43,0.45)">
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="font-weight: 700">Oasys Finance · estoque</span><span style="font-size: 13px; color: #C3CEDD">hoje</span></div>
+<div style="display: flex; gap: 12px; align-items: flex-start; background: #3B1F22; border: 1px solid #5C2A30; border-radius: 14px; padding: 14px 16px">
+<span aria-hidden="true" style="font-size: 18px; line-height: 1">⚠️</span>
+<div><strong style="font-size: 15px; color: #FFB4A8">Alerta de ruptura iminente</strong><div style="font-size: 14px; color: #C3CEDD">2 produtos atingiram o nível crítico de estoque.</div></div>
+</div>
+<div style="display: flex; gap: 12px; align-items: flex-start; background: #17263C; border: 1px solid #3B5A8C; border-radius: 14px; padding: 14px 16px">
+<span aria-hidden="true" style="font-size: 18px; line-height: 1; color: var(--claro)">✦</span>
+<div><strong style="font-size: 15px; color: var(--claro)">Oasys Neuron</strong><div style="font-size: 14px; color: #C3CEDD">Tendência de alta para a próxima semana. Sugerimos antecipar os pedidos com fornecedores homologados.</div></div>
+</div>
+<p class="oz-nota" style="color: #8296B3">Exemplo ilustrativo de um alerta real do Oasys Neuron dentro do Oasys Finance.</p>
+</div>
+</div>
+</section>
+
+<!-- PROVA -->
+<section style="background: #FFFFFF; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0">
+<div style="max-width: 880px; margin: 0 auto; padding: clamp(52px, 6.9vw, 96px) 24px">
+<figure class="rv" style="margin: 0; background: #F6F8FB; border-radius: 20px; padding: 36px; display: flex; flex-direction: column; gap: 18px; text-align: center; align-items: center">
+<blockquote style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-size: 26px; line-height: 1.35; font-weight: 600; max-width: 640px">“A Oasys tem uma plataforma completa, prática e muito bem desenvolvida. Mas o que realmente faz a diferença é o suporte e o comprometimento da equipe em buscar soluções pra cada necessidade.”</blockquote>
+<figcaption style="color: #4A5568; font-size: 16px"><strong style="color: #0E1A2B">Matheus Santos</strong> · Sócio-Proprietário, MS Importados — Atalanta/SC</figcaption>
+</figure>
+</div>
+</section>
+
+<!-- PREÇO -->
+<section style="max-width: 1200px; margin: 0 auto; padding: clamp(56px, 7.4vw, 104px) 24px; display: flex; flex-direction: column; gap: 40px">
+<div class="rv" style="max-width: 760px; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azul)">Planos</p>
+<h2 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.1; letter-spacing: -0.02em">Escolha o plano do tamanho da sua empresa.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: stretch">
+<div class="rvl" data-widget="preco" data-plano="essencial" data-desc="Estoque, vendas, compras, nota de entrada e financeiro com régua de cobrança automática. Implantação acompanhada."></div>
+<div class="rvr" data-widget="preco" data-plano="profissional" data-desc="Tudo do Essencial, mais Oasys Finance com painéis no celular. Pra quem já cresceu e precisa decidir com números."></div>
+</div>
+</section>
+
+<!-- OBJEÇÕES -->
+<section style="max-width: 880px; margin: 0 auto; padding: 0 24px clamp(52px, 6.9vw, 96px); display: flex; flex-direction: column; gap: 20px">
+<h2 class="rv" style="margin: 0 0 8px; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(28px, 3vw, 38px); letter-spacing: -0.02em">Antes que você pergunte</h2>
+<details class="rv" open style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Preciso contratar todos os módulos?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Não. O ERP (estoque, vendas, compras, nota de entrada e financeiro) é a base. Oasys Chat, Oasys Finance e Sales App são adicionais contratados conforme a necessidade de cada empresa.</p></details>
+<details class="rv" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Quanto tempo leva a implantação?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Em média, 20 dias, do cadastro inicial até a primeira venda emitida pelo Oasys. O prazo depende do volume de produtos e de quanto dá para migrar do sistema atual. Nossa equipe acompanha cada etapa: configuração, importação de dados, treinamento da equipe e acompanhamento nas primeiras semanas de uso.</p></details>
+<details class="rv" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Dá pra migrar do sistema que eu uso hoje?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Sim. Importamos os principais cadastros do seu sistema atual: produtos, clientes, fornecedores e contas a receber/pagar. Você nos envia uma exportação (planilha ou backup), nós tratamos e importamos os dados, e você confere antes de começarmos a operar. Se o sistema antigo não exporta, montamos com você uma planilha modelo.</p></details>
+<details class="rv" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Meus dados ficam seguros?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Sim. O Oasys roda em servidores em nuvem, com backup automático diário e acesso protegido por usuário e senha, com permissões por função. Seus dados são seus: se um dia você sair, entregamos uma exportação completa. Seguimos a LGPD no tratamento das informações.</p></details>
+</section>
+
+<section id="demo" style="color: #FFFFFF; background: var(--tinta); overflow: hidden">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 24px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div class="rvl" style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<h2 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(34px, 4.2vw, 54px); line-height: 1.04; letter-spacing: -0.03em">Veja o Oasys funcionando com os dados do seu negócio.</h2>
+<p style="margin: 0; color: #C3CEDD; font-size: 20px">Na demonstração a gente mostra estoque, orçamento, cobrança e números funcionando juntos, não um módulo isolado.</p>
+<p style="margin: 0; color: #C3CEDD; font-size: 16px">Prefere conversar agora? <a href="https://wa.me/554731804931" style="color: #FFFFFF; font-weight: 700">Chama no WhatsApp</a></p>
+</div>
+<form class="rvr" data-form="demo" data-endpoint="[URL_DO_ENDPOINT_DE_LEADS]" novalidate style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; color: var(--tinta); border-radius: 22px; padding: 32px">
+<div data-campos style="display: flex; flex-direction: column; gap: 16px">
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 16px">Seu nome<input type="text" name="nome" autocomplete="name" required placeholder="Como podemos te chamar?" style="min-height: 48px; padding: 10px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 17px"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 16px">WhatsApp<input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" required placeholder="(47) 9 0000-0000" style="min-height: 48px; padding: 10px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 17px"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 16px">Nome da empresa<input type="text" name="empresa" autocomplete="organization" placeholder="Ex.: Materiais Silva" style="min-height: 48px; padding: 10px 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 17px"></label>
+<span data-erro role="alert" hidden style="font-size: 14px; font-weight: 700; color: #B42318"></span>
+<button class="btn oz-primario" type="submit" style="font-size: 18px; min-height: 56px; margin-top: 4px">Quero uma demonstração</button>
+<p style="margin: 0; font-size: 14px; color: var(--suave); text-align: center">A gente responde pelo WhatsApp em horário comercial. Seus dados não são compartilhados.</p>
+</div>
+<div data-ok hidden tabindex="-1" role="status" style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 8px 0">
+<svg aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#007BC2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M7 12.5l3.5 3.5L17 9"></path></svg>
+<strong style="font-family: 'Schibsted Grotesk', sans-serif; font-size: 26px">Recebemos seu contato!</strong>
+<span style="color: var(--texto)">Em breve alguém da Oasys chama você no WhatsApp para marcar o melhor horário.</span>
+</div>
+</form>
+</div>
+</section>
+</main>
+<div class="mbar" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: rgba(255,255,255,0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--linha); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); gap: 10px">
+<a href="#demo" style="flex: 1; background: var(--azul); color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 16px; border-radius: 12px; min-height: 48px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 8px">Agendar demonstração</a>
+<a href="https://wa.me/554731804931" style="flex: 0 0 auto; background: #FFFFFF; color: var(--tinta); border: 1.5px solid #CBD5E1; text-decoration: none; font-weight: 700; font-size: 16px; border-radius: 12px; min-height: 48px; padding: 0 16px; display: flex; align-items: center; gap: 8px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.5A8.4 8.4 0 1 1 21 11.5z"></path></svg>WhatsApp</a>
+</div>
+<footer style="background: var(--tinta); color: #C3CEDD; border-top: 1px solid #2A3A52">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 15px">
+<span><strong style="color: #FFFFFF">Oasys Tecnologia</strong> · Rio do Sul, SC</span>
+<span>62.315.545/0001-44 · mateus@oasystecnologia.com · <a href="[link-politica-de-privacidade]" style="color: #C3CEDD">Política de privacidade</a></span>
+</div>
+</footer>
+</div>
+<script src="assets/oasys.js" defer></script>
+</body>
+</html>
