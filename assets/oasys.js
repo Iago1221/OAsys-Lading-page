@@ -349,51 +349,143 @@
 
   /* ---------- Painéis do Oasys Finance ---------- */
   widgets['sim-finance'] = function (el) {
-    var dados = [
-      { nome: 'Visão geral', tipo: 'v', titulo: 'Faturamento por semana do mês', insight: 'A semana 3 puxou o mês pra cima.', b: [['S1', 55], ['S2', 62], ['S3', 100], ['S4', 70]] },
-      { nome: 'Vendas', tipo: 'v', titulo: 'Vendas por dia da semana', insight: 'Sexta e sábado concentram o movimento.', b: [['Seg', 48], ['Ter', 52], ['Qua', 45], ['Qui', 60], ['Sex', 92], ['Sáb', 100]] },
-      { nome: 'Estoque', tipo: 'h', titulo: 'Produtos que mais giram', insight: 'O cimento gira 2× mais que o segundo item.', b: [['Cimento CP II 50 kg', 100], ['Argamassa AC-II', 52], ['Areia média (m³)', 44], ['Tubo PVC 100 mm', 30], ['Ferro 10 mm', 26]] },
-      { nome: 'Financeiro', tipo: 'p', titulo: 'Próximas 4 semanas', insight: 'Na semana 2 sai mais do que entra. Dá pra se planejar.', p: [['S1', 80, 60], ['S2', 50, 90], ['S3', 85, 55], ['S4', 70, 50]] }
-    ];
-    var aba = 0;
-    function render() {
-      var d = dados[aba], corpo = '';
-      if (d.tipo === 'v') {
-        corpo = '<div aria-hidden="true" style="display:flex;align-items:flex-end;gap:10px;height:200px;border-bottom:1px solid #2A3A52">' + d.b.map(function (x) {
-          return '<span class="bar" style="flex:1;display:block;height:' + x[1] + '%;background:' + (x[1] === 100 ? 'var(--claro)' : '#3B5A8C') + ';border-radius:6px 6px 0 0;animation-duration:.6s"></span>';
-        }).join('') + '</div><div style="display:flex;gap:10px;font-size:13px;color:#C3CEDD">' + d.b.map(function (x) { return '<span style="flex:1;text-align:center">' + x[0] + '</span>'; }).join('') + '</div>';
-      } else if (d.tipo === 'h') {
-        corpo = '<div style="display:flex;flex-direction:column;gap:12px">' + d.b.map(function (x) {
-          return '<div style="display:flex;flex-direction:column;gap:4px;font-size:14px"><span>' + x[0] + '</span><div class="oz-trilho" aria-hidden="true"><div style="width:' + x[1] + '%;background:' + (x[1] === 100 ? 'var(--claro)' : '#3B5A8C') + '"></div></div></div>';
+    var abas = ['inicio', 'fluxo', 'estoque', 'margem'];
+    var nomes = { inicio: 'Início', fluxo: 'Fluxo de caixa', estoque: 'Estoque parado', margem: 'Margem' };
+    var vencidos = {
+      receber: { total: 3210, inadimplencia: 4.2, faixas: [['1 a 30 dias', 1840, 100, 'var(--claro)'], ['31 a 60 dias', 900, 49, '#F2C94C'], ['61 a 90 dias', 320, 17, '#F2A65A'], ['Mais de 90 dias', 150, 8, '#F87171']] },
+      pagar: { total: 1980, inadimplencia: 2.6, faixas: [['1 a 30 dias', 1100, 100, 'var(--claro)'], ['31 a 60 dias', 620, 56, '#F2C94C'], ['61 a 90 dias', 260, 24, '#F2A65A'], ['Mais de 90 dias', 0, 0, '#F87171']] }
+    };
+    var estoqueParado = { '30': { valor: 9840, pct: 1.1 }, '60': { valor: 14260, pct: 1.6 }, '90': { valor: 18900, pct: 2.1 }, '180': { valor: 24350, pct: 2.7 } };
+    var totalEstoque = 892400, produtosAtivos = 4180;
+    var imobilizado = [['Ferro 10 mm', '210 un. · 96 dias', 3780], ['Argamassa AC-II 20 kg', '140 un. · 74 dias', 1610], ['Tubo PVC 100 mm', '38 un. · 58 dias', 980]];
+    var sugestaoCompra = [['Cimento CP II 50 kg', 'Saída média 3 un./dia · cobre 20 dias', '60 un.'], ['Areia média (m³)', 'Abaixo do mínimo (5)', '8 un.']];
+    var margemGeral = { bruta: 34.5, lucro: 4930, custo: 9350, receita: 14280 };
+    var margemVisoes = {
+      produto: { label: 'Produto', itens: [['Cimento CP II 50 kg', 38, 1280], ['Argamassa AC-II 20 kg', 44, 860], ['Ferro 10 mm', 22, 640], ['Tubo PVC 100 mm', 31, 410]] },
+      vendedor: { label: 'Vendedor', itens: [['Marina Souza', 41, 2210], ['João Pedro', 36, 1840], ['Carlos Lima', 29, 1120]] },
+      categoria: { label: 'Categoria', itens: [['Ferragens', 39, 1980], ['Materiais de construção', 34, 3650], ['Hidráulica', 27, 760]] }
+    };
+    var s = { aba: 'inicio', vencTipo: 'receber', periodo: '60', visao: 'produto', pedidoGerado: false };
+
+    function pct1(v) { return v.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }); }
+    function tile(rotulo, valor, nota, corNota) {
+      return '<div style="background:#16263F;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px">' +
+        '<span style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#8295B5">' + rotulo + '</span>' +
+        '<strong style="font-size:16.5px;color:#fff">' + valor + '</strong>' +
+        '<span style="font-size:11.5px;color:' + (corNota || '#8295B5') + '">' + nota + '</span></div>';
+    }
+    function linhaAtencao(label, valor, cor) {
+      return '<div style="display:flex;justify-content:space-between;align-items:center;background:#16263F;border-radius:12px;padding:12px 14px;font-size:13.5px"><span style="color:#D7E2EF">' + label + '</span><strong style="color:' + cor + '">' + valor + '</strong></div>';
+    }
+    function rotulo(t) { return '<span style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8295B5;margin-top:4px">' + t + '</span>'; }
+
+    function inicioHtml() {
+      return '<div style="border:1px solid #3B2E8C;background:#1A1640;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px">' +
+        '<span style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#B9ACFF">✦ Resumo do mês · Neuron</span>' +
+        '<p style="margin:0;font-size:14px;line-height:1.5;color:#fff">Você tem <strong>R$ 42,8 mil a receber</strong> e <strong>R$ 26,1 mil a pagar</strong> até o fim do mês. Nos próximos 7 dias saem <strong>R$ 2,4 mil a mais</strong> do que entram, e 2 fornecedores já estão vencidos.</p>' +
+        '<button type="button" data-ir="fluxo" style="align-self:flex-start;background:transparent;border:0;color:#B9ACFF;font-weight:700;font-size:13px;cursor:pointer;padding:4px 0">Ver fluxo projetado →</button></div>' +
+        rotulo('Precisa de atenção') +
+        '<div style="display:flex;flex-direction:column;gap:8px">' +
+        linhaAtencao('Caixa dos próximos 7 dias', brl(-2412.5), '#F2A65A') +
+        linhaAtencao('Contas a pagar vencidas', '2', '#F87171') +
+        linhaAtencao('Produtos com estoque negativo', '1', '#F87171') + '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">' +
+        tile('VENDAS NO MÊS', brl(14280), '▲ 8,2% vs mês ant.', '#3DD68C') +
+        tile('TICKET MÉDIO', brl(189.4), '▼ 1,5% vs mês ant.', '#F2A65A') +
+        tile('A RECEBER', brl(42830), brl(6150) + ' em 7 dias', null) +
+        tile('A PAGAR', brl(26140), brl(4820) + ' em 7 dias', null) + '</div>';
+    }
+
+    function fluxoHtml() {
+      var v = vencidos[s.vencTipo];
+      return '<div style="display:flex;justify-content:space-between;gap:10px">' +
+        '<div><span style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#8295B5">SALDO HOJE</span><div style="font-size:21px;font-weight:800;color:#fff">' + brl(58420) + '</div></div>' +
+        '<div style="text-align:right"><span style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#8295B5">PROJETADO EM 30 DIAS</span><div style="font-size:21px;font-weight:800;color:#3DD68C">' + brl(63990) + '</div></div></div>' +
+        '<div aria-hidden="true" style="display:flex;align-items:flex-end;gap:10px;height:70px"><span style="flex:1;display:block;height:62%;background:#3B5A8C;border-radius:4px 4px 0 0"></span><span style="flex:1;display:block;height:40%;background:#F2A65A;border-radius:4px 4px 0 0"></span><span style="flex:1;display:block;height:100%;background:var(--claro);border-radius:4px 4px 0 0"></span></div>' +
+        '<div style="display:flex;justify-content:space-between;font-size:11px;color:#8295B5">' +
+        '<span>Hoje · ' + brl(58420) + '</span><span>Dia 7</span><span>Dia 30 · ' + brl(63990) + '</span></div>' +
+        '<div style="background:#3A2A12;border:1px solid #5C3F17;border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start">⚠<p style="margin:0;font-size:13px;color:#F4D9B0;line-height:1.5">Nos próximos 7 dias saem <strong>' + brl(4820) + '</strong> e entram <strong>' + brl(2407.5) + '</strong>. Antecipe recebíveis ou renegocie um vencimento.</p></div>' +
+        rotulo('Vencidos por faixa') +
+        '<div class="oz-seg" role="radiogroup" aria-label="Tipo de vencido" style="align-self:flex-start">' +
+        '<button type="button" role="radio" data-k="vr" data-venc="receber" aria-checked="' + (s.vencTipo === 'receber') + '">A receber</button>' +
+        '<button type="button" role="radio" data-k="vp" data-venc="pagar" aria-checked="' + (s.vencTipo === 'pagar') + '">A pagar</button></div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline"><div><span style="font-size:10.5px;font-weight:700;color:#8295B5;letter-spacing:.04em">TOTAL VENCIDO</span><div style="font-size:19px;font-weight:800;color:#fff">' + brl(v.total) + '</div></div>' +
+        '<div style="text-align:right"><span style="font-size:10.5px;font-weight:700;color:#8295B5;letter-spacing:.04em">INADIMPLÊNCIA</span><div style="font-size:19px;font-weight:800;color:#F2A65A">' + pct1(v.inadimplencia) + '%</div></div></div>' +
+        '<div style="display:flex;flex-direction:column;gap:10px">' + v.faixas.map(function (f) {
+          return '<div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;font-size:13px;color:#D7E2EF"><span>' + f[0] + '</span><strong style="color:#fff">' + brl(f[1]) + '</strong></div><div class="oz-trilho" aria-hidden="true"><div style="width:' + f[2] + '%;background:' + f[3] + '"></div></div></div>';
         }).join('') + '</div>';
-      } else {
-        corpo = '<div style="display:flex;gap:14px;font-size:13px;color:#C3CEDD"><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:var(--claro)"></span>A receber</span><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#F2A65A"></span>A pagar</span></div>' +
-          '<div aria-hidden="true" style="display:flex;align-items:flex-end;gap:14px;height:180px;border-bottom:1px solid #2A3A52">' + d.p.map(function (x) {
-            return '<div style="flex:1;height:100%;display:flex;align-items:flex-end;gap:4px"><span class="bar" style="flex:1;display:block;height:' + x[1] + '%;background:var(--claro);border-radius:5px 5px 0 0;animation-duration:.6s"></span><span class="bar" style="flex:1;display:block;height:' + x[2] + '%;background:#F2A65A;border-radius:5px 5px 0 0;animation-duration:.6s"></span></div>';
-          }).join('') + '</div><div style="display:flex;gap:14px;font-size:13px;color:#C3CEDD">' + d.p.map(function (x) { return '<span style="flex:1;text-align:center">' + x[0] + '</span>'; }).join('') + '</div>';
-      }
+    }
+
+    function estoqueHtml() {
+      var d = estoqueParado[s.periodo];
+      return '<div class="oz-seg" role="radiogroup" aria-label="Período parado" style="flex-wrap:wrap;align-self:flex-start">' + ['30', '60', '90', '180'].map(function (p) {
+        return '<button type="button" role="radio" data-k="pz' + p + '" data-periodo="' + p + '" aria-checked="' + (s.periodo === p) + '">+' + p + 'd</button>';
+      }).join('') + '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px">' +
+        '<div><span style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#8295B5">PARADO HÁ +' + s.periodo + ' DIAS</span><div style="font-size:22px;font-weight:800;color:#F2A65A">' + brl(d.valor) + '</div></div>' +
+        '<div style="text-align:right"><span style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#8295B5">DO ESTOQUE TOTAL</span><div style="font-size:18px;font-weight:800;color:#fff">' + pct1(d.pct) + '%</div></div></div>' +
+        '<div class="oz-trilho" aria-hidden="true"><div style="width:' + (d.pct * 10) + '%;background:#F2A65A"></div></div>' +
+        '<span style="font-size:11.5px;color:#8295B5">Estoque total a custo: ' + brl(totalEstoque) + ' · ' + produtosAtivos.toLocaleString('pt-BR') + ' produtos ativos</span>' +
+        rotulo('Maior valor imobilizado') +
+        '<div style="display:flex;flex-direction:column;gap:8px">' + imobilizado.map(function (x, i) {
+          return '<div style="display:flex;align-items:center;gap:10px;background:#16263F;border-radius:12px;padding:10px 12px"><span style="width:18px;color:#8295B5;font-weight:700;font-size:13px">' + (i + 1) + '</span><div style="flex:1;min-width:0"><strong style="display:block;font-size:13.5px;color:#fff">' + x[0] + '</strong><span style="font-size:11.5px;color:#8295B5">' + x[1] + '</span></div><strong style="font-size:13.5px;color:#fff;white-space:nowrap">' + brl(x[2]) + '</strong></div>';
+        }).join('') + '</div>' +
+        rotulo('Sugestão de compra') +
+        '<div style="display:flex;flex-direction:column;gap:8px">' + sugestaoCompra.map(function (x) {
+          return '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;background:#16263F;border-radius:12px;padding:10px 12px"><div><strong style="display:block;font-size:13.5px;color:#fff">' + x[0] + '</strong><span style="font-size:11.5px;color:#8295B5">' + x[1] + '</span></div><strong style="font-size:13.5px;color:var(--claro);white-space:nowrap">' + x[2] + '</strong></div>';
+        }).join('') + '</div>' +
+        '<button type="button" class="oz-primario" style="width:100%;margin-top:4px" data-act="comprar"' + (s.pedidoGerado ? ' disabled' : '') + '>' + (s.pedidoGerado ? '✓ Pedido gerado' : 'Gerar pedido de compra') + '</button>';
+    }
+
+    function margemHtml() {
+      var v = margemVisoes[s.visao];
+      return '<div class="oz-seg" role="radiogroup" aria-label="Agrupar margem por" style="flex-wrap:wrap;align-self:flex-start">' + Object.keys(margemVisoes).map(function (k) {
+        return '<button type="button" role="radio" data-k="mv' + k + '" data-visao="' + k + '" aria-checked="' + (s.visao === k) + '">' + margemVisoes[k].label + '</button>';
+      }).join('') + '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px">' +
+        '<div><span style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#8295B5">MARGEM BRUTA</span><div style="font-size:24px;font-weight:800;color:#fff">' + pct1(margemGeral.bruta) + '%</div></div>' +
+        '<div style="text-align:right"><span style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#8295B5">LUCRO BRUTO</span><div style="font-size:18px;font-weight:800;color:#3DD68C">' + brl(margemGeral.lucro) + '</div></div></div>' +
+        '<div class="oz-trilho" aria-hidden="true"><div style="width:' + margemGeral.bruta + '%;background:#3DD68C"></div></div>' +
+        '<div style="display:flex;justify-content:space-between;font-size:11.5px;color:#8295B5"><span>Custo ' + brl(margemGeral.custo) + '</span><span>Receita ' + brl(margemGeral.receita) + '</span></div>' +
+        rotulo('Margem por ' + v.label.toLowerCase()) +
+        '<div style="display:flex;flex-direction:column;gap:10px">' + v.itens.map(function (x) {
+          var cor = x[1] >= 35 ? '#3DD68C' : x[1] >= 25 ? '#F2C94C' : '#F2A65A';
+          return '<div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;font-size:13px;color:#fff"><strong style="font-weight:600">' + x[0] + '</strong><strong style="color:' + cor + '">' + x[1] + '%</strong></div><div class="oz-trilho" aria-hidden="true"><div style="width:' + x[1] + '%;background:' + cor + '"></div></div><span style="font-size:11px;color:#8295B5">' + brl(x[2]) + '</span></div>';
+        }).join('') + '</div>';
+    }
+
+    function render() {
+      var corpo = s.aba === 'inicio' ? inicioHtml() : s.aba === 'fluxo' ? fluxoHtml() : s.aba === 'estoque' ? estoqueHtml() : margemHtml();
       montar(el,
         '<div class="oz-caixa" style="align-items:center"><div class="oz-col" style="flex-basis:340px">' +
         '<span class="oz-tag">Teste agora</span><h2 class="oz-h2">Toque nas abas. É assim que o dono vê a empresa no celular.</h2>' +
-        '<p style="margin:0;color:var(--texto)">Cada aba responde uma pergunta que hoje depende de planilha.</p><p class="oz-nota">Dados ilustrativos.</p></div>' +
-        '<div style="flex:1 1 460px;min-width:0;display:flex;justify-content:center"><div class="oz-celular" style="width:100%;max-width:420px;background:var(--tinta);border-radius:36px;padding:12px;box-shadow:0 40px 80px -36px rgba(14,26,43,.55)">' +
-        '<div style="background:#12223A;color:#fff;border-radius:26px;padding:20px;display:flex;flex-direction:column;gap:16px;min-height:440px">' +
-        '<div role="tablist" aria-label="Painéis do Oasys Finance" style="display:flex;gap:6px;flex-wrap:wrap">' + dados.map(function (x, i) {
-          return '<button type="button" role="tab" data-k="t' + i + '" data-aba="' + i + '" aria-selected="' + (i === aba) + '" style="font-size:13px;font-weight:700;padding:8px 12px;border-radius:999px;border:0;min-height:40px;cursor:pointer;' + (i === aba ? 'background:var(--azul);color:#fff' : 'background:#22344F;color:#C3CEDD') + '">' + x.nome + '</button>';
+        '<p style="margin:0;color:var(--texto)">Cada aba responde uma pergunta que hoje depende de planilha — vencidos, estoque parado, margem.</p><p class="oz-nota">Dados ilustrativos.</p></div>' +
+        '<div style="flex:1 1 460px;min-width:0;display:flex;justify-content:center"><div class="oz-celular" style="width:100%;max-width:400px;background:var(--tinta);border-radius:36px;padding:12px;box-shadow:0 40px 80px -36px rgba(14,26,43,.55)">' +
+        '<div class="oz-escuro-card" style="background:#0F1D33;color:#fff;border-radius:26px;padding:18px;display:flex;flex-direction:column;gap:14px">' +
+        '<div role="tablist" aria-label="Painéis do Oasys Finance" style="display:flex;gap:6px;flex-wrap:wrap">' + abas.map(function (k) {
+          return '<button type="button" role="tab" data-k="t' + k + '" data-aba="' + k + '" aria-selected="' + (k === s.aba) + '" style="font-size:12.5px;font-weight:700;padding:8px 12px;border-radius:999px;border:0;min-height:38px;cursor:pointer;white-space:nowrap;' + (k === s.aba ? 'background:var(--azul);color:#fff' : 'background:#1B2E4B;color:#C3CEDD') + '">' + nomes[k] + '</button>';
         }).join('') + '</div>' +
-        '<div role="tabpanel" aria-live="polite" style="display:flex;flex-direction:column;gap:14px;flex:1"><div style="font-size:14px;color:#C3CEDD;font-weight:600">' + d.titulo + '</div>' + corpo +
-        '<div style="margin-top:auto;background:#1B2E4B;border-radius:14px;padding:12px 14px;font-size:15px"><strong style="color:var(--claro)">Insight:</strong> ' + d.insight + '</div></div>' +
+        '<div role="tabpanel" aria-live="polite" class="scroll-limpo" style="max-height:500px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-right:2px">' + corpo + '</div>' +
         '</div></div></div></div>');
     }
     el.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-aba]'); if (!b) return;
-      aba = Number(b.getAttribute('data-aba')); track('interacao_simulador', { simulador: 'finance' }); render();
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.hasAttribute('data-aba')) { s.aba = b.getAttribute('data-aba'); track('interacao_simulador', { simulador: 'finance' }); }
+      else if (b.hasAttribute('data-ir')) s.aba = b.getAttribute('data-ir');
+      else if (b.hasAttribute('data-venc')) s.vencTipo = b.getAttribute('data-venc');
+      else if (b.hasAttribute('data-periodo')) s.periodo = b.getAttribute('data-periodo');
+      else if (b.hasAttribute('data-visao')) s.visao = b.getAttribute('data-visao');
+      else if (b.dataset.act === 'comprar') { s.pedidoGerado = true; track('interacao_simulador', { simulador: 'finance' }); }
+      else return;
+      render();
     });
     el.addEventListener('keydown', function (e) {
       if (!e.target.closest('[role="tab"]')) return;
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-        aba = (aba + (e.key === 'ArrowRight' ? 1 : dados.length - 1)) % dados.length; render();
-        var t = el.querySelector('[data-aba="' + aba + '"]'); if (t) t.focus(); e.preventDefault();
+        var i = abas.indexOf(s.aba);
+        i = (i + (e.key === 'ArrowRight' ? 1 : abas.length - 1)) % abas.length;
+        s.aba = abas[i]; render();
+        var t = el.querySelector('[data-aba="' + s.aba + '"]'); if (t) t.focus(); e.preventDefault();
       }
     });
     render();

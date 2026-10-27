@@ -9,6 +9,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 img{max-width:100%;display:block}
 .scroll-limpo{scrollbar-width:none;-ms-overflow-style:none}
 .scroll-limpo::-webkit-scrollbar{display:none}
+.scroll-limpo>*{flex-shrink:0}
 
 .btn{transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
 .btn:active{transform:scale(.97)}
