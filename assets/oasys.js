@@ -460,10 +460,10 @@
         '<div class="oz-caixa" style="align-items:center"><div class="oz-col" style="flex-basis:340px">' +
         '<span class="oz-tag">Teste agora</span><h2 class="oz-h2">Toque nas abas. É assim que o dono vê a empresa no celular.</h2>' +
         '<p style="margin:0;color:var(--texto)">Cada aba responde uma pergunta que hoje depende de planilha — vencidos, estoque parado, margem.</p><p class="oz-nota">Dados ilustrativos.</p></div>' +
-        '<div style="flex:1 1 460px;min-width:0;display:flex;justify-content:center"><div class="oz-celular" style="width:100%;max-width:400px;background:var(--tinta);border-radius:36px;padding:12px;box-shadow:0 40px 80px -36px rgba(14,26,43,.55)">' +
+        '<div style="flex:1 1 460px;min-width:0;display:flex;justify-content:center"><div class="oz-celular" style="width:100%;max-width:460px;background:var(--tinta);border-radius:36px;padding:12px;box-shadow:0 40px 80px -36px rgba(14,26,43,.55)">' +
         '<div class="oz-escuro-card" style="background:#0F1D33;color:#fff;border-radius:26px;padding:18px;display:flex;flex-direction:column;gap:14px">' +
         '<div role="tablist" aria-label="Painéis do Oasys Finance" style="display:flex;gap:6px;flex-wrap:wrap">' + abas.map(function (k) {
-          return '<button type="button" role="tab" data-k="t' + k + '" data-aba="' + k + '" aria-selected="' + (k === s.aba) + '" style="font-size:12.5px;font-weight:700;padding:8px 12px;border-radius:999px;border:0;min-height:38px;cursor:pointer;white-space:nowrap;' + (k === s.aba ? 'background:var(--azul);color:#fff' : 'background:#1B2E4B;color:#C3CEDD') + '">' + nomes[k] + '</button>';
+          return '<button type="button" role="tab" data-k="t' + k + '" data-aba="' + k + '" aria-selected="' + (k === s.aba) + '" style="font-size:12.5px;font-weight:700;padding:8px 11px;border-radius:999px;border:0;min-height:38px;cursor:pointer;white-space:nowrap;' + (k === s.aba ? 'background:var(--azul);color:#fff' : 'background:#1B2E4B;color:#C3CEDD') + '">' + nomes[k] + '</button>';
         }).join('') + '</div>' +
         '<div role="tabpanel" aria-live="polite" class="scroll-limpo" style="max-height:500px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-right:2px">' + corpo + '</div>' +
         '</div></div></div></div>');
