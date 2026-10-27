@@ -332,10 +332,10 @@
         '<div class="oz-col" style="gap:14px">' +
         '<div style="background:var(--tinta);color:#fff;border-radius:18px;padding:18px 22px;display:flex;justify-content:space-between;gap:12px;align-items:center"><span style="color:#C3CEDD;font-size:15px">Envios automáticos por título</span><strong style="font-family:\'Schibsted Grotesk\',sans-serif;font-size:32px">' + s.on.filter(Boolean).length + '</strong></div>' +
         '<div aria-live="polite" style="flex:1;background:var(--fundo);border:1px solid var(--linha);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px">' +
-        '<div style="font-size:13px;color:var(--suave)">De: [Sua loja] · Para: [cliente]@email.com</div>' +
+        '<div style="font-size:13px;color:var(--suave)">De: Sua loja · Para: cliente@email.com</div>' +
         '<div style="font-weight:700;font-size:18px">' + at[0] + '</div><p style="margin:0;color:var(--texto);white-space:pre-line">' + at[1] + '</p>' +
         (!s.on[s.ver] ? '<span style="font-size:14px;color:#B42318;font-weight:700">Este envio está desligado.</span>' : '') +
-        '</div><p class="oz-nota">Exemplo ilustrativo. [Confirmar dias e personalização disponíveis no Oasys.]</p></div></div>');
+        '</div><p class="oz-nota">Exemplo ilustrativo.</p></div></div>');
     }
     el.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
