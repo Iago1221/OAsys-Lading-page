@@ -117,7 +117,7 @@
       '<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#C3CEDD">Montando orçamento à mão</span><strong class="oz-num"><span data-out="ho"></span> h</strong></div>' +
       '<div class="oz-trilho" aria-hidden="true" style="height:8px"><div data-bar="po"></div></div>' +
       '</div>' +
-      '<form data-calc-form novalidate style="display:flex;flex-direction:column;gap:10px;margin-top:auto;padding-top:8px;border-top:1px solid #2A3A52" data-endpoint="[URL_DO_ENDPOINT_DE_LEADS]">' +
+      '<form data-calc-form novalidate style="display:flex;flex-direction:column;gap:10px;margin-top:auto;padding-top:8px;border-top:1px solid #2A3A52" data-endpoint="/leads.php">' +
       '<div data-campos style="display:flex;flex-direction:column;gap:10px">' +
       '<label style="display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px">Receba o diagnóstico completo por e-mail' +
       '<input type="email" name="email" autocomplete="email" placeholder="seu@email.com.br" required style="min-height:48px;padding:10px 14px;border:1.5px solid #3B5A8C;background:#17263C;color:#fff;border-radius:10px;font-size:17px"></label>' +
@@ -237,7 +237,7 @@
         '<button type="button" class="oz-primario" data-k="go" data-act="go" style="align-self:flex-start"' + (s.rodando ? ' disabled' : '') + '>' + (feito ? 'Importar de novo' : (s.rodando ? 'Importando…' : 'Buscar nota na Sefaz')) + '</button>' +
         '<p class="oz-nota">Exemplo ilustrativo de nota de materiais de construção.</p></div>' +
         '<div style="flex:1 1 460px;min-width:0;background:var(--fundo);border:1px solid var(--linha);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px">' +
-        '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><strong>NF-e de compra · [Fornecedor]</strong><span class="oz-tag" style="font-size:13px;padding:4px 10px">' + (feito ? 'Importada' : (s.rodando ? 'Importando…' : 'Na Sefaz')) + '</span></div>' +
+        '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><strong>NF-e de compra · Fornecedor de Tintas Ltda</strong><span class="oz-tag" style="font-size:13px;padding:4px 10px">' + (feito ? 'Importada' : (s.rodando ? 'Importando…' : 'Na Sefaz')) + '</span></div>' +
         '<div aria-hidden="true" style="height:8px;background:var(--linha);border-radius:99px;overflow:hidden"><div style="height:100%;width:' + ((s.rodando || feito) ? Math.round(Math.min(s.passo, n) / n * 100) : 0) + '%;background:var(--azul);border-radius:99px;transition:width .4s ease"></div></div>' +
         '<div role="table" aria-label="Itens da nota" style="display:flex;flex-direction:column;gap:6px;font-size:15px">' +
         '<div role="row" class="oz-nota-linha oz-nota-cab" style="font-size:13px;font-weight:700;color:var(--suave);text-transform:uppercase;letter-spacing:.04em;padding:0 10px"><span role="columnheader">Item</span><span role="columnheader">Qtd</span><span role="columnheader">NCM</span></div>' + linhas + '</div>' +
@@ -278,7 +278,7 @@
         '<button type="button" class="oz-link" data-k="re" data-act="re">Recomeçar</button></div>' +
         '<p class="oz-nota">Preços ilustrativos. No Oasys Chat entram os produtos e a tabela de preço do seu sistema.</p></div>' +
         '<div style="flex:1 1 380px;min-width:0;background:#EEF3FF;border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:10px;min-height:420px" aria-live="polite">' +
-        '<div style="display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid #D5E0FF"><span style="width:36px;height:36px;border-radius:50%;background:#D5E0FF;flex:none"></span><div><div style="font-weight:700;font-size:15px">[Cliente]</div><div style="font-size:13px;color:var(--suave)">via WhatsApp</div></div></div>' +
+        '<div style="display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid #D5E0FF"><span style="width:36px;height:36px;border-radius:50%;background:#D5E0FF;flex:none"></span><div><div style="font-weight:700;font-size:15px">Mateus Andrez</div><div style="font-size:13px;color:var(--suave)">via WhatsApp</div></div></div>' +
         '<div class="oz-bolha-cli" style="animation:none">Bom dia! Preciso de 20 sacos de cimento, 10 barras de ferro 10 mm e 30 de argamassa. Quanto fica?</div>' +
         (!s.enviado && qtd ? '<div style="align-self:flex-end;font-size:13px;color:var(--suave);padding:4px 8px">Atendente montando orçamento… ' + qtd + ' de 3 itens</div>' : '') +
         (s.enviado ? '<div class="oz-bolha-at"><div style="display:flex;justify-content:space-between;font-weight:700;color:var(--azul-esc)"><span>Orçamento</span><span>Oasys</span></div>' +
@@ -399,52 +399,137 @@
     render();
   };
 
-  /* ---------- Simulação do Sales App ---------- */
+  /* ---------- Simulação do Sales App (Catálogo / Carrinho / Perfil, como o app real) ---------- */
   widgets['sim-pedido'] = function (el) {
     var tabelas = [['Varejo', 1], ['Revenda', 0.9], ['Obra', 0.93]];
-    var prods = [['Cimento CP II 50 kg', 38.9, 40], ['Argamassa AC-II 20 kg', 24.5, 25], ['Tubo PVC 100 mm', 61, 8]];
-    var s = { tab: 1, qtd: [0, 0, 0], aviso: '', enviado: false };
+    var prods = [
+      { codigo: '5883', nome: 'Cimento CP II 50 kg', tag: 'Material', preco: 38.9, estoque: 40 },
+      { codigo: '5876', nome: 'Argamassa AC-II 20 kg', tag: 'Material', preco: 24.5, estoque: 25 },
+      { codigo: '5861', nome: 'Tubo PVC 100 mm', tag: 'Material', preco: 61, estoque: 8 }
+    ];
+    var s = { tab: 1, aba: 'catalogo', qtd: [0, 0, 0], aviso: '', enviado: false };
+
+    var icoGrid = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>';
+    var icoCarrinho = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>';
+    var icoPerfil = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    var icoPacote = '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>';
+    var icoFiltro = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"></path></svg>';
+    var icoPdf = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>';
+    var icoLixo = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>';
+
+    function navBtn(key, label, icone, badge) {
+      var ativo = s.aba === key;
+      return '<button type="button" data-k="nav-' + key + '" data-nav="' + key + '" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 7px;background:transparent;border:0;cursor:pointer;color:' + (ativo ? 'var(--azul)' : '#94A3B8') + ';font-size:11px;font-weight:700">' +
+        '<span style="position:relative;display:inline-flex">' + icone + (badge ? '<span style="position:absolute;top:-6px;right:-9px;background:var(--azul);color:#fff;border-radius:999px;min-width:16px;height:16px;font-size:10px;display:flex;align-items:center;justify-content:center;padding:0 3px">' + badge + '</span>' : '') + '</span>' + label + '</button>';
+    }
+
+    function catalogoHtml(f) {
+      return '<div style="padding:16px;display:flex;flex-direction:column;gap:12px">' +
+        '<div style="background:var(--fundo);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><div><span style="font-size:11px;color:var(--suave);font-weight:700;text-transform:uppercase;letter-spacing:.03em">Cliente selecionado</span>' +
+        '<div style="font-weight:700;font-size:14px;margin-top:2px">Mateus Andrez</div><div style="font-size:12px;color:var(--suave)">Rio do Sul</div></div>' +
+        '<span style="width:28px;height:28px;border-radius:8px;background:var(--azul);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex:none">+</span></div>' +
+        '<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--texto)"><span style="width:15px;height:15px;border:1.5px solid #CBD5E1;border-radius:4px;display:inline-block;flex:none"></span>Mix do cliente</label></div>' +
+        '<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;color:var(--suave);font-weight:700;text-transform:uppercase;letter-spacing:.03em">Tabela de preço</span>' +
+        '<div role="radiogroup" aria-label="Tabela de preço" style="display:flex;gap:6px;flex-wrap:wrap">' + tabelas.map(function (t, i) {
+          return '<button type="button" class="oz-pill" role="radio" style="font-size:13px;padding:7px 13px;min-height:36px" data-k="tb' + i + '" data-tab="' + i + '" aria-checked="' + (i === s.tab) + '">' + t[0] + '</button>';
+        }).join('') + '</div></div>' +
+        '<div style="display:flex;gap:16px;border-bottom:1px solid var(--linha)"><span style="font-weight:700;font-size:13px;color:var(--azul);padding-bottom:8px;border-bottom:2px solid var(--azul)">Produtos</span><span style="font-weight:700;font-size:13px;color:var(--suave);padding-bottom:8px">Kits</span></div>' +
+        '<div style="display:flex;gap:8px;align-items:center"><div style="flex:1;background:#fff;border:1px solid var(--linha);border-radius:10px;padding:9px 12px;font-size:13px;color:var(--suave)">Buscar por nome ou código…</div>' +
+        '<span style="width:36px;height:36px;border-radius:10px;background:#F2A65A;display:flex;align-items:center;justify-content:center;flex:none">' + icoFiltro + '</span>' +
+        '<span style="width:36px;height:36px;border-radius:10px;background:var(--azul);display:flex;align-items:center;justify-content:center;flex:none">' + icoPdf + '</span></div>' +
+        '<span class="oz-tag" style="align-self:flex-start">' + prods.length + ' produto(s) carregado(s)</span>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">' + prods.map(function (p, i) {
+          return '<div style="background:#fff;border:1px solid var(--linha);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px">' +
+            '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:4px"><span style="width:44px;height:44px;border-radius:10px;background:var(--fundo);display:flex;align-items:center;justify-content:center;color:#94A3B8;flex:none">' + icoPacote + '</span>' +
+            '<span class="oz-tag" style="font-size:10px;padding:3px 7px;white-space:nowrap">' + p.tag + '</span></div>' +
+            '<span style="font-size:11px;color:var(--suave)">' + p.codigo + '</span>' +
+            '<strong style="font-size:12.5px;line-height:1.3;min-height:32px">' + p.nome + '</strong>' +
+            '<span style="font-size:11px;color:var(--suave)">Qtd. disp.: ' + Math.max(p.estoque - s.qtd[i], 0) + '</span>' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:2px"><strong style="color:var(--azul);font-size:14px">' + brl(p.preco * f) + '</strong>' +
+            '<button type="button" data-k="add' + i + '" data-add="' + i + '" aria-label="Adicionar ' + p.nome + '"' + (s.qtd[i] >= p.estoque ? ' disabled' : '') + ' style="width:28px;height:28px;border-radius:8px;border:0;background:var(--azul);color:#fff;font-size:16px;font-weight:700;cursor:pointer;flex:none">+</button></div></div>';
+        }).join('') + '</div></div>';
+    }
+
+    function carrinhoHtml(f, totalItens, totalCarrinho) {
+      var itens = prods.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) { return s.qtd[x.i] > 0; });
+      return '<div style="padding:16px;display:flex;flex-direction:column;gap:12px">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div><strong style="font-family:\'Schibsted Grotesk\',sans-serif;font-size:18px">Carrinho (' + totalItens + ')</strong>' +
+        '<div style="font-size:12px;color:var(--suave);margin-top:2px">Cliente: Mateus Andrez</div></div>' +
+        '<button type="button" class="oz-secundario" style="font-size:12px;padding:7px 12px;min-height:34px;white-space:nowrap">Criar orçamento</button></div>' +
+        '<div style="background:var(--fundo);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:var(--suave);font-weight:700;text-transform:uppercase;letter-spacing:.03em">Condição de pagamento</span><span style="font-size:13px;color:var(--suave)">Selecione uma condição</span></div>' +
+        (itens.length ? '<div style="display:flex;flex-direction:column;gap:10px">' + itens.map(function (x) {
+          var p = x.p, i = x.i;
+          return '<div style="background:#fff;border:1px solid var(--linha);border-radius:14px;padding:12px;display:flex;gap:10px">' +
+            '<span style="width:50px;height:50px;border-radius:10px;background:var(--fundo);display:flex;align-items:center;justify-content:center;color:#94A3B8;flex:none">' + icoPacote + '</span>' +
+            '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:var(--suave)">' + p.codigo + '</span>' +
+            '<strong style="font-size:13.5px;line-height:1.3">' + p.nome + '</strong>' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:2px"><strong style="color:var(--azul);font-size:13.5px">' + brl(p.preco * f) + '</strong><div class="oz-step">' +
+            '<button type="button" data-k="m' + i + '" data-menos="' + i + '" aria-label="Diminuir ' + p.nome + '" style="border:1.5px solid #CBD5E1;background:#fff;color:var(--tinta)">−</button>' +
+            '<strong style="min-width:22px;text-align:center;font-variant-numeric:tabular-nums">' + s.qtd[i] + '</strong>' +
+            '<button type="button" data-k="p' + i + '" data-mais="' + i + '" aria-label="Aumentar ' + p.nome + '"' + (s.qtd[i] >= p.estoque ? ' disabled' : '') + ' style="border:0;background:var(--azul);color:#fff">+</button></div></div>' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--linha);padding-top:6px;margin-top:2px"><span style="font-size:11px;color:var(--suave)">Total: <strong style="color:var(--tinta)">' + brl(p.preco * f * s.qtd[i]) + '</strong></span>' +
+            '<button type="button" data-k="rm' + i + '" data-rm="' + i + '" aria-label="Remover ' + p.nome + '" style="background:transparent;border:0;color:#B42318;cursor:pointer;padding:4px">' + icoLixo + '</button></div></div></div>';
+        }).join('') + '</div>'
+          : '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;color:var(--suave);padding:28px 10px">' + icoPacote + '<span style="font-size:13px">Seu carrinho está vazio.</span><button type="button" data-k="ircat" data-nav="catalogo" class="oz-secundario" style="font-size:13px">Ver catálogo</button></div>') +
+        (s.aviso ? '<div role="alert" style="font-size:13px;font-weight:700;color:#B42318">' + s.aviso + '</div>' : '') +
+        '<div style="border-top:1px solid var(--linha);padding-top:12px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;justify-content:space-between;font-weight:700;font-size:15px"><span>Total do pedido</span><span aria-live="polite">' + brl(totalCarrinho) + '</span></div>' +
+        '<button type="button" class="oz-primario" data-k="env" data-act="env"' + (totalItens ? '' : ' disabled') + ' style="width:100%">→ Criar pedido</button></div></div>';
+    }
+
+    function perfilHtml() {
+      return '<div style="padding:16px;display:flex;flex-direction:column;gap:12px">' +
+        '<div style="background:linear-gradient(135deg,var(--azul),var(--azul-esc));color:#fff;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px">' +
+        '<strong style="font-size:15px">Vendedor</strong><span style="font-size:12px;color:#DCEBFF">vendedor@oasys.com.br</span>' +
+        '<span style="align-self:flex-start;background:rgba(255,255,255,.18);color:#B6F4C8;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;margin-top:2px">● Online</span></div>' +
+        '<div style="background:#fff;border:1px solid var(--linha);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px">' +
+        '<span style="font-size:11px;color:var(--suave);font-weight:700;text-transform:uppercase;letter-spacing:.03em">Sessão atual</span>' +
+        '<div style="display:flex;gap:10px;align-items:center;color:var(--azul)">' + icoPerfil + '<div style="color:var(--tinta)"><strong style="font-size:13.5px">Mateus Andrez</strong><div style="font-size:12px;color:var(--suave)">Cliente ativo</div></div></div>' +
+        '<div style="display:flex;gap:10px;align-items:center;color:var(--azul)">' + icoGrid + '<div style="color:var(--tinta)"><strong style="font-size:13.5px">Tabela ' + tabelas[s.tab][0] + '</strong><div style="font-size:12px;color:var(--suave)">Condição comercial</div></div></div>' +
+        '<button type="button" class="oz-secundario" style="border-color:#F2B8B5;color:#B42318;font-size:13px">Encerrar atendimento</button></div>' +
+        '<div style="background:#fff;border:1px solid var(--linha);border-radius:14px;padding:14px;display:flex;flex-direction:column"><span style="font-size:11px;color:var(--suave);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px">Configurações</span>' +
+        ['Minhas metas', 'Pedidos do cliente', 'Orçamentos do cliente'].map(function (t) {
+          return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--linha);font-size:13.5px;color:var(--texto)">' + t + '<span style="color:#CBD5E1">›</span></div>';
+        }).join('') + '</div></div>';
+    }
+
     function render() {
       var f = tabelas[s.tab][1];
-      var total = prods.reduce(function (a, p, i) { return a + p[1] * f * s.qtd[i]; }, 0);
-      var n = s.qtd.reduce(function (a, b) { return a + b; }, 0);
+      var totalItens = s.qtd.reduce(function (a, b) { return a + b; }, 0);
+      var totalCarrinho = prods.reduce(function (a, p, i) { return a + p.preco * f * s.qtd[i]; }, 0);
+      var nav = '<div style="display:flex;border-top:1px solid var(--linha);background:#fff;flex:none">' +
+        navBtn('catalogo', 'Catálogo', icoGrid) + navBtn('carrinho', 'Carrinho', icoCarrinho, totalItens) + navBtn('perfil', 'Perfil', icoPerfil) + '</div>';
       var tela = s.enviado
-        ? '<div role="status" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;padding:20px 8px">' +
+        ? '<div role="status" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;padding:20px 24px">' +
           '<svg aria-hidden="true" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--azul)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M7 12.5l3.5 3.5L17 9"></path></svg>' +
           '<strong style="font-family:\'Schibsted Grotesk\',sans-serif;font-size:24px">Pedido no Oasys</strong>' +
-          '<span style="color:var(--texto)">' + n + (n === 1 ? ' item' : ' itens') + ' · ' + brl(total) + ' · tabela ' + tabelas[s.tab][0] + '. Pronto pra separar no escritório, sem redigitar nada.</span>' +
+          '<span style="color:var(--texto)">' + totalItens + (totalItens === 1 ? ' item' : ' itens') + ' · ' + brl(totalCarrinho) + ' · tabela ' + tabelas[s.tab][0] + '. Pronto pra separar no escritório, sem redigitar nada.</span>' +
           '<button type="button" class="oz-secundario" data-k="novo" data-act="novo" style="margin-top:8px">Tirar outro pedido</button></div>'
-        : '<div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-family:\'Schibsted Grotesk\',sans-serif;font-size:20px">Novo pedido</strong><span style="font-size:13px;color:var(--suave)">[Cliente]</span></div>' +
-          '<div role="radiogroup" aria-label="Tabela de preço" style="display:flex;gap:6px;flex-wrap:wrap">' + tabelas.map(function (t, i) {
-            return '<button type="button" class="oz-pill" role="radio" style="font-size:14px;padding:8px 14px;min-height:40px" data-k="tb' + i + '" data-tab="' + i + '" aria-checked="' + (i === s.tab) + '">' + t[0] + '</button>';
-          }).join('') + '</div>' +
-          '<div style="display:flex;flex-direction:column;gap:8px">' + prods.map(function (p, i) {
-            return '<div class="oz-prod" style="border:1px solid var(--linha);border-radius:12px;padding:10px 12px"><div class="oz-prod-info"><div style="font-weight:600;font-size:15px">' + p[0] + '</div><div style="font-size:13px;color:var(--suave)">' + brl(p[1] * f) + ' · estoque ' + (p[2] - s.qtd[i]) + '</div></div><div class="oz-step">' +
-              '<button type="button" data-k="m' + i + '" data-menos="' + i + '" aria-label="Diminuir ' + p[0] + '" style="border:1.5px solid #CBD5E1;background:#fff;color:var(--tinta)">−</button>' +
-              '<strong style="min-width:26px;text-align:center;font-variant-numeric:tabular-nums">' + s.qtd[i] + '</strong>' +
-              '<button type="button" data-k="p' + i + '" data-mais="' + i + '" aria-label="Aumentar ' + p[0] + '" style="border:0;background:var(--azul);color:#fff">+</button></div></div>';
-          }).join('') + '</div>' +
-          (s.aviso ? '<div role="alert" style="font-size:14px;font-weight:700;color:#B42318">' + s.aviso + '</div>' : '') +
-          '<div style="display:flex;justify-content:space-between;border-top:1px solid var(--linha);padding-top:10px;font-weight:700"><span>Total</span><span aria-live="polite">' + brl(total) + '</span></div>' +
-          '<button type="button" class="oz-primario" data-k="env" data-act="env"' + (n ? '' : ' disabled') + '>Enviar pedido ao ERP</button>';
+        : (s.aba === 'perfil' ? perfilHtml() : s.aba === 'carrinho' ? carrinhoHtml(f, totalItens, totalCarrinho) : catalogoHtml(f));
       montar(el,
         '<div class="oz-caixa" style="align-items:center"><div class="oz-col" style="flex-basis:340px">' +
         '<span class="oz-tag">Teste agora · você é o vendedor</span><h2 class="oz-h2">Tire um pedido como seu vendedor tiraria na rua.</h2>' +
-        '<p style="margin:0;color:var(--texto)">Troque a tabela do cliente e veja o preço mudar. Tente passar do estoque: o app não deixa.</p><p class="oz-nota">Preços e estoque ilustrativos.</p></div>' +
+        '<p style="margin:0;color:var(--texto)">Navegue pelo catálogo, pelo carrinho e pelo perfil — é a mesma tela que o seu vendedor usa no celular. Troque a tabela do cliente e veja o preço mudar.</p><p class="oz-nota">Preços, código e estoque ilustrativos.</p></div>' +
         '<div style="flex:1 1 420px;min-width:0;display:flex;justify-content:center"><div class="oz-celular" style="width:100%;max-width:400px;background:var(--tinta);border-radius:36px;padding:12px;box-shadow:0 40px 80px -36px rgba(14,26,43,.55)">' +
-        '<div style="background:#fff;border-radius:26px;padding:20px;display:flex;flex-direction:column;gap:14px;min-height:460px">' + tela + '</div></div></div></div>');
+        '<div style="background:#fff;border-radius:26px;height:560px;overflow:hidden;display:flex;flex-direction:column">' +
+        '<div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column">' + tela + '</div>' + nav + '</div></div></div></div>');
     }
     el.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b || b.disabled) return;
-      if (b.hasAttribute('data-tab')) s.tab = Number(b.getAttribute('data-tab'));
-      else if (b.hasAttribute('data-mais') || b.hasAttribute('data-menos')) {
+      if (b.hasAttribute('data-nav')) { s.aba = b.getAttribute('data-nav'); s.enviado = false; }
+      else if (b.hasAttribute('data-tab')) s.tab = Number(b.getAttribute('data-tab'));
+      else if (b.hasAttribute('data-add')) {
+        var ia = Number(b.getAttribute('data-add'));
+        if (s.qtd[ia] < prods[ia].estoque) { s.qtd[ia]++; s.aviso = ''; }
+      } else if (b.hasAttribute('data-mais') || b.hasAttribute('data-menos')) {
         var i = Number(b.getAttribute('data-mais') || b.getAttribute('data-menos'));
         var novo = s.qtd[i] + (b.hasAttribute('data-mais') ? 1 : -1);
         if (novo < 0) return;
-        if (novo > prods[i][2]) s.aviso = 'Só tem ' + prods[i][2] + ' de ' + prods[i][0] + ' em estoque.';
+        if (novo > prods[i].estoque) s.aviso = 'Só tem ' + prods[i].estoque + ' de ' + prods[i].nome + ' em estoque.';
         else { s.qtd[i] = novo; s.aviso = ''; }
-      } else if (b.dataset.act === 'env') { s.enviado = true; track('interacao_simulador', { simulador: 'pedido' }); }
-      else if (b.dataset.act === 'novo') s = { tab: s.tab, qtd: [0, 0, 0], aviso: '', enviado: false };
+      } else if (b.hasAttribute('data-rm')) { s.qtd[Number(b.getAttribute('data-rm'))] = 0; s.aviso = ''; }
+      else if (b.dataset.act === 'env') { s.enviado = true; track('interacao_simulador', { simulador: 'pedido' }); }
+      else if (b.dataset.act === 'novo') s = { tab: s.tab, aba: 'catalogo', qtd: [0, 0, 0], aviso: '', enviado: false };
       render();
     });
     render();
@@ -456,17 +541,31 @@
     var planos = {
       essencial: { nome: 'Plano Essencial', anual: 349, mensal: 409, unidade: '/mês', escuro: false },
       profissional: { nome: 'Plano Profissional', anual: 599, mensal: 689, unidade: '/mês', escuro: true },
-      chat: { nome: 'Oasys Chat', anual: null, mensal: null, unidade: '/mês', escuro: false },
-      salesapp: { nome: 'Sales App', anual: null, mensal: null, unidade: '/vendedor', escuro: false }
+      chat: { nome: 'Oasys Chat', porMensagem: 0.10, unidade: '/mensagem', escuro: false },
+      salesapp: { nome: 'Sales App', anual: 34.9, mensal: 40.9, unidade: '/vendedor', escuro: false }
     };
     var p = planos[el.getAttribute('data-plano')] || planos.essencial;
     var desc = el.getAttribute('data-desc') || '';
     var anual = true;
-    var real = function (v) { return 'R$ ' + v.toLocaleString('pt-BR'); };
-    var temValor = p.anual !== null;
+    var real = function (v) { return 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 }); };
+    var temValor = p.anual !== undefined && p.anual !== null;
+    var porUso = p.porMensagem !== undefined;
     var escuro = p.escuro;
     var sub = escuro ? '#C3CEDD' : 'var(--suave)';
     function render() {
+      if (porUso) {
+        montar(el,
+          '<div style="height:100%;border:2px solid var(--azul);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:#fff;color:var(--tinta)">' +
+          '<span style="font-weight:700;font-size:15px;color:var(--azul-esc)">' + p.nome + '</span>' +
+          '<div style="display:flex;flex-direction:column;gap:8px">' +
+          '<div style="font-family:\'Schibsted Grotesk\',sans-serif;font-size:48px;font-weight:800;letter-spacing:-.03em;line-height:1">' + real(p.porMensagem) + '<span style="font-size:18px;font-weight:600;letter-spacing:0;color:' + sub + '">' + p.unidade + '</span></div>' +
+          '<span style="font-size:15px;color:' + sub + '">plano de créditos pré-pagos · sem mensalidade fixa</span>' +
+          '</div>' +
+          '<p style="margin:0;font-size:16px;color:var(--texto)">' + esc(desc) + '</p>' +
+          '<a class="btn" href="#demo" style="margin-top:auto;background:var(--azul);color:#fff;text-decoration:none;font-weight:700;padding:14px 20px;border-radius:12px;min-height:52px;display:flex;align-items:center;justify-content:center">Ver funcionando</a>' +
+          '</div>');
+        return;
+      }
       var preco = temValor ? real(anual ? p.anual : p.mensal) : (anual ? '[Preço anual]' : '[Preço mensal]');
       var eco = temValor ? (anual ? 'Você economiza ' + real((p.mensal - p.anual) * 12) + ' por ano' : 'No anual sai ' + real(p.anual) + '/mês') : '';
       montar(el,

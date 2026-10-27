@@ -3,3 +3,4 @@ composer.lock
 .env
 .claude/settings.local.json
 assets/*.zip
+leads/leads.csv
