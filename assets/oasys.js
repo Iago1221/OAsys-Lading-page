@@ -546,6 +546,18 @@
         '<span style="position:relative;display:inline-flex">' + icone + (badge ? '<span style="position:absolute;top:-6px;right:-9px;background:var(--azul);color:#fff;border-radius:999px;min-width:16px;height:16px;font-size:10px;display:flex;align-items:center;justify-content:center;padding:0 3px">' + badge + '</span>' : '') + '</span>' + label + '</button>';
     }
 
+    var fundosProd = ['#EEF2F7', '#FBF3E6', '#E6F0F8'];
+    var desenhosProd = [
+      '<path d="M16 12Q32 8 48 12L52 18V54Q32 58 12 54V18Z" fill="#CBD5E1"></path><path d="M16 12Q32 16 48 12L52 18Q32 22 12 18Z" fill="#94A3B8"></path><rect x="12" y="29" width="40" height="15" fill="#007BC2"></rect><text x="32" y="40" font-size="9" font-weight="700" fill="#fff" text-anchor="middle" font-family="Arial,sans-serif">CP II</text><text x="32" y="51" font-size="6" font-weight="700" fill="#475569" text-anchor="middle" font-family="Arial,sans-serif">50 kg</text>',
+      '<path d="M16 12Q32 8 48 12L52 18V54Q32 58 12 54V18Z" fill="#E7C9A0"></path><path d="M16 12Q32 16 48 12L52 18Q32 22 12 18Z" fill="#C9A978"></path><rect x="12" y="29" width="40" height="15" fill="#F2A65A"></rect><text x="32" y="40" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle" font-family="Arial,sans-serif">AC-II</text><text x="32" y="51" font-size="6" font-weight="700" fill="#7A5A2E" text-anchor="middle" font-family="Arial,sans-serif">20 kg</text>',
+      '<rect x="6" y="22" width="46" height="20" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"></rect><rect x="6" y="22" width="9" height="20" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5"></rect><ellipse cx="52" cy="32" rx="5" ry="10" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5"></ellipse><ellipse cx="52" cy="32" rx="3" ry="7" fill="#94A3B8"></ellipse><text x="32" y="55" font-size="7" font-weight="700" fill="#475569" text-anchor="middle" font-family="Arial,sans-serif">PVC 100 mm</text>'
+    ];
+    function prodImg(i, w, h, raio) {
+      var lado = Math.min(w, h) - 8;
+      return '<span role="img" aria-label="Foto ilustrativa de ' + prods[i].nome + '" style="width:' + w + 'px;height:' + h + 'px;border-radius:' + raio + 'px;background:' + fundosProd[i] + ';display:flex;align-items:center;justify-content:center;flex:none">' +
+        '<svg viewBox="0 0 64 64" aria-hidden="true" style="display:block;width:' + lado + 'px;height:' + lado + 'px">' + desenhosProd[i] + '</svg></span>';
+    }
+
     function catalogoHtml(f) {
       return '<div style="padding:16px;display:flex;flex-direction:column;gap:12px">' +
         '<div style="background:var(--fundo);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px">' +
@@ -564,8 +576,8 @@
         '<span class="oz-tag" style="align-self:flex-start">' + prods.length + ' produto(s) carregado(s)</span>' +
         '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">' + prods.map(function (p, i) {
           return '<div style="background:#fff;border:1px solid var(--linha);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px">' +
-            '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:4px"><span style="width:44px;height:44px;border-radius:10px;background:var(--fundo);display:flex;align-items:center;justify-content:center;color:#94A3B8;flex:none">' + icoPacote + '</span>' +
-            '<span class="oz-tag" style="font-size:10px;padding:3px 7px;white-space:nowrap">' + p.tag + '</span></div>' +
+            '<div style="position:relative">' + prodImg(i, 130, 84, 10).replace('width:130px', 'width:100%') +
+            '<span class="oz-tag" style="position:absolute;top:6px;right:6px;font-size:10px;padding:3px 7px;white-space:nowrap">' + p.tag + '</span></div>' +
             '<span style="font-size:11px;color:var(--suave)">' + p.codigo + '</span>' +
             '<strong style="font-size:12.5px;line-height:1.3;min-height:32px">' + p.nome + '</strong>' +
             '<span style="font-size:11px;color:var(--suave)">Qtd. disp.: ' + Math.max(p.estoque - s.qtd[i], 0) + '</span>' +
@@ -584,7 +596,7 @@
         (itens.length ? '<div style="display:flex;flex-direction:column;gap:10px">' + itens.map(function (x) {
           var p = x.p, i = x.i;
           return '<div style="background:#fff;border:1px solid var(--linha);border-radius:14px;padding:12px;display:flex;gap:10px">' +
-            '<span style="width:50px;height:50px;border-radius:10px;background:var(--fundo);display:flex;align-items:center;justify-content:center;color:#94A3B8;flex:none">' + icoPacote + '</span>' +
+            prodImg(i, 56, 56, 10) +
             '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;color:var(--suave)">' + p.codigo + '</span>' +
             '<strong style="font-size:13.5px;line-height:1.3">' + p.nome + '</strong>' +
             '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:2px"><strong style="color:var(--azul);font-size:13.5px">' + brl(p.preco * f) + '</strong><div class="oz-step">' +
