@@ -218,33 +218,64 @@
   /* ---------- Simulação de entrada de NF-e ---------- */
   widgets['sim-nota'] = function (el) {
     var itens = [
-      ['Cimento CP II 50 kg', '200 sc', '2523.29.10'], ['Vergalhão CA-50 10 mm', '120 br', '7214.20.00'],
-      ['Tubo PVC 100 mm', '48 un', '3917.23.00'], ['Argamassa AC-II 20 kg', '150 sc', '3824.50.00'], ['Fio de cobre 2,5 mm', '20 rl', '8544.49.00']
+      { nome: 'Cimento CP II 50 kg', ncm: '2523.29.10', q: 4, un: 't', preco: 780, fator: 20, vun: 'sc', antes: 40 },
+      { nome: 'Vergalhão CA-50 10 mm', ncm: '7214.20.00', q: 120, un: 'br', preco: 48, fator: 12, vun: 'm', antes: 300 },
+      { nome: 'Tubo PVC 100 mm', ncm: '3917.23.00', q: 48, un: 'br', preco: 52, fator: 6, vun: 'm', antes: 96 },
+      { nome: 'Argamassa AC-II 20 kg', ncm: '3824.50.00', q: 150, un: 'sc', preco: 17.5, fator: 1, vun: 'sc', antes: 25 },
+      { nome: 'Fio de cobre 2,5 mm', ncm: '8544.49.00', q: 20, un: 'rl', preco: 245, fator: 100, vun: 'm', antes: 150 }
     ];
-    var s = { passo: 0, rodando: false }, timer = null, n = itens.length;
+    var tamanhos = [5, 30, 80];
+    var chave = '3526 1011 2233 4400 0155 5500 1000 0012 3410 0045 6789';
+    var n = itens.length;
+    var total = itens.reduce(function (a, it) { return a + it.q * it.preco; }, 0);
+    var base = Math.floor(total * 100 / 3) / 100;
+    var parcelas = [[30, total - 2 * base], [60, base], [90, base]];
+    var s = { passo: 0, rodando: false, nItens: 5 }, timer = null;
+    function num(v) { return v.toLocaleString('pt-BR'); }
+    function minutos(m) { return m < 60 ? m + ' min' : Math.floor(m / 60) + ' h' + (m % 60 ? ' ' + (m % 60) + ' min' : ''); }
     function render() {
-      var feito = s.passo >= n;
+      var feito = s.passo >= n, ativo = s.rodando || feito;
       var linhas = itens.map(function (it, i) {
-        var ok = i < s.passo || feito;
-        return '<div role="row" class="oz-nota-linha" style="padding:10px;border-radius:10px;transition:background .3s ease;background:' + (ok ? '#fff' : 'transparent') + ';border:1px solid ' + (ok ? 'var(--linha)' : 'transparent') + '">' +
-          '<span role="cell">' + it[0] + '</span><span role="cell">' + it[1] + '</span><span role="cell" style="font-variant-numeric:tabular-nums;font-weight:700;color:var(--azul-esc)">' + (ok ? it[2] : '········') + '</span></div>';
+        var ok = i < s.passo || feito, entra = it.q * it.fator;
+        var conv = it.fator > 1
+          ? '<strong>' + num(it.q) + ' ' + it.un + '</strong> na nota → <strong style="color:var(--azul-esc)">' + num(entra) + ' ' + it.vun + '</strong> pra vender <span style="color:var(--suave)">(1 ' + it.un + ' = ' + it.fator + ' ' + it.vun + ')</span>'
+          : '<strong>' + num(it.q) + ' ' + it.un + '</strong> na nota → <strong style="color:var(--azul-esc)">' + num(entra) + ' ' + it.vun + '</strong> <span style="color:var(--suave)">(mesma unidade)</span>';
+        return '<div role="row" style="padding:10px 12px;border-radius:12px;transition:background .3s ease;display:flex;flex-direction:column;gap:3px;background:' + (ok ? '#fff' : 'transparent') + ';border:1px solid ' + (ok ? 'var(--linha)' : 'transparent') + '">' +
+          '<div style="display:flex;justify-content:space-between;gap:10px"><strong role="cell">' + it.nome + '</strong><span role="cell" style="font-variant-numeric:tabular-nums;font-weight:700">' + (ok ? brl(it.q * it.preco) : '········') + '</span></div>' +
+          '<div role="cell" style="font-size:14px">' + (ok ? conv : '········') + '</div>' +
+          '<div role="cell" style="font-size:13px;color:var(--suave);font-variant-numeric:tabular-nums">' + (ok ? 'NCM ' + it.ncm + ' · estoque ' + num(it.antes) + ' → <strong style="color:#14532D">' + num(it.antes + entra) + ' ' + it.vun + '</strong>' : '········') + '</div></div>';
+      }).join('');
+      var pagar = feito
+        ? '<div style="border-top:1px solid var(--linha);padding-top:12px;display:flex;flex-direction:column;gap:8px"><strong style="font-size:15px">Contas a pagar geradas</strong>' + parcelas.map(function (p, i) {
+          return '<div style="display:flex;justify-content:space-between;gap:10px;font-size:14px;background:#fff;border:1px solid var(--linha);border-radius:10px;padding:8px 12px"><span>Parcela ' + (i + 1) + ' · vence em ' + p[0] + ' dias</span><strong style="font-variant-numeric:tabular-nums">' + brl(p[1]) + '</strong></div>';
+        }).join('') + '</div>'
+        : '';
+      var tamanho = tamanhos.map(function (t) {
+        return '<button type="button" class="oz-pill" role="radio" data-k="n' + t + '" data-n="' + t + '" aria-checked="' + (s.nItens === t) + '" style="min-height:40px;padding:8px 14px">' + t + ' itens</button>';
       }).join('');
       montar(el,
-        '<div class="oz-caixa"><div class="oz-col" style="flex-basis:360px;gap:20px">' +
+        '<div class="oz-caixa"><div class="oz-col" style="flex-basis:340px;gap:20px">' +
         '<span class="oz-tag">Teste agora</span>' +
         '<h2 class="oz-h2">Aperte o botão e veja uma nota entrando sem ninguém digitar.</h2>' +
-        '<p style="margin:0;color:var(--texto)">É assim que o Oasys trata cada NF-e de compra emitida contra o seu CNPJ.</p>' +
+        '<p style="margin:0;color:var(--texto)">É assim que o Oasys trata cada NF-e de compra emitida contra o seu CNPJ: converte as unidades, atualiza o estoque e já gera o contas a pagar.</p>' +
         '<button type="button" class="oz-primario" data-k="go" data-act="go" style="align-self:flex-start"' + (s.rodando ? ' disabled' : '') + '>' + (feito ? 'Importar de novo' : (s.rodando ? 'Importando…' : 'Buscar nota na Sefaz')) + '</button>' +
-        '<p class="oz-nota">Exemplo ilustrativo de nota de materiais de construção.</p></div>' +
+        '<div style="display:flex;flex-direction:column;gap:8px"><span style="font-weight:600;font-size:15px">Quantos itens tem uma nota sua?</span><div role="radiogroup" aria-label="Itens por nota" style="display:flex;gap:8px;flex-wrap:wrap">' + tamanho + '</div></div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div style="background:var(--fundo);border:1px solid var(--linha);border-radius:14px;padding:12px 14px"><span style="font-size:13px;color:var(--suave)">Digitando à mão</span><div style="font-family:\'Schibsted Grotesk\',sans-serif;font-weight:800;font-size:24px">≈ ' + minutos(s.nItens) + '</div></div>' +
+        '<div style="background:#E7F6EC;border:1px solid #BFE5CB;border-radius:14px;padding:12px 14px"><span style="font-size:13px;color:#14532D">No Oasys</span><div style="font-family:\'Schibsted Grotesk\',sans-serif;font-weight:800;font-size:24px;color:#14532D">≈ 3 s</div></div></div>' +
+        '<p class="oz-nota">Exemplo ilustrativo de nota de materiais de construção. Valores, conversões, prazos e tempos (estimativa de 1 min por item digitado) são fictícios.</p></div>' +
         '<div style="flex:1 1 460px;min-width:0;background:var(--fundo);border:1px solid var(--linha);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px">' +
-        '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><strong>NF-e de compra · Fornecedor de Tintas Ltda</strong><span class="oz-tag" style="font-size:13px;padding:4px 10px">' + (feito ? 'Importada' : (s.rodando ? 'Importando…' : 'Na Sefaz')) + '</span></div>' +
-        '<div aria-hidden="true" style="height:8px;background:var(--linha);border-radius:99px;overflow:hidden"><div style="height:100%;width:' + ((s.rodando || feito) ? Math.round(Math.min(s.passo, n) / n * 100) : 0) + '%;background:var(--azul);border-radius:99px;transition:width .4s ease"></div></div>' +
-        '<div role="table" aria-label="Itens da nota" style="display:flex;flex-direction:column;gap:6px;font-size:15px">' +
-        '<div role="row" class="oz-nota-linha oz-nota-cab" style="font-size:13px;font-weight:700;color:var(--suave);text-transform:uppercase;letter-spacing:.04em;padding:0 10px"><span role="columnheader">Item</span><span role="columnheader">Qtd</span><span role="columnheader">NCM</span></div>' + linhas + '</div>' +
-        '<div aria-live="polite" style="border-top:1px solid var(--linha);padding-top:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:15px"><span>' + (feito ? 'Estoque atualizado ✓' : (s.rodando ? 'Preenchendo dados fiscais…' : 'Aguardando importação')) + '</span><span>Itens digitados à mão: <strong>0</strong></span></div>' +
+        '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><strong>NF-e de compra · Distribuidora de Materiais Ltda</strong><span class="oz-tag" style="font-size:13px;padding:4px 10px">' + (feito ? 'Importada' : (s.rodando ? 'Importando…' : 'Na Sefaz')) + '</span></div>' +
+        '<div style="font-size:12.5px;color:var(--suave);font-variant-numeric:tabular-nums;word-break:break-all">Chave de acesso: ' + (ativo ? chave : '•••• •••• •••• •••• •••• •••• •••• •••• •••• •••• ••••') + '</div>' +
+        '<div aria-hidden="true" style="height:8px;background:var(--linha);border-radius:99px;overflow:hidden"><div style="height:100%;width:' + (ativo ? Math.round(Math.min(s.passo, n) / n * 100) : 0) + '%;background:var(--azul);border-radius:99px;transition:width .4s ease"></div></div>' +
+        '<div role="table" aria-label="Itens da nota" style="display:flex;flex-direction:column;gap:6px;font-size:15px">' + linhas + '</div>' +
+        '<div style="display:flex;justify-content:space-between;gap:12px;font-size:16px;font-weight:700;border-top:1px solid var(--linha);padding-top:12px"><span>Total da nota</span><span style="font-variant-numeric:tabular-nums">' + (feito ? brl(total) : '········') + '</span></div>' +
+        pagar +
+        '<div aria-live="polite" style="border-top:1px solid var(--linha);padding-top:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:15px"><span>' + (feito ? 'Estoque atualizado ✓' : (s.rodando ? 'Convertendo unidades e preenchendo dados fiscais…' : 'Aguardando importação')) + '</span><span>Itens digitados à mão: <strong>0</strong></span></div>' +
         '</div></div>');
     }
     el.addEventListener('click', function (e) {
+      var r = e.target.closest('[data-n]');
+      if (r) { s.nItens = Number(r.getAttribute('data-n')); render(); return; }
       if (!e.target.closest('[data-act="go"]') || s.rodando) return;
       clearInterval(timer); s.passo = 0; s.rodando = true; render();
       track('interacao_simulador', { simulador: 'nota' });
