@@ -3,6 +3,8 @@
   'use strict';
 
   var central = (document.body.getAttribute('data-central') || '').replace(/\/+$/, '');
+  // Site aberto na própria máquina: fala com o ERP local, não com o de produção.
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') central = 'http://localhost:8080';
   var carregando = document.querySelector('[data-carregando]');
   var fechado = document.querySelector('[data-fechado]');
   var form = document.querySelector('form[data-cadastro]');

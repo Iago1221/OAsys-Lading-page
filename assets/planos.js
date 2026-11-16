@@ -3,6 +3,8 @@
   'use strict';
 
   var central = (document.body.getAttribute('data-central') || '').replace(/\/+$/, '');
+  // Site aberto na própria máquina: fala com o ERP local, não com o de produção.
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') central = 'http://localhost:8080';
   var carregando = document.querySelector('[data-carregando]');
   var indisponivel = document.querySelector('[data-indisponivel]');
   var configurador = document.querySelector('[data-configurador]');
