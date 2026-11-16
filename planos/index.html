@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Planos e preços | Oasys ERP</title>
+<meta name="description" content="Monte o seu plano do Oasys: escolha os aplicativos, informe quantos usuários vão usar e veja o valor mensal na hora.">
+<meta name="theme-color" content="#0E1A2B">
+<!-- Fora dos buscadores e do sitemap até a contratação pelo site ser aberta ao público. -->
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/oasys.css">
+<style>
+  .pl-item { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; background: #FFFFFF; border: 1.5px solid var(--linha); border-radius: 14px; cursor: pointer; }
+  .pl-item:has(input:checked) { border-color: var(--azul); background: #F2F9FE; }
+  .pl-item:has(input:focus-visible) { outline: 3px solid #70CBFF; outline-offset: 2px; }
+  .pl-item input { width: 22px; height: 22px; margin-top: 3px; flex: 0 0 auto; accent-color: var(--azul); }
+  .pl-item .pl-texto { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .pl-item .pl-nome { font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 19px; }
+  .pl-item .pl-desc { color: var(--texto); font-size: 16px; }
+  .pl-item .pl-nota { color: var(--azul-esc); font-size: 14px; font-weight: 600; }
+  .pl-item .pl-preco { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; text-align: right; }
+  .pl-item .pl-preco small { display: block; font-weight: 500; font-size: 13px; color: var(--suave); }
+  .pl-passo { width: 48px; height: 48px; border: 1.5px solid #CBD5E1; background: #FFFFFF; border-radius: 10px; font-size: 22px; font-weight: 700; color: var(--tinta); cursor: pointer; }
+  .pl-usuarios { width: 76px; min-height: 48px; text-align: center; border: 1.5px solid #CBD5E1; border-radius: 10px; font-size: 19px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .pl-linha { display: flex; justify-content: space-between; gap: 12px; font-size: 16px; color: #C3CEDD; font-variant-numeric: tabular-nums; }
+  .pl-cta { background: var(--azul); color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 18px; border-radius: 12px; min-height: 56px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 16px; }
+  .pl-cta:hover { color: #FFFFFF; }
+  @media (min-width: 900px) { .pl-resumo { position: sticky; top: 24px; } }
+</style>
+<!-- PostHog -->
+<script>
+  !function (t, e) { var o, n, p, r; e.__SV || (window.posthog && window.posthog.__loaded) || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "ki Ci init qi Hi pr Bi zi Di capture calculateEventProperties Qi register register_once register_for_session unregister unregister_for_session Ki getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync Xi identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty Ji Gi createPersonProfile setInternalOrTestUser Yi Ai rn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Vi debug mr it getPageViewId captureTraceFeedback captureTraceMetric Oi".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+  posthog.init('phc_B3N4hWCfWyWPVcXBxZ46384oaUZPbq9iN46KVtyxZEhM', {
+    api_host: 'https://us.i.posthog.com',
+    defaults: '2026-05-30',
+    person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+  })
+</script>
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1042096091507834');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1042096091507834&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<!-- data-central: endereço do ERP que atende /central/ (ver DEPLOY.md). -->
+<body data-lp="planos" data-central="https://app.oasystecnologia.com">
+<div style="min-height: 100vh; display: flex; flex-direction: column">
+
+<header style="background: #FFFFFF; border-bottom: 1px solid #E2E8F0">
+<div style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<a href="https://www.oasystecnologia.com/" aria-label="Oasys — página inicial" style="display: inline-flex; align-items: center; text-decoration: none"><img src="../assets/logohorizontal.png" alt="Oasys" style="height: 32px; width: auto; display: block"></a>
+<a href="https://wa.me/554731804931" style="font-weight: 700; font-size: 16px; text-decoration: none">Falar no WhatsApp</a>
+</div>
+</header>
+
+<main style="flex: 1; max-width: 1100px; width: 100%; margin: 0 auto; padding: 40px 24px 64px">
+<p style="margin: 0; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azul)">Planos e preços</p>
+<h1 style="margin: 8px 0 12px; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(30px, 5vw, 44px); line-height: 1.1; text-wrap: balance">Pague só pelo que a sua empresa usa</h1>
+<p style="margin: 0 0 32px; color: var(--texto); font-size: 20px; max-width: 640px">Marque os aplicativos, diga quantas pessoas vão usar e veja o valor mensal. Sem taxa de implantação e sem fidelidade.</p>
+
+<div data-carregando role="status" style="color: var(--suave)">Carregando preços…</div>
+
+<div data-indisponivel hidden style="background: #FFFFFF; border: 1px solid var(--linha); border-radius: 22px; padding: 32px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; max-width: 560px">
+<strong style="font-family: 'Schibsted Grotesk', sans-serif; font-size: 24px">Não conseguimos carregar os preços agora</strong>
+<span style="color: var(--texto)">Tente de novo em instantes, ou peça os valores direto para a gente.</span>
+<a class="btn pl-cta" href="https://wa.me/554731804931" style="padding: 0 24px">Pedir preços no WhatsApp</a>
+</div>
+
+<div data-configurador hidden style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+
+<section aria-labelledby="pl-apps" style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h2 id="pl-apps" style="margin: 0 0 4px; font-family: 'Schibsted Grotesk', sans-serif; font-size: 22px">1. Aplicativos</h2>
+<div data-itens style="display: flex; flex-direction: column; gap: 12px"></div>
+
+<h2 style="margin: 24px 0 4px; font-family: 'Schibsted Grotesk', sans-serif; font-size: 22px"><label for="pl-usuarios">2. Usuários</label></h2>
+<div style="background: #FFFFFF; border: 1.5px solid var(--linha); border-radius: 14px; padding: 18px 20px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+<span style="flex: 1 1 240px; color: var(--texto); font-size: 16px" data-usuarios-ajuda aria-live="polite"></span>
+<span style="display: inline-flex; gap: 8px; align-items: center">
+<button type="button" class="pl-passo" data-passo="-1" aria-label="Um usuário a menos">−</button>
+<input id="pl-usuarios" class="pl-usuarios" type="number" min="1" max="500" inputmode="numeric" value="3">
+<button type="button" class="pl-passo" data-passo="1" aria-label="Um usuário a mais">+</button>
+</span>
+</div>
+</section>
+
+<aside class="pl-resumo" aria-label="Resumo do plano" style="flex: 1 1 320px; min-width: 0; background: var(--tinta); color: #FFFFFF; border-radius: 22px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<strong style="font-family: 'Schibsted Grotesk', sans-serif; font-size: 20px">Seu plano</strong>
+<div data-linhas style="display: flex; flex-direction: column; gap: 8px"></div>
+<div style="border-top: 1px solid #2A3A52; padding-top: 14px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+<span style="font-size: 16px; color: #C3CEDD">Total por mês</span>
+<span data-total aria-live="polite" style="font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: 34px"></span>
+</div>
+<a class="btn pl-cta" data-cta href="../comecar/">Testar grátis</a>
+<span data-cta-nota style="font-size: 14px; color: #C3CEDD; text-align: center"></span>
+<a href="#" data-contratar style="font-size: 15px; color: #FFFFFF; text-align: center">Já tem um ambiente? Contratar agora</a>
+</aside>
+
+</div>
+</main>
+
+<footer style="background: var(--tinta); color: #C3CEDD; border-top: 1px solid #2A3A52">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 15px">
+<span><strong style="color: #FFFFFF">Oasys Tecnologia</strong> · Rio do Sul, SC</span>
+<span>62.315.545/0001-44 · <a href="/politica-de-privacidade.html" style="color: #C3CEDD">Política de privacidade</a></span>
+</div>
+</footer>
+</div>
+<script src="../assets/planos.js" defer></script>
+</body>
+</html>
