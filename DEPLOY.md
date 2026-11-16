@@ -61,7 +61,7 @@ Depois: `nginx -t` e recarregar o Nginx. O bloqueio de `/leads/` não afeta o `l
 
 Formulário de teste grátis que cria o ambiente do cliente no ERP. Ela não usa PHP deste site: fala direto com os endpoints `/central/` do ERP (`assets/cadastro.js`).
 
-- Em `comecar/index.html`, preencha `data-central` no `<body>` com o endereço do ERP que atende `/central/`, sem barra no fim (ex.: `https://app.seudominio.com`).
+- Em `comecar/index.html`, preencha `data-central` no `<body>` com o endereço do ERP que atende `/central/`, sem barra no fim (hoje `https://app.oasystecnologia.com`).
 - No `.env` do ERP, `LP_ORIGENS` precisa conter a origem deste site (ex.: `https://www.oasystecnologia.com`), senão o navegador bloqueia as chamadas.
 - Com `data-central` vazio, ou com o cadastro fechado no ERP (`cadastro_aberto` em `central.configuracao`), a página mostra só o aviso de "abre em breve".
 - A página está com `noindex` e fora do `sitemap.xml`. Ao abrir o cadastro ao público, remova o `noindex` e inclua a URL no sitemap.
