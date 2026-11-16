@@ -56,3 +56,14 @@ Depois: `nginx -t` e recarregar o Nginx. O bloqueio de `/leads/` não afeta o `l
 
 - PostHog e Meta Pixel já estão no código das páginas, sem configuração no servidor.
 - Os links de compartilhamento (`og:image`) apontam para `https://www.oasystecnologia.com/assets/og-share.png`.
+
+## Página de cadastro (`/comecar/`)
+
+Formulário de teste grátis que cria o ambiente do cliente no ERP. Ela não usa PHP deste site: fala direto com os endpoints `/central/` do ERP (`assets/cadastro.js`).
+
+- Em `comecar/index.html`, preencha `data-central` no `<body>` com o endereço do ERP que atende `/central/`, sem barra no fim (ex.: `https://app.seudominio.com`).
+- No `.env` do ERP, `LP_ORIGENS` precisa conter a origem deste site (ex.: `https://www.oasystecnologia.com`), senão o navegador bloqueia as chamadas.
+- Com `data-central` vazio, ou com o cadastro fechado no ERP (`cadastro_aberto` em `central.configuracao`), a página mostra só o aviso de "abre em breve".
+- A página está com `noindex` e fora do `sitemap.xml`. Ao abrir o cadastro ao público, remova o `noindex` e inclua a URL no sitemap.
+- O link "Termos de Uso" aponta para `/termos-de-uso.html`, que ainda não existe neste repositório. Publique o arquivo antes de abrir o cadastro.
+
