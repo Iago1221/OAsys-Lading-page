@@ -94,6 +94,7 @@
       email: form.elements.email.value.trim(),
       empresa: empresa.value.trim(),
       telefone: form.elements.telefone.value.trim(),
+      sistemaAtual: form.elements.sistemaAtual.value.trim(),
       subdominio: subdominio.value.trim(),
       senha: form.elements.senha.value,
       aceitouTermos: form.elements.aceitouTermos.checked,
