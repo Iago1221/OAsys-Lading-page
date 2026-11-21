@@ -57,7 +57,7 @@
 <header style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #E2E8F0">
 <div style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
 <a href="/" aria-label="Oasys — página inicial" style="display: inline-flex; align-items: center; text-decoration: none"><img src="assets/logohorizontal.png" alt="Oasys" style="height: 32px; width: auto; display: block"></a>
-<a class="btn" href="#demo" style="background: var(--azul); color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 16px; padding: 12px 20px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center">Agendar demonstração</a>
+<nav class="oz-nav" aria-label="Principal"><a class="oz-nav-sec" href="/planos/">Planos e preços</a><a href="https://app.oasystecnologia.com/central/conta" data-central-href="/central/conta">Entrar</a><a class="oz-nav-cta" href="/comecar/">Testar grátis</a></nav>
 </div>
 <div class="prog" aria-hidden="true" style="height: 3px; background: var(--azul); transform: scaleX(0); transform-origin: left"></div>
 </header>
@@ -74,7 +74,7 @@
 <div class="load d4" style="display: flex; flex-wrap: wrap; gap: 12px">
 <a class="btn" href="#demo" style="background: var(--azul); color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 16px 28px; border-radius: 12px; min-height: 52px; box-sizing: border-box; display: inline-flex; align-items: center">Agendar demonstração</a>
 </div>
-<p class="load d5" style="margin: 0; font-size: 15px; color: #4A5568">Planos a partir de <strong style="color: #0E1A2B">R$ 349/mês</strong> no plano anual</p>
+<p class="load d5" style="margin: 0; font-size: 15px; color: #4A5568">Planos a partir de <strong data-preco-de="erp" style="color: #0E1A2B">R$ 500/mês</strong>, sem fidelidade · <a href="/comecar/" style="font-weight: 700">teste grátis por 14 dias</a></p>
 </div>
 <div class="par" style="flex: 1 1 400px; min-width: 0">
 <div class="load d3" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 32px 64px -32px rgba(14,26,43,0.35)">
@@ -176,11 +176,12 @@
 <section style="max-width: 1200px; margin: 0 auto; padding: clamp(56px, 7.4vw, 104px) 24px; display: flex; flex-direction: column; gap: 40px">
 <div class="rv" style="max-width: 760px; display: flex; flex-direction: column; gap: 12px">
 <p style="margin: 0; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azul)">Planos</p>
-<h2 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.1; letter-spacing: -0.02em">Escolha o plano do tamanho da sua empresa.</h2>
+<h2 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.1; letter-spacing: -0.02em">Pague só pelo que a sua empresa usa.</h2>
+<p style="margin: 0; color: #3D4A5C; font-size: 19px">O ERP é a base. CRM, Chat, Varejo, Sales App, Finance e Indústria entram conforme a necessidade. Sem fidelidade e com 14 dias grátis. <a href="/planos/" style="font-weight: 700">Monte o seu plano →</a></p>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: stretch">
-<div class="rvl" data-widget="preco" data-plano="essencial" data-desc="Estoque, vendas, compras, nota de entrada e financeiro com régua de cobrança automática. Implantação acompanhada."></div>
-<div class="rvr" data-widget="preco" data-plano="profissional" data-desc="Tudo do Essencial, mais Oasys Finance com painéis no celular. Pra quem já cresceu e precisa decidir com números."></div>
+<div class="rvl" data-widget="preco" data-plano="erp" data-desc="Estoque, vendas, compras, nota de entrada e financeiro com régua de cobrança automática. Inclui Gestão Econômica, Logística e o Neuron."></div>
+<div class="rvr" data-widget="preco" data-plano="erp,finance" data-desc="Tudo do ERP, mais o Oasys Finance com painéis no celular. Pra quem já cresceu e precisa decidir com números."></div>
 </div>
 </section>
 
@@ -189,7 +190,8 @@
 <h2 class="rv" style="margin: 0 0 8px; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(28px, 3vw, 38px); letter-spacing: -0.02em">Antes que você pergunte</h2>
 <details class="rv" open style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Preciso contratar todos os módulos?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Não. O ERP (estoque, vendas, compras, nota de entrada e financeiro) é a base. Oasys Chat, Oasys Finance e Sales App são adicionais contratados conforme a necessidade de cada empresa.</p></details>
 <details class="rv" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Quanto tempo leva a implantação?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Em média, 20 dias, do cadastro inicial até a primeira venda emitida pelo Oasys. O prazo depende do volume de produtos e de quanto dá para migrar do sistema atual. Nossa equipe acompanha cada etapa: configuração, importação de dados, treinamento da equipe e acompanhamento nas primeiras semanas de uso.</p></details>
-<details class="rv" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Dá pra migrar do sistema que eu uso hoje?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Sim. Importamos os principais cadastros do seu sistema atual: produtos, clientes, fornecedores e contas a receber/pagar. Você nos envia uma exportação (planilha ou backup), nós tratamos e importamos os dados, e você confere antes de começarmos a operar. Se o sistema antigo não exporta, montamos com você uma planilha modelo.</p></details>
+<details class="rv" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Dá pra migrar do sistema que eu uso hoje?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Sim. Importamos os principais cadastros do seu sistema atual: produtos, clientes, fornecedores e contas a receber/pagar. Você nos envia uma exportação (planilha ou backup), nós tratamos e importamos os dados, e você confere antes de começarmos a operar. Se o sistema antigo não exporta, montamos com você uma planilha modelo. A migração tem um setup com valor combinado conforme o volume de dados: na contratação, marque que vai migrar e a gente combina pelo WhatsApp.</p></details>
+<details class="rv" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Como eu contrato?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Comece pelo <a href="/comecar/">teste grátis</a>: o seu ambiente fica pronto em um minuto. Quando decidir, escolha o plano no Oasys Central e pague por Pix, boleto ou cartão; tudo o que você cadastrou no teste continua no lugar. Não tem fidelidade.</p></details>
 <details class="rv" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 20px 24px"><summary style="font-weight: 700; cursor: pointer">Meus dados ficam seguros?</summary><p style="margin: 12px 0 0; color: #3D4A5C">Sim. O Oasys roda em servidores em nuvem, com backup automático diário e acesso protegido por usuário e senha, com permissões por função. Seus dados são seus: se um dia você sair, entregamos uma exportação completa. Seguimos a LGPD no tratamento das informações.</p></details>
 </section>
 
@@ -199,6 +201,7 @@
 <h2 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(34px, 4.2vw, 54px); line-height: 1.04; letter-spacing: -0.03em">Veja o Oasys funcionando com os dados do seu negócio.</h2>
 <p style="margin: 0; color: #C3CEDD; font-size: 20px">Na demonstração a gente mostra estoque, orçamento, cobrança e números funcionando juntos, não um módulo isolado.</p>
 <p style="margin: 0; color: #C3CEDD; font-size: 16px">Prefere conversar agora? <a href="https://wa.me/554731804931" style="color: #FFFFFF; font-weight: 700">Chama no WhatsApp</a></p>
+<p style="margin: 0; color: #C3CEDD; font-size: 16px">Prefere começar sozinho? <a href="/comecar/" style="color: #FFFFFF; font-weight: 700">Teste grátis por 14 dias</a> ou <a href="/planos/" style="color: #FFFFFF; font-weight: 700">monte o seu plano</a>.</p>
 </div>
 <form class="rvr" data-form="demo" data-endpoint="/leads.php" novalidate style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; color: var(--tinta); border-radius: 22px; padding: 32px">
 <div data-campos style="display: flex; flex-direction: column; gap: 16px">
@@ -226,6 +229,7 @@
 <div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 15px">
 <span><strong style="color: #FFFFFF">Oasys Tecnologia</strong> · Rio do Sul, SC</span>
 <span>62.315.545/0001-44 · mateus@oasystecnologia.com · <a href="/politica-de-privacidade.html" style="color: #C3CEDD">Política de privacidade</a></span>
+<span><a href="/planos/" style="color: #C3CEDD">Planos e preços</a> · <a href="https://app.oasystecnologia.com/central/conta" data-central-href="/central/conta" style="color: #C3CEDD">Entrar no Oasys Central</a></span>
 </div>
 </footer>
 </div>

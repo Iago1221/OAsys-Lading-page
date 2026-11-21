@@ -5,6 +5,10 @@
   var central = (document.body.getAttribute('data-central') || '').replace(/\/+$/, '');
   // Site aberto na própria máquina: fala com o ERP local, não com o de produção.
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') central = 'http://localhost:8080';
+  document.querySelectorAll('a[data-central-href]').forEach(function (a) { a.href = central + a.getAttribute('data-central-href'); });
+  // Plano vindo de outra página (ex.: card de preço da LP): ?itens=erp,chat&usuarios=5
+  var pedido = new URLSearchParams(location.search);
+  var itensPedidos = (pedido.get('itens') || '').split(',').filter(Boolean);
   var carregando = document.querySelector('[data-carregando]');
   var indisponivel = document.querySelector('[data-indisponivel]');
   var configurador = document.querySelector('[data-configurador]');
@@ -37,7 +41,7 @@
       var caixa = el('input');
       caixa.type = 'checkbox';
       caixa.value = item.chave;
-      caixa.checked = item.obrigatorio;
+      caixa.checked = item.obrigatorio || itensPedidos.indexOf(item.chave) !== -1;
       if (item.obrigatorio) {
         // Continua focável e legível por leitor de tela, mas não desmarca.
         caixa.setAttribute('aria-disabled', 'true');
@@ -88,6 +92,11 @@
     configurador.querySelector('[data-usuarios-ajuda]').textContent =
       inclusos + ' usuários já estão inclusos neste plano. Cada usuário a mais custa ' + brl(catalogo.precoUsuarioAdicional) + ' por mês.';
     configurador.querySelector('[data-total]').textContent = brl(total);
+
+    // Quem já tem conta contrata no Oasys Central com este mesmo plano já marcado.
+    var escolhidos = catalogo.itens.filter(function (i) { return lista.querySelector('input[value="' + i.chave + '"]').checked; }).map(function (i) { return i.chave; });
+    var contratar = configurador.querySelector('[data-contratar]');
+    if (contratar) contratar.href = central + '/central/contratar?itens=' + encodeURIComponent(escolhidos.join(',')) + '&usuarios=' + qtd;
   }
 
   lista.addEventListener('change', function (e) {
@@ -113,7 +122,7 @@
     .then(function (dados) {
       catalogo = dados;
       montarItens();
-      usuarios.value = catalogo.usuariosInclusos;
+      usuarios.value = Math.min(500, Math.max(1, parseInt(pedido.get('usuarios'), 10) || catalogo.usuariosInclusos));
 
       var cta = configurador.querySelector('[data-cta]');
       var nota = configurador.querySelector('[data-cta-nota]');
@@ -128,7 +137,6 @@
         nota.textContent = 'O cadastro pelo site abre em breve.';
       }
 
-      contratar.href = central + '/central/contratar';
       contratar.hidden = !catalogo.checkoutAberto;
 
       cta.addEventListener('click', function () { track('plano_cta'); });

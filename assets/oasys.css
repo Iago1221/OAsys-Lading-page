@@ -146,3 +146,16 @@ summary{min-height:44px;display:flex;align-items:center;gap:12px;padding:4px 0}
   .mbar a:first-child{font-size:16px}
 }
 @media (prefers-reduced-motion:reduce){.mbar{transition:none}}
+
+/* Navegação do cabeçalho: planos, entrada no Oasys Central e teste grátis */
+.oz-nav{display:flex;align-items:center;gap:6px 20px;flex-wrap:wrap;justify-content:flex-end}
+.oz-nav a{font-weight:700;font-size:16px;text-decoration:none;color:var(--tinta)}
+.oz-nav a:hover{color:var(--azul)}
+.oz-nav .oz-nav-cta{background:var(--azul);color:#fff;padding:12px 20px;border-radius:10px;min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center}
+.oz-nav .oz-nav-cta:hover{color:#fff;background:var(--azul-esc)}
+@media (max-width:640px){
+  .oz-nav{gap:14px}
+  .oz-nav .oz-nav-sec{display:none}
+  .oz-nav .oz-nav-cta{padding:10px 14px;font-size:15px}
+}
+
