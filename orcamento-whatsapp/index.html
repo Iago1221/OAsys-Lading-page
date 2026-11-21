@@ -57,7 +57,7 @@
 <header style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #E2E8F0">
 <div style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
 <a href="https://www.oasystecnologia.com/" aria-label="Oasys — página inicial" style="display: inline-flex; align-items: center; text-decoration: none"><img src="../assets/logohorizontal.png" alt="Oasys" style="height: 32px; width: auto; display: block"></a>
-<a class="btn" href="#demo" style="background: var(--azul); color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 16px; padding: 12px 20px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center">Agendar demonstração</a>
+<nav class="oz-nav" aria-label="Principal"><a class="oz-nav-sec" href="/planos/">Planos e preços</a><a href="https://app.oasystecnologia.com/central/conta" data-central-href="/central/conta">Entrar</a><a class="oz-nav-cta" href="/comecar/">Testar grátis</a></nav>
 </div>
 <div class="prog" aria-hidden="true" style="height: 3px; background: var(--azul); transform: scaleX(0); transform-origin: left"></div>
 </header>
@@ -74,7 +74,7 @@
 <a class="btn" href="#demo" style="background: var(--azul); color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 16px 28px; border-radius: 12px; min-height: 52px; box-sizing: border-box; display: inline-flex; align-items: center">Quero responder mais rápido</a>
 <a class="btn" href="#calculadora" style="background: #FFFFFF; color: #0E1A2B; border: 1.5px solid #CBD5E1; text-decoration: none; font-weight: 700; padding: 16px 28px; border-radius: 12px; min-height: 52px; box-sizing: border-box; display: inline-flex; align-items: center">Calcular meu tempo perdido</a>
 </div>
-<p class="load d5" style="margin: 0; font-size: 15px; color: #4A5568">Oasys Chat: adicional ao seu plano Oasys · a partir de <strong style="color: #0E1A2B">R$ 0,10/mensagem</strong>, em créditos pré-pagos</p>
+<p class="load d5" style="margin: 0; font-size: 15px; color: #4A5568">Oasys Chat: <strong data-preco-de="chat" style="color: #0E1A2B">+ R$ 150/mês</strong> no seu plano Oasys · <a href="/comecar/" style="font-weight: 700">teste grátis por 14 dias</a></p>
 </div>
 <div class="par" style="flex: 1 1 380px; min-width: 0">
 <div class="load d3" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 22px; padding: 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 32px 64px -32px rgba(14,26,43,0.35)">
@@ -154,7 +154,7 @@
 <blockquote style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-size: 24px; line-height: 1.35; font-weight: 600">“Com vocês, os processos ficam mais leves e fáceis de manter. Lidamos 5 anos com outros sistemas, e nenhum teve um atendimento tão personalizado quanto o da Oasys.”</blockquote>
 <figcaption style="color: #4A5568; font-size: 16px"><strong style="color: #0E1A2B">Suely Costa</strong> · Sócia-Proprietária, Casa das Tintas — Agrolândia/SC</figcaption>
 </figure>
-<div class="rvr" style="flex: 1 1 340px; min-width: 0"><div data-widget="preco" data-plano="chat" data-desc="Adicional ao Oasys. Usa os mesmos produtos e preços do seu ERP." style="height: 100%"></div></div>
+<div class="rvr" style="flex: 1 1 340px; min-width: 0"><div data-widget="preco" data-plano="chat" data-adicional="1" data-desc="Adicional ao Oasys. Usa os mesmos produtos e preços do seu ERP." style="height: 100%"></div></div>
 </div>
 </section>
 
@@ -172,6 +172,7 @@
 <h2 style="margin: 0; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: clamp(34px, 4.2vw, 54px); line-height: 1.04; letter-spacing: -0.03em">Responda o próximo orçamento em segundos.</h2>
 <p style="margin: 0; color: #C3CEDD; font-size: 20px">Na demonstração a gente simula um cliente pedindo preço no WhatsApp e mostra o orçamento saindo na conversa.</p>
 <p style="margin: 0; color: #C3CEDD; font-size: 16px">Prefere conversar agora? <a href="https://wa.me/554731804931" style="color: #FFFFFF; font-weight: 700">Chama no WhatsApp</a></p>
+<p style="margin: 0; color: #C3CEDD; font-size: 16px">Prefere começar sozinho? <a href="/comecar/" style="color: #FFFFFF; font-weight: 700">Teste grátis por 14 dias</a> ou <a href="/planos/" style="color: #FFFFFF; font-weight: 700">monte o seu plano</a>.</p>
 </div>
 <form class="rvr" data-form="demo" data-endpoint="/leads.php" novalidate style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; color: var(--tinta); border-radius: 22px; padding: 32px">
 <div data-campos style="display: flex; flex-direction: column; gap: 16px">
@@ -199,6 +200,7 @@
 <div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 15px">
 <span><strong style="color: #FFFFFF">Oasys Tecnologia</strong> · Rio do Sul, SC</span>
 <span>62.315.545/0001-44 · mateus@oasystecnologia.com · <a href="/politica-de-privacidade.html" style="color: #C3CEDD">Política de privacidade</a></span>
+<span><a href="/planos/" style="color: #C3CEDD">Planos e preços</a> · <a href="https://app.oasystecnologia.com/central/conta" data-central-href="/central/conta" style="color: #C3CEDD">Entrar no Oasys Central</a></span>
 </div>
 </footer>
 </div>

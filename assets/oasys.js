@@ -665,67 +665,88 @@
   };
 
 
-  /* ---------- Card de preço: anual x mensal ---------- */
-  widgets.preco = function (el) {
-    var planos = {
-      essencial: { nome: 'Plano Essencial', anual: 349, mensal: 409, unidade: '/mês', escuro: false },
-      profissional: { nome: 'Plano Profissional', anual: 599, mensal: 689, unidade: '/mês', escuro: true },
-      chat: { nome: 'Oasys Chat', porMensagem: 0.10, unidade: '/mensagem', escuro: false },
-      salesapp: { nome: 'Sales App', anual: 34.9, mensal: 40.9, unidade: '/vendedor', escuro: false }
-    };
-    var p = planos[el.getAttribute('data-plano')] || planos.essencial;
-    var desc = el.getAttribute('data-desc') || '';
-    var anual = true;
-    var real = function (v) { return 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 }); };
-    var temValor = p.anual !== undefined && p.anual !== null;
-    var porUso = p.porMensagem !== undefined;
-    var escuro = p.escuro;
-    var sub = escuro ? '#C3CEDD' : 'var(--suave)';
-    function render() {
-      if (porUso) {
-        montar(el,
-          '<div style="height:100%;border:2px solid var(--azul);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:#fff;color:var(--tinta)">' +
-          '<span style="font-weight:700;font-size:15px;color:var(--azul-esc)">' + p.nome + '</span>' +
-          '<div style="display:flex;flex-direction:column;gap:8px">' +
-          '<div style="font-family:\'Schibsted Grotesk\',sans-serif;font-size:48px;font-weight:800;letter-spacing:-.03em;line-height:1">' + real(p.porMensagem) + '<span style="font-size:18px;font-weight:600;letter-spacing:0;color:' + sub + '">' + p.unidade + '</span></div>' +
-          '<span style="font-size:15px;color:' + sub + '">plano de créditos pré-pagos · sem mensalidade fixa</span>' +
-          '</div>' +
-          '<p style="margin:0;font-size:16px;color:var(--texto)">' + esc(desc) + '</p>' +
-          '<a class="btn" href="#demo" style="margin-top:auto;background:var(--azul);color:#fff;text-decoration:none;font-weight:700;padding:14px 20px;border-radius:12px;min-height:52px;display:flex;align-items:center;justify-content:center">Ver funcionando</a>' +
-          '</div>');
-        return;
-      }
-      var preco = temValor ? real(anual ? p.anual : p.mensal) : (anual ? '[Preço anual]' : '[Preço mensal]');
-      var eco = temValor ? (anual ? 'Você economiza ' + real((p.mensal - p.anual) * 12) + ' por ano' : 'No anual sai ' + real(p.anual) + '/mês') : '';
-      montar(el,
-        '<div class="' + (escuro ? 'oz-escuro-card' : '') + '" style="height:100%;border:2px solid var(--azul);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;' + (escuro ? 'background:var(--tinta);color:#fff' : 'background:#fff;color:var(--tinta)') + '">' +
-        '<span style="font-weight:700;font-size:15px;color:' + (escuro ? '#BFD0FF' : 'var(--azul-esc)') + '">' + p.nome + '</span>' +
-        '<div class="oz-seg" role="radiogroup" aria-label="Forma de contratação">' +
-        '<button type="button" role="radio" data-k="an" data-mod="anual" aria-checked="' + anual + '">Anual</button>' +
-        '<button type="button" role="radio" data-k="me" data-mod="mensal" aria-checked="' + !anual + '">Mensal</button></div>' +
-        '<div aria-live="polite" style="display:flex;flex-direction:column;gap:8px">' +
-        '<div style="font-family:\'Schibsted Grotesk\',sans-serif;font-size:48px;font-weight:800;letter-spacing:-.03em;line-height:1">' + preco + '<span style="font-size:18px;font-weight:600;letter-spacing:0;color:' + sub + '">' + p.unidade + '</span></div>' +
-        '<span style="font-size:15px;color:' + sub + '">' + (anual ? 'no contrato anual · 12 meses, pago mês a mês' : 'sem fidelidade · cancele quando quiser') + '</span>' +
-        (eco ? '<span class="oz-economia" style="align-self:flex-start">' + eco + '</span>' : '') +
-        '</div>' +
-        '<p style="margin:0;font-size:16px;color:' + (escuro ? '#C3CEDD' : 'var(--texto)') + '">' + esc(desc) + '</p>' +
-        '<a class="btn" href="#demo" style="margin-top:auto;background:var(--azul);color:#fff;text-decoration:none;font-weight:700;padding:14px 20px;border-radius:12px;min-height:52px;display:flex;align-items:center;justify-content:center">Ver funcionando</a>' +
-        '</div>');
+  /* ---------- Oasys Central (ERP): catálogo de preços e links de entrada ---------- */
+  // Aberto na própria máquina, o site fala com o ERP local; publicado, com o de produção.
+  var CENTRAL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:8080' : 'https://app.oasystecnologia.com';
+  document.querySelectorAll('a[data-central-href]').forEach(function (a) { a.href = CENTRAL + a.getAttribute('data-central-href'); });
+
+  // Valores usados enquanto o catálogo não chega (ou se o ERP não responder). A fonte é o catálogo do ERP.
+  var CATALOGO_RESERVA = {
+    usuariosInclusos: 3, precoUsuarioAdicional: 35,
+    itens: [
+      { chave: 'erp', nome: 'ERP', preco: 500, obrigatorio: true }, { chave: 'crm', nome: 'CRM', preco: 150 },
+      { chave: 'chat', nome: 'Chat', preco: 150 }, { chave: 'varejo', nome: 'Varejo', preco: 100 },
+      { chave: 'sales_app', nome: 'Sales App', preco: 200 }, { chave: 'finance', nome: 'Finance', preco: 150 },
+      { chave: 'industria', nome: 'Indústria', preco: 400, usuariosInclusos: 2 }
+    ]
+  };
+  var catalogo = null;
+  function comCatalogo(fn) {
+    fn(CATALOGO_RESERVA);
+    if (!catalogo) {
+      catalogo = fetch(CENTRAL + '/central/catalogo').then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).catch(function () { return null; });
     }
+    catalogo.then(function (c) { if (c && c.itens && c.itens.length) fn(c); });
+  }
+
+  /* Preços citados no texto (data-preco-de="erp" ou um adicional) acompanham o catálogo. */
+  if (document.querySelector('[data-preco-de]')) {
+    comCatalogo(function (c) {
+      var porChave = {};
+      c.itens.forEach(function (i) { porChave[i.chave] = i; });
+      document.querySelectorAll('[data-preco-de]').forEach(function (el) {
+        var item = porChave[el.getAttribute('data-preco-de')];
+        if (!item) return;
+        var v = 'R$ ' + item.preco.toLocaleString('pt-BR', { minimumFractionDigits: item.preco % 1 ? 2 : 0, maximumFractionDigits: 2 }) + '/mês';
+        el.textContent = item.chave === 'erp' ? v : '+ ' + v;
+      });
+    });
+  }
+
+  /* ---------- Card de preço do aplicativo da página ----------
+     data-plano: itens do catálogo, separados por vírgula. O primeiro que não é o ERP é tratado como
+     adicional quando data-adicional="1" (Chat e Sales App, que funcionam junto com o ERP). */
+  widgets.preco = function (el) {
+    var chaves = (el.getAttribute('data-plano') || 'erp').split(',');
+    var adicional = el.getAttribute('data-adicional') === '1';
+    var desc = el.getAttribute('data-desc') || '';
+    var real = function (v) { return 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 }); };
+
+    function render(c) {
+      var porChave = {};
+      c.itens.forEach(function (i) { porChave[i.chave] = i; });
+      var itens = chaves.map(function (k) { return porChave[k]; }).filter(Boolean);
+      if (!itens.length) return;
+      var erp = porChave.erp ? porChave.erp.preco : 0;
+      var foco = adicional ? itens[itens.length - 1] : null;
+      var total = itens.reduce(function (a, i) { return a + i.preco; }, 0) + (adicional && chaves.indexOf('erp') === -1 ? erp : 0);
+      var titulo = adicional ? 'Oasys ' + foco.nome : itens.map(function (i) { return i.chave === 'erp' ? 'Oasys ERP' : 'Oasys ' + i.nome; }).join(' + ');
+      var preco = adicional ? '+ ' + real(foco.preco) : real(total);
+      var sub = adicional
+        ? 'somado ao ERP · ' + real(total) + '/mês com o ERP'
+        : c.usuariosInclusos + ' usuários inclusos · usuário adicional ' + real(c.precoUsuarioAdicional) + '/mês';
+      var planosUrl = '/planos/?itens=' + encodeURIComponent((chaves.indexOf('erp') === -1 ? ['erp'].concat(chaves) : chaves).join(','));
+
+      montar(el,
+        '<div style="height:100%;border:2px solid var(--azul);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px;background:#fff;color:var(--tinta)">' +
+        '<span style="font-weight:700;font-size:15px;color:var(--azul-esc)">' + esc(titulo) + '</span>' +
+        '<div aria-live="polite" style="display:flex;flex-direction:column;gap:8px">' +
+        '<div style="font-family:\'Schibsted Grotesk\',sans-serif;font-size:48px;font-weight:800;letter-spacing:-.03em;line-height:1">' + preco + '<span style="font-size:18px;font-weight:600;letter-spacing:0;color:var(--suave)">/mês</span></div>' +
+        '<span style="font-size:15px;color:var(--suave)">' + esc(sub) + '</span>' +
+        '<span class="oz-tag">Sem fidelidade · 14 dias grátis</span>' +
+        '</div>' +
+        '<p style="margin:0;font-size:16px;color:var(--texto)">' + esc(desc) + '</p>' +
+        '<div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">' +
+        '<a class="btn" href="/comecar/" data-cta-preco="teste" style="background:var(--azul);color:#fff;text-decoration:none;font-weight:700;padding:14px 20px;border-radius:12px;min-height:52px;display:flex;align-items:center;justify-content:center">Testar grátis por 14 dias</a>' +
+        '<a href="' + planosUrl + '" data-cta-preco="planos" style="color:var(--azul);font-weight:700;text-decoration:none;text-align:center;padding:8px">Montar meu plano →</a>' +
+        '</div></div>');
+    }
+
     el.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-mod]'); if (!b) return;
-      anual = b.getAttribute('data-mod') === 'anual';
-      track('troca_plano', { plano: el.getAttribute('data-plano'), modalidade: anual ? 'anual' : 'mensal' });
-      render();
+      var a = e.target.closest('[data-cta-preco]');
+      if (a) track('clique_preco', { plano: chaves.join(','), destino: a.getAttribute('data-cta-preco') });
     });
-    el.addEventListener('keydown', function (e) {
-      if (!e.target.closest('[data-mod]')) return;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-        anual = !anual; render();
-        var t = el.querySelector('[data-mod="' + (anual ? 'anual' : 'mensal') + '"]'); if (t) t.focus(); e.preventDefault();
-      }
-    });
-    render();
+    comCatalogo(render);
   };
 
   document.querySelectorAll('[data-widget]').forEach(function (el) {

@@ -9,7 +9,9 @@ São seis landing pages estáticas, sem framework e sem build. Para publicar, ba
 /cobranca/             Cliente que não paga             (ERP · financeiro)
 /numeros/              Decidir sem números              (Oasys Finance)
 /pedido-vendedor/      Pedido do vendedor               (Sales App)
-/index.html            Índice interno (noindex)
+/index.html            Página inicial
+/planos/               Planos e preços (configurador lendo o catálogo do ERP)
+/comecar/              Cadastro do teste grátis (cria o ambiente pelo ERP)
 /assets/oasys.css      Estilos, animações de scroll e fallback
 /assets/oasys.js       Interativos, formulário, UTM e eventos
 /assets/prints/        Pasta para os prints do sistema
@@ -21,7 +23,8 @@ São seis landing pages estáticas, sem framework e sem build. Para publicar, ba
 - **Calculadora de tempo perdido**, nas LPs de nota e de orçamento. Ela captura e-mail.
 - **Formulário de demonstração**, com validação e máscara de WhatsApp. Guarda as UTMs da visita e as envia junto com o lead.
 - **Barra fixa no celular**, com o CTA e o WhatsApp. Ela aparece depois que o primeiro botão sai da tela e some quando o formulário está visível.
-- **Card de preço com Anual / Mensal**: Essencial R$ 299 (anual) ou R$ 349 (mensal); Profissional R$ 599 ou R$ 689. Os valores ficam no topo do `widgets.preco` em `assets/oasys.js`. Cada troca de modalidade dispara o evento `troca_plano`.
+- **Card de preço do aplicativo da página**: `data-plano` lista os itens do catálogo (`erp`, `erp,finance`; com `data-adicional="1"` mostra `chat` ou `sales_app` como adicional ao ERP). Os valores vêm do catálogo do ERP (`/central/catalogo`), o mesmo que a página `/planos/` e a contratação usam; enquanto ele não responde, valem os de `CATALOGO_RESERVA` em `assets/oasys.js`. Textos com `data-preco-de="<item>"` também são atualizados pelo catálogo. O card leva para o teste grátis (`/comecar/`) e para `/planos/?itens=...` com o plano já marcado.
+- **Cabeçalho**: Planos e preços, Entrar (Oasys Central, `data-central-href`) e Testar grátis. No rodapé, os mesmos links.
 
 ## Antes de publicar: substituir
 
@@ -62,7 +65,7 @@ O `oasys.js` envia cada evento para o PostHog (`posthog.capture`), para o Meta P
 | `lead_calculadora` | e-mail deixado na calculadora | `Lead` |
 | `clique_whatsapp` | qualquer clique em link do WhatsApp | `CliqueWhatsApp` (custom) |
 | `interacao_simulador` | uso de um simulador (com `simulador`) | — |
-| `troca_plano` | troca entre Anual e Mensal (com `plano` e `modalidade`) | — |
+| `clique_preco` | clique no card de preço (com `plano` e `destino`: `teste` ou `planos`) | — |
 
 O PageView do Pixel e o pageview automático do PostHog já estão ativos. O GA4 ficou comentado no `<head>`, caso queira usar.
 
